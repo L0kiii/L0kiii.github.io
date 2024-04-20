@@ -162,7 +162,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-04-20 21:36:01
+          2024-04-20 21:38:20
         </span>
         
               <span class="post-tags">
@@ -178,8 +178,8 @@
           
       </div>
       <div class="markdown-body">
-        <p>information_schema数据库是MySQL系统自带的数据库，它提供了数据库元数据的访问方式。<br><strong>1：关于字符集和排序规则相关的系统表</strong></p>
-<p>CHARACTER_SETS ：存储数据库相关字符集信息（memory存储引擎）</p>
+        <p>information_schema数据库是MySQL系统自带的数据库，它提供了数据库元数据的访问方式。</p>
+<h1 id="1：关于字符集和排序规则相关的系统表"><a href="#1：关于字符集和排序规则相关的系统表" class="headerlink" title="1：关于字符集和排序规则相关的系统表"></a>1：关于字符集和排序规则相关的系统表</h1><p>CHARACTER_SETS ：存储数据库相关字符集信息（memory存储引擎）</p>
 <p>COLLATIONS ：字符集对应的排序规则</p>
 <p>COLLATION_CHARACTER_SET_APPLICABILITY：就是一个字符集和连线校对的一个对应关系而已</p>
 <p>下面我们说一下character sets和collations的区别：</p>
@@ -202,14 +202,12 @@
 <p>若上述值不存在，则使用对应数据库的DEFAULT CHARACTER SET设定值；</p>
 <p>若上述值不存在，则使用character_set_server设定值。</p>
 <p>（3）. 将操作结果从内部操作字符集转换为character_set_results。</p>
-<p><strong>2：权限相关的一些表：</strong></p>
-<p>SCHEMA_PRIVILEGES：提供了数据库的相关权限，这个表是内存表是从mysql.db中拉去出来的。</p>
+<h1 id="2：权限相关的一些表："><a href="#2：权限相关的一些表：" class="headerlink" title="2：权限相关的一些表："></a>2：权限相关的一些表：</h1><p>SCHEMA_PRIVILEGES：提供了数据库的相关权限，这个表是内存表是从mysql.db中拉去出来的。</p>
 <p>TABLE_PRIVILEGES:提供的是表权限相关信息，信息是从 mysql.tables_priv 表中加载的</p>
 <p>COLUMN_PRIVILEGES ：这个表可以清楚就能看到表授权的用户的对象，那张表那个库以及授予的是什么权限，如果授权的时候加上with grant option的话，我们可以看得到PRIVILEGE_TYPE这个值必须是YES。</p>
 <p>USER_PRIVILEGES:提供的是表权限相关信息，信息是从 mysql.user 表中加载的</p>
 <p>通过表我们可以很清晰看得到MySQL授权的层次，SCHEMA，TABLE，COLUMN级别，当然这些都是基于用户来授予的。可以看得到MySQL的授权也是相当的细密的，可以具体到列，这在某一些应用场景下还是很有用的，比如审计等。</p>
-<p><strong>3：存储数据库系统的实体对象的一些表：</strong></p>
-<p>COLUMNS：存储表的字段信息，所有的存储引擎</p>
+<h1 id="3：存储数据库系统的实体对象的一些表："><a href="#3：存储数据库系统的实体对象的一些表：" class="headerlink" title="3：存储数据库系统的实体对象的一些表："></a>3：存储数据库系统的实体对象的一些表：</h1><p>COLUMNS：存储表的字段信息，所有的存储引擎</p>
 <p>INNODB_SYS_COLUMNS ：存放的是INNODB的元数据， 他是依赖于SYS_COLUMNS这个统计表而存在的。</p>
 <p>ENGINES ：引擎类型，是否支持这个引擎，描述，是否支持事物，是否支持分布式事务，是否能够支持事物的回滚点</p>
 <p>EVENTS ：记录MySQL中的事件，类似于定时作业</p>
@@ -221,15 +219,13 @@
 <p>TRIGGERS :这个表记录的就是触发器的信息，包括所有的相关的信息。系统的和自己用户创建的触发器。</p>
 <p>VIEWS :视图的信息，也是系统的和用户的基本视图信息。</p>
 <p>这些表存储的都是一些数据库的实体对象，方便我们进行查询和管理，对于一个DBA来说，这些表能够大大方便我们的工作，更快更方便的了结和查询数据库的相关信息。</p>
-<p><strong>4：约束外键等相关的一些表：</strong></p>
-<p>REFERENTIAL_CONSTRAINTS：这个表提供的外键相关的信息，而且只提供外键相关信息</p>
+<h1 id="4：约束外键等相关的一些表："><a href="#4：约束外键等相关的一些表：" class="headerlink" title="4：约束外键等相关的一些表："></a>4：约束外键等相关的一些表：</h1><p>REFERENTIAL_CONSTRAINTS：这个表提供的外键相关的信息，而且只提供外键相关信息</p>
 <p>TABLE_CONSTRAINTS ：这个表提供的是 相关的约束信息</p>
 <p>INNODB_SYS_FOREIGN_COLS ：这个表也是存储的INNODB关于外键的元数据信息和SYS_FOREIGN_COLS 存储的信息是一致的</p>
 <p>INNODB_SYS_FOREIGN ：存储的INNODB关于外键的元数据信息和SYS_FOREIGN_COLS 存储的信息是一致的，只不过是单独对于INNODB来说的</p>
 <p>KEY_COLUMN_USAGE：数据库中所有有约束的列都会存下下来，也会记录下约束的名字和类别</p>
 <p>为什么要把外键和约束单列出来呢，因为感觉这是一块独立的东西，虽然我们的生产环境大部分都不会使用外键，因为这会降低性能，但是合理的利用约束还是一个不错的选择，比如唯一约束。</p>
-<p><strong>5：关于管理的一些的一些表：</strong></p>
-<p>GLOBAL_STATUS ，GLOBAL_VARIABLES，SESSION_STATUS，SESSION_VARIABLES：这四张表分别记录了系统的变量，状态（全局和会话的信息），作为DBA相信大家也都比较熟悉了，而且这几张表也是在系统重启的时候回重新加载的。也就是内存表。</p>
+<h1 id="5：关于管理的一些的一些表："><a href="#5：关于管理的一些的一些表：" class="headerlink" title="5：关于管理的一些的一些表："></a>5：关于管理的一些的一些表：</h1><p>GLOBAL_STATUS ，GLOBAL_VARIABLES，SESSION_STATUS，SESSION_VARIABLES：这四张表分别记录了系统的变量，状态（全局和会话的信息），作为DBA相信大家也都比较熟悉了，而且这几张表也是在系统重启的时候回重新加载的。也就是内存表。</p>
 <p>PARTITIONS ：MySQL分区表相关的信息，通过这张表我们可以查询到分区的相关信息（数据库中已分区的表，以及分区表的分区和每个分区的数据信息）</p>
 <p>PROCESSLIST：show processlist其实就是从这个表拉取数据，PROCESSLIST的数据是他的基础。由于是一个内存表，所以我们相当于在内存中查询一样，这些操作都是很快的。</p>
 <p>INNODB_CMP_PER_INDEX，INNODB_CMP_PER_INDEX_RESET：这两个表存储的是关于压缩INNODB信息表的时候的相关信息,有关整个表和索引信息都有.我们知道对于一个INNODB压缩表来说,不管是数据还是二级索引都是会被压缩的,因为数据本身也可以看作是一个聚集索引。</p>
@@ -243,8 +239,7 @@
 <p>INNODB_SYS_VIRTUAL :表存储的是INNODB表的虚拟列的信息，当然这个还是比较简单的，在MySQL 5.7中，支持两种Generated Column，即Virtual Generated Column和Stored Generated Column，前者只将Generated Column保存在数据字典中（表的元数据），并不会将这一列数据持久化到磁盘上；后者会将Generated Column持久化到磁盘上，而不是每次读取的时候计算所得。很明显，后者存放了可以通过已有数据计算而得的数据，需要更多的磁盘空间，与实际存储一列数据相比并没有优势，因此，MySQL 5.7中，不指定Generated Column的类型，默认是Virtual Column。</p>
 <p>INNODB_CMP，INNODB_CMP_RESET：存储的是关于压缩INNODB信息表的时候的相关信息，详细请见推荐笔记。</p>
 <p>为什么把这些表列为管理相关的表呢，因为我感觉像连接，分区，压缩表，innodb buffer pool等表，我们通过这些表都能很清晰的看到自己数据库的相关功能的状态，特别是我们通过一些变量更容易窥透MySQL的运行状态，方便我们进行管理。</p>
-<p><strong>6：关于表信息和索引信息的一些表</strong></p>
-<p>TABLES，TABLESPACES，INNODB_SYS_TABLES ，INNODB_SYS_TABLESPACES ：</p>
+<h1 id="6：关于表信息和索引信息的一些表"><a href="#6：关于表信息和索引信息的一些表" class="headerlink" title="6：关于表信息和索引信息的一些表"></a>6：关于表信息和索引信息的一些表</h1><p>TABLES，TABLESPACES，INNODB_SYS_TABLES ，INNODB_SYS_TABLESPACES ：</p>
 <p>TABLES这张表毫无疑问了，就是记录的数据库中表的信息，其中包括系统数据库和用户创建的数据库。show table status like ‘test1’\G的来源就是这个表；</p>
 <p>TABLESPACES 却是标注的活跃表空间。 这个表是不提供关于innodb的表空间信息的，对于我们来说并没有太大作用，因为我们生产库是强制INNODB的；</p>
 <p>INNODB_SYS_TABLES 这张表依赖的是SYS_TABLES数据字典中拉取出来的。此表提供了有关表格的格式和存储特性，包括行格式，压缩页面大小位级别的信息（如适用）</p>
@@ -259,13 +254,11 @@
 <p>INNODB_FT_DEFAULT_STOPWORD：这个表存放的是stopword 的信息,是和全文索引匹配起来使用的，和innodb的 INFORMATION_SCHEMA.INNODB_FT_DEFAULT_STOPWORD 是相同的，这个STOPWORD必须是在创建索引之前创建，而且必须指定字段为varchar。stopword 也就是我们所说的停止词，全文检索时，停止词列表将会被读取和检索，在不同的字符集和排序方式下，会造成命中失败或者找不到此数据，这取决于停止词的不同的排序方式。我们可以使用这个功能筛选不必要字段。</p>
 <p>INNODB_FT_INDEX_TABLE：这个表存储的是关于INNODB表有全文索引的索引使用信息的，同样这个表也是要设置innodb_ft_aux_table以后才能够使用的，一般情况下是空的</p>
 <p>INNODB_FT_INDEX_CACHE ：这张表存放的是插入前的记录信息，也是为了避免DML时候昂贵的索引重组</p>
-<p><strong>7：关于MySQL优化相关的一些表</strong></p>
-<p>OPTIMIZER_TRACE ：提供的是优化跟踪功能产生的信息.</p>
+<h1 id="7：关于MySQL优化相关的一些表"><a href="#7：关于MySQL优化相关的一些表" class="headerlink" title="7：关于MySQL优化相关的一些表"></a>7：关于MySQL优化相关的一些表</h1><p>OPTIMIZER_TRACE ：提供的是优化跟踪功能产生的信息.</p>
 <p>PROFILING：SHOW PROFILE可以深入的查看服务器执行语句的工作情况。以及也能帮助你理解执行语句消耗时间的情况。一些限制是它没有实现的功能，不能查看和剖析其他连接的语句，以及剖析时所引起的消耗。</p>
 <p>SHOW PROFILES显示最近发给服务器的多条语句，条数根据会话变量profiling_history_size定义，默认是15，最大值为100。设为0等价于关闭分析功能。详细信息请见MySQL profile</p>
 <p>INNODB_FT_BEING_DELETED,INNODB_FT_DELETED: INNODB_FT_BEING_DELETED 这张表是INNODB_FT_DELETED的一个快照,只在OPTIMIZE TABLE 的时候才会使用。</p>
-<p><strong>8：关于MySQL事物和锁的相关的一些表</strong></p>
-<p>INNODB_LOCKS:现在获取的锁，但是不含没有获取的锁，而且只是针对INNODB的。</p>
+<h1 id="8：关于MySQL事物和锁的相关的一些表"><a href="#8：关于MySQL事物和锁的相关的一些表" class="headerlink" title="8：关于MySQL事物和锁的相关的一些表"></a>8：关于MySQL事物和锁的相关的一些表</h1><p>INNODB_LOCKS:现在获取的锁，但是不含没有获取的锁，而且只是针对INNODB的。</p>
 <p>INNODB_LOCK_WAITS：系统锁等待相关信息，包含了阻塞的一行或者多行的记录，而且还有锁请求和被阻塞改请求的锁信息等。</p>
 <p>INNODB_TRX：包含了所有正在执行的的事物相关信息（INNODB），而且包含了事物是否被阻塞或者请求锁。</p>
 <p>我们通过这些表就能够很方便的查询出来未结束的事物和被阻塞的进程</p>
@@ -279,7 +272,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-04-20 21:36:01
+              2024-04-20 21:38:20
             </span>
             
                   <span class="post-tags">
@@ -306,6 +299,23 @@
       
     </div>
     
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1%EF%BC%9A%E5%85%B3%E4%BA%8E%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E6%8E%92%E5%BA%8F%E8%A7%84%E5%88%99%E7%9B%B8%E5%85%B3%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%A1%A8"><span class="toc-text">1：关于字符集和排序规则相关的系统表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2%EF%BC%9A%E6%9D%83%E9%99%90%E7%9B%B8%E5%85%B3%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A1%A8%EF%BC%9A"><span class="toc-text">2：权限相关的一些表：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3%EF%BC%9A%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9E%E4%BD%93%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A1%A8%EF%BC%9A"><span class="toc-text">3：存储数据库系统的实体对象的一些表：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4%EF%BC%9A%E7%BA%A6%E6%9D%9F%E5%A4%96%E9%94%AE%E7%AD%89%E7%9B%B8%E5%85%B3%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A1%A8%EF%BC%9A"><span class="toc-text">4：约束外键等相关的一些表：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5%EF%BC%9A%E5%85%B3%E4%BA%8E%E7%AE%A1%E7%90%86%E7%9A%84%E4%B8%80%E4%BA%9B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A1%A8%EF%BC%9A"><span class="toc-text">5：关于管理的一些的一些表：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6%EF%BC%9A%E5%85%B3%E4%BA%8E%E8%A1%A8%E4%BF%A1%E6%81%AF%E5%92%8C%E7%B4%A2%E5%BC%95%E4%BF%A1%E6%81%AF%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A1%A8"><span class="toc-text">6：关于表信息和索引信息的一些表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7%EF%BC%9A%E5%85%B3%E4%BA%8EMySQL%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A1%A8"><span class="toc-text">7：关于MySQL优化相关的一些表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8%EF%BC%9A%E5%85%B3%E4%BA%8EMySQL%E4%BA%8B%E7%89%A9%E5%92%8C%E9%94%81%E7%9A%84%E7%9B%B8%E5%85%B3%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A1%A8"><span class="toc-text">8：关于MySQL事物和锁的相关的一些表</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
 
     
       <div class="comments-container">

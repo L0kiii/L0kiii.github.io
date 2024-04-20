@@ -208,15 +208,15 @@
     <link href="https://l0ki.net/2019/01/22/Detailed-Discussion-on-information_schema/"/>
     <id>https://l0ki.net/2019/01/22/Detailed-Discussion-on-information_schema/</id>
     <published>2019-01-22T07:54:00.000Z</published>
-    <updated>2024-04-20T13:36:01.773Z</updated>
+    <updated>2024-04-20T13:38:20.120Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;information_schema数据库是MySQL系统自带的数据库，它提供了数据库元数据的访问方式。&lt;br&gt;&lt;strong&gt;1：关于字符集和排序规则相关的系统表&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;CHARACTER_SETS</summary>
+    <summary type="html">&lt;p&gt;information_schema数据库是MySQL系统自带的数据库，它提供了数据库元数据的访问方式。&lt;/p&gt;
+&lt;h1 id=&quot;1：关于字符集和排序规则相关的系统表&quot;&gt;&lt;a href=&quot;#1：关于字符集和排序规则相关的系统表&quot; class=&quot;headerlink&quot;</summary>
         
       
     
