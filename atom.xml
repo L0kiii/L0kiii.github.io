@@ -99,6 +99,29 @@
   </entry>
   
   <entry>
+    <title>Hash Length Extension Attack</title>
+    <link href="https://l0ki.net/2020/05/17/Hash-Length-Extension-Attack/"/>
+    <id>https://l0ki.net/2020/05/17/Hash-Length-Extension-Attack/</id>
+    <published>2020-05-17T14:23:00.000Z</published>
+    <updated>2024-04-20T17:35:13.163Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;0×01-前言&quot;&gt;&lt;a href=&quot;#0×01-前言&quot; class=&quot;headerlink&quot; title=&quot;0×01 前言&quot;&gt;&lt;/a&gt;0×01 前言&lt;/h2&gt;&lt;p&gt;哈希长度扩展攻击利用了 md5、sha1</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
     <title>2020HW Cheat Sheet</title>
     <link href="https://l0ki.net/2020/05/14/2020HW-Cheat-Sheet/"/>
     <id>https://l0ki.net/2020/05/14/2020HW-Cheat-Sheet/</id>
@@ -432,30 +455,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&amp;lt;1&amp;gt;&quot;&gt;&lt;/a&gt;&amp;lt;1&amp;gt;&lt;/h2&gt;&lt;p&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>XSS Cross-Site Attacks</title>
-    <link href="https://l0ki.net/2019/03/09/XSS-Cross-Site-Attacks/"/>
-    <id>https://l0ki.net/2019/03/09/XSS-Cross-Site-Attacks/</id>
-    <published>2019-03-09T06:04:00.000Z</published>
-    <updated>2024-04-20T16:54:17.037Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;什么是XSS？&quot;&gt;&lt;a href=&quot;#什么是XSS？&quot; class=&quot;headerlink&quot; title=&quot;什么是XSS？&quot;&gt;&lt;/a&gt;什么是XSS？&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;跨站脚本（Cross-Site</summary>
         
       
     
