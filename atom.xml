@@ -30,6 +30,29 @@
   </entry>
   
   <entry>
+    <title>FastJson Deserialization Vulnerability</title>
+    <link href="https://l0ki.net/2020/08/03/FastJson-Deserialization-Vulnerability/"/>
+    <id>https://l0ki.net/2020/08/03/FastJson-Deserialization-Vulnerability/</id>
+    <published>2020-08-03T06:08:00.000Z</published>
+    <updated>2024-04-20T18:10:13.301Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;FastJson反序列化漏洞&quot;&gt;&lt;a href=&quot;#FastJson反序列化漏洞&quot; class=&quot;headerlink&quot; title=&quot;FastJson反序列化漏洞&quot;&gt;&lt;/a&gt;FastJson反序列化漏洞&lt;/h2&gt;&lt;h3 id=&quot;环境搭建&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
     <title>JMX RMI RCE</title>
     <link href="https://l0ki.net/2020/07/29/JMX-RMI-RCE/"/>
     <id>https://l0ki.net/2020/07/29/JMX-RMI-RCE/</id>
@@ -422,29 +445,6 @@
         
     <summary type="html">&lt;p&gt;腾讯校园技术布道师&lt;/p&gt;
 &lt;h1 id=&quot;小程序开发入门&quot;&gt;&lt;a href=&quot;#小程序开发入门&quot; class=&quot;headerlink&quot; title=&quot;小程序开发入门&quot;&gt;&lt;/a&gt;小程序开发入门&lt;/h1&gt;&lt;h2 id=&quot;0x01-文件结构与页面组成&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Introduction to Mini Program Development[2]</title>
-    <link href="https://l0ki.net/2020/03/20/Introduction-to-Mini-Program-Development-2/"/>
-    <id>https://l0ki.net/2020/03/20/Introduction-to-Mini-Program-Development-2/</id>
-    <published>2020-03-20T04:44:00.000Z</published>
-    <updated>2024-04-20T14:16:54.068Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;0x007-高斯模糊的背景&quot;&gt;&lt;a href=&quot;#0x007-高斯模糊的背景&quot; class=&quot;headerlink&quot; title=&quot;0x007 高斯模糊的背景&quot;&gt;&lt;/a&gt;0x007 高斯模糊的背景&lt;/h3&gt;&lt;figure class=&quot;highlight</summary>
         
       
     
