@@ -13,7 +13,7 @@
   
   <title>
     
-      Archives 
+      Kali Updating Sources 
       
       
       |
@@ -113,75 +113,137 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2020</span>
-          </h2>
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Kali Updating Sources</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-04-20 21:08:10
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Notes/" title="Notes">
+                    #Notes
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>kali更新源：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/apt/sources.list</span><br><span class="line"></span><br><span class="line"># kali官方源</span><br><span class="line">deb http://http.kali.org/ moto main non-free contrib </span><br><span class="line">deb-src http://http.kali.org/ moto main non-free contrib</span><br><span class="line"></span><br><span class="line">deb http://security.kali.org/ moto/updates main contrib non-free </span><br><span class="line">deb-src http://security.kali.org/ moto/updates main contrib non-free</span><br><span class="line"></span><br><span class="line">#中科大kali源 </span><br><span class="line">deb http://mirrors.ustc.edu.cn/kali kali main non-free contrib </span><br><span class="line">deb-src http://mirrors.ustc.edu.cn/kali kali main non-free contrib </span><br><span class="line">deb http://mirrors.ustc.edu.cn/kali-security kali/updates main contrib non-free</span><br><span class="line"></span><br><span class="line">#新加坡kali源 </span><br><span class="line">deb http://mirror.nus.edu.sg/kali/kali/ kali main non-free contrib </span><br><span class="line">deb-src http://mirror.nus.edu.sg/kali/kali/ kali main non-free contrib </span><br><span class="line">deb http://security.kali.org/kali-security kali/updates main contrib non-free </span><br><span class="line">deb http://mirror.nus.edu.sg/kali/kali-security kali/updates main contrib non-free </span><br><span class="line">deb-src http://mirror.nus.edu.sg/kali/kali-security kali/updates main contrib non-free</span><br><span class="line"></span><br><span class="line">#阿里云kali源 </span><br><span class="line">deb http://mirrors.aliyun.com/kali kali main non-free contrib </span><br><span class="line">deb-src http://mirrors.aliyun.com/kali kali main non-free contrib </span><br><span class="line">deb http://mirrors.aliyun.com/kali-security kali/updates main contrib non-free</span><br><span class="line"></span><br><span class="line">#163 Kali源 </span><br><span class="line">deb http://mirrors.163.com/debian wheezy main non-free contrib </span><br><span class="line">deb-src http://mirrors.163.com/debian wheezy main non-free contrib </span><br><span class="line">deb http://mirrors.163.com/debian wheezy-proposed-updates main non-free contrib </span><br><span class="line">deb-src http://mirrors.163.com/debian wheezy-proposed-updates main non-free contrib </span><br><span class="line">deb-src http://mirrors.163.com/debian-security wheezy/updates main non-free contrib </span><br><span class="line">deb http://mirrors.163.com/debian-security wheezy/updates main non-free contrib </span><br><span class="line">#auto </span><br><span class="line">deb http://http.kali.org/kali kali-rolling main non-free contrib</span><br><span class="line"></span><br><span class="line">#中科大 </span><br><span class="line">deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib </span><br><span class="line">deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</span><br><span class="line"></span><br><span class="line">#浙大 </span><br><span class="line">deb http://mirrors.zju.edu.cn/kali kali-rolling main contrib non-free </span><br><span class="line">deb-src http://mirrors.zju.edu.cn/kali kali-rolling main contrib non-free</span><br><span class="line"></span><br><span class="line">#东软大学 </span><br><span class="line">deb http://mirrors.neusoft.edu.cn/kali kali-rolling/main non-free contrib </span><br><span class="line">deb-src http://mirrors.neusoft.edu.cn/kali kali-rolling/main non-free contrib</span><br><span class="line"></span><br><span class="line">#重庆大学 </span><br><span class="line">deb http://http.kali.org/kali kali-rolling main non-free contrib </span><br><span class="line">deb-src http://http.kali.org/kali kali-rolling main non-free contrib</span><br><span class="line"></span><br><span class="line">#官方源 </span><br><span class="line">#deb http://http.kali.org/kali kali-rolling main non-free contrib </span><br><span class="line">#deb-src http://http.kali.org/kali kali-rolling main non-free contrib</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">推荐：</span><br><span class="line"></span><br><span class="line"># kali官方源</span><br><span class="line">deb http://http.kali.org/ kali-rolling main non-free contrib </span><br><span class="line">deb-src http://http.kali.org/ kali-rolling main non-free contrib</span><br><span class="line"></span><br><span class="line">#中科大源</span><br><span class="line">deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib </span><br><span class="line">deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib</span><br></pre></td></tr></table></figure>
+<p>更新安装软件列表和软件;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get update &amp; apt-get upgrade</span><br></pre></td></tr></table></figure>
+<p>升级软件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get dist-upgrade</span><br></pre></td></tr></table></figure>
+<p>清理：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get clean</span><br></pre></td></tr></table></figure>
+<p>重启</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2019/05/14/ISCC2019-MISC/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-04-20 21:08:10
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Notes/" title="Notes">
+                        #Notes
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2019/09/23/Notes-on-Gathering-Information/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
         </div>
       
-      <div class="post-item" title="L0kiTown v1.0">
-        <div class="time-m-d">05-13</div>
-        <div class="title">
-          <a href="/2020/05/13/L0kiTown-v1.0/">
-            <span>L0kiTown v1.0</span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2019</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="Notes on Gathering Information-1">
-        <div class="time-m-d">09-23</div>
-        <div class="title">
-          <a href="/2019/09/23/Notes-on-Gathering-Information/">
-            <span>Notes on Gathering Information-1</span>
-          </a>
-        </div>
-      </div>
+
     
-      <div class="post-item" title="Kali Updating Sources">
-        <div class="time-m-d">09-09</div>
-        <div class="title">
-          <a href="/2019/09/09/Kali-Updating-Sources/">
-            <span>Kali Updating Sources</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="ISCC 2019-MISC">
-        <div class="time-m-d">05-14</div>
-        <div class="title">
-          <a href="/2019/05/14/ISCC2019-MISC/">
-            <span>ISCC 2019-MISC</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Troubleshooting Docker Installation on Kali Linux">
-        <div class="time-m-d">05-14</div>
-        <div class="title">
-          <a href="/2019/05/14/Troubleshooting-Docker-Installation-on-Kali-Linux/">
-            <span>Troubleshooting Docker Installation on Kali Linux</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         
 <div class="footer">
@@ -431,6 +493,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Kali%20Updating%20Sources + '&url=' + https%3A%2F%2Fl0ki.net%2F2019%2F09%2F09%2FKali-Updating-Sources%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2019/09/09/Kali-Updating-Sources/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>
