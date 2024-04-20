@@ -6,7 +6,7 @@
   <link href="https://l0ki.net/atom.xml" rel="self"/>
   
   <link href="https://l0ki.net/"/>
-  <updated>2024-04-20T18:57:00.778Z</updated>
+  <updated>2024-04-20T19:13:40.920Z</updated>
   <id>https://l0ki.net/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Stay Hungry. Stay Foolish.</title>
+    <link href="https://l0ki.net/2022/04/26/Steve-Jobs-2005-Speech/"/>
+    <id>https://l0ki.net/2022/04/26/Steve-Jobs-2005-Speech/</id>
+    <published>2022-04-26T11:47:00.000Z</published>
+    <updated>2024-04-20T19:13:40.920Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Thank you!&lt;br&gt;感谢大家！&lt;/p&gt;
+&lt;p&gt;I am honored to be with you today at your commencement from one of the finest universities in the world.</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Chicken Soup" scheme="https://l0ki.net/tags/Chicken-Soup/"/>
+    
+  </entry>
   
   <entry>
     <title>Blockchain Game Security</title>
@@ -400,23 +424,6 @@
     <id>https://l0ki.net/2020/07/29/HFS-Server-Remote-Command-Execution/</id>
     <published>2020-07-29T03:37:00.000Z</published>
     <updated>2024-04-20T18:22:37.770Z</updated>
-    
-    
-    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
-    
-    
-    
-    
-    <category term="Intranet Penetration" scheme="https://l0ki.net/tags/Intranet-Penetration/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>S2-008 Attack Utilization POC</title>
-    <link href="https://l0ki.net/2020/07/29/S2-008-Attack-POC/"/>
-    <id>https://l0ki.net/2020/07/29/S2-008-Attack-POC/</id>
-    <published>2020-07-29T03:37:00.000Z</published>
-    <updated>2024-04-20T18:23:45.209Z</updated>
     
     
     <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
