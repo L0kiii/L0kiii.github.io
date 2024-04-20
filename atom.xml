@@ -255,6 +255,29 @@
   </entry>
   
   <entry>
+    <title>XCTF WEB Advanced</title>
+    <link href="https://l0ki.net/2020/02/12/XCTF-WEB-Advanced/"/>
+    <id>https://l0ki.net/2020/02/12/XCTF-WEB-Advanced/</id>
+    <published>2020-02-12T12:20:00.000Z</published>
+    <updated>2024-04-20T17:39:00.825Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;cat-抓住那只猫&quot;&gt;&lt;a href=&quot;#cat-抓住那只猫&quot; class=&quot;headerlink&quot; title=&quot;cat:抓住那只猫&quot;&gt;&lt;/a&gt;cat:抓住那只猫&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+    <category term="CTF" scheme="https://l0ki.net/tags/CTF/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Memory Forensics</title>
     <link href="https://l0ki.net/2020/01/10/Memory-Forensics/"/>
     <id>https://l0ki.net/2020/01/10/Memory-Forensics/</id>
@@ -438,30 +461,6 @@
     
     
     <category term="Issues" scheme="https://l0ki.net/tags/Issues/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2019 Jiaweisi Cup Web</title>
-    <link href="https://l0ki.net/2019/03/20/2019-Jiaweisi-Cup-Web/"/>
-    <id>https://l0ki.net/2019/03/20/2019-Jiaweisi-Cup-Web/</id>
-    <published>2019-03-20T14:12:00.000Z</published>
-    <updated>2024-04-20T16:41:20.109Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;由于时间关系大部分我只给出解题过程，图就不贴了&lt;/p&gt;
-&lt;h2 id=&quot;1&quot;&gt;&lt;a href=&quot;#1&quot; class=&quot;headerlink&quot; title=&quot;1&quot;&gt;&lt;/a&gt;1&lt;/h2&gt;&lt;p&gt;试了一下发现union 不行，那就试试&lt;br&gt;报错注入：&lt;br&gt;and</summary>
-        
-      
-    
-    
-    
-    
-    <category term="CTF" scheme="https://l0ki.net/tags/CTF/"/>
     
   </entry>
   

