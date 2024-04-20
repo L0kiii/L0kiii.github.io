@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="KaynZ" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  
+  
+  <title>
+    
+      Memory Forensics 
+      
+      
+      |
+    
+     L0ki&#39;s Website
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="L0ki's Website" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img no-lazy src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">L0ki</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+        <li class="nav-item" data-path="/projects/">
+          <a href="/projects/">Projects</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Memory Forensics</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-04-20 21:58:31
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Notes/" title="Notes">
+                    #Notes
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="内存取证"><a href="#内存取证" class="headerlink" title="内存取证"></a>内存取证</h1><h2 id="内存取证工具volatility-的使用："><a href="#内存取证工具volatility-的使用：" class="headerlink" title="内存取证工具volatility 的使用："></a>内存取证工具<strong>volatility</strong> 的使用：</h2><blockquote>
+<p>volatility -f &lt;文件名&gt; –profile&#x3D;&lt;配置文件&gt; &lt;插件&gt; [插件参数]</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">使用imageinfo插件来猜测dump文件的profile值：WinXPSP2x86</span><br><span class="line"></span><br><span class="line">root@kali:# volatility -f mem.vmem imageinfo</span><br><span class="line"></span><br><span class="line">grep是用来搜索特定的字符串，bgrep是用来搜索非文本数据模式和hexdump</span><br><span class="line"></span><br><span class="line">volatility –info    用于查看volatility已经添加的profile和插件信息</span><br><span class="line"></span><br><span class="line">Volatility -f file.raw imageinfo     判断当前镜像信息，或kdbgscan，仅适合windows内存镜像</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>常见插件：</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Volatility -f file.raw –profile=WinXPSP2x86 notepad      查看当前展示的notepad文本</span><br><span class="line"></span><br><span class="line">Volatility -f file.raw –profile=WinXPSP2x86 pslist    列出运行的进程，如果Exit所在的一列显示了日期时间，则表明该进程已经结束了</span><br><span class="line"></span><br><span class="line">Hivelist   列出缓存在内存中的注册表</span><br><span class="line"></span><br><span class="line">Filescan  扫描内存中的文件</span><br><span class="line"></span><br><span class="line">Dumpfiles      将内存中的缓存文件导出</span><br><span class="line"></span><br><span class="line">Volatility -f file.raw –profile=WinXPSP2x86 Memdump -p 进程号 -D ./（导出目录）       将某个进程信息导出/根据pid dump出指定进程</span><br><span class="line"></span><br><span class="line">Foremost 2888.dmp    分析dump出的内存文件</span><br><span class="line"></span><br><span class="line">Svcscan  扫描windows的服务</span><br><span class="line"></span><br><span class="line">Connscan 查看网络连接</span><br><span class="line"></span><br><span class="line">Cmdscan 查看命令行上的操作</span><br></pre></td></tr></table></figure>
+
+<h2 id="取证方法建议"><a href="#取证方法建议" class="headerlink" title="取证方法建议"></a>取证方法建议</h2><blockquote>
+<p>收集数据的顺序很重要。必须首先收集易消失的数据。易失性数据是系统关闭时可能丢失的任何数据，例如连接到仍然在RAM中注册的网站。必须将先从最不稳定的证据中开始收集数据：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">（1）缓存</span><br><span class="line"></span><br><span class="line">（2）路由表，进程表，内存</span><br><span class="line"></span><br><span class="line">（3）临时系统文件</span><br><span class="line"></span><br><span class="line">（4）硬盘</span><br><span class="line"></span><br><span class="line">（5）远程日志，监控数据</span><br><span class="line"></span><br><span class="line">（6）物理网络配置，网络拓扑</span><br><span class="line"></span><br><span class="line">（7）媒体文件（CD，DVD）</span><br></pre></td></tr></table></figure>
+
+<h2 id="常见payload："><a href="#常见payload：" class="headerlink" title="常见payload："></a>常见payload：</h2><p>1.查看系统信息<br><code>volatility -f mem.raw imageinfo</code></p>
+<p>在Suggested Profiles中找到操作系统的信息</p>
+<p>2.查看运行程序列表<br><code>volatility -f mem.raw --profile=Win7SP1x64 pslist</code></p>
+<p>部分常见进程分析：</p>
+<p>wscntfy.exe，Windows系统关键进程，负责检查计算机的安全状态，包括防火墙、病毒防护软件、自动更新三个安全要素，如果这些服务状态不正常，系统就会在状态栏进行告警提示。这个进程也可能会被病毒软件和黑客程序伪装</p>
+<p>ctfmon.exe，Microsoft Office产品套装的一部分，是有关输入法的一个可执行程序。它可以选择用户文字输入程序，和微软Office XP语言条。这不是纯粹的系统程序，但是如果终止它，可能会导致不可知的问题。另外，ctfmon.exe可能被感染上木马而成为病毒程序</p>
+<p>wordpad.exe，是微软Microsoft Windows自带的免费字处理工具。</p>
+<p>Conime.exe，输入法编辑器</p>
+<p>Cmd.exe，windows系统的命令行程序</p>
+<p>3.查看文件<br><code>volatility -f mem.raw --profile=Win7SP1x64 filescan</code></p>
+<p>4.用grep命令过滤<br><code>volatility -f mem.raw --profile=Win7SP1x64 filescan |grep txt</code></p>
+<p>5.提取文件<br><code>volatility -f mem.raw --profile=Win7SP1x64 dumpfiles -Q 0x000000001e7c3420 -D aaa</code></p>
+<p>6.看cmd下执行的文件<br><code>volatility -f mem.raw --profile=Win7SP1x64 cmdscan</code></p>
+<p>7.分离出cmd下执行的某个文件<br><code>volatility -f mem.raw --profile=Win7SP1x64 memdump -p 2884 -D aaa</code><br>-p是进程号，flag的文件在进程号为2884，分离出的文件为流量包</p>
+<p>8.提取账户密码<br><code>volatility -f mem.raw --profile=Win7SP0x64 hashpump</code></p>
+<p>9.查看网络连接<br><code>volatility -f mem.raw --profile=Win7SP1x64 netscan</code></p>
+<p>10.查看已经建立的网络连接</p>
+<p><code>volatility -f mem.raw --profile=Win7SP1x64 netscan|grep ESTABLISHED</code></p>
+<h2 id="常见解题思路："><a href="#常见解题思路：" class="headerlink" title="常见解题思路："></a>常见解题思路：</h2><blockquote>
+<p>主要找到键盘数据文件</p>
+</blockquote>
+<p>1.根据payload6查看信息，再直接利用foremost分离，将提取的信息结合分离出usb键盘数据文件</p>
+<p>2.结合payload1-3\6,再利用binwalk -e 提取文件，再利用&#96;&#96;&#96;Tshark -r <code>命令查看键盘数据，利用</code>tshark -T fields -e usb.capdata &gt;file.path.name&#96; 输出存为文件，即为键盘数据文件</p>
+<h2 id="USB通杀EXP"><a href="#USB通杀EXP" class="headerlink" title="USB通杀EXP"></a>USB通杀EXP</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">USB流量分析</span></span><br><span class="line"><span class="string">    keyboard scan code转为键盘字符</span></span><br><span class="line"><span class="string">参数：</span></span><br><span class="line"><span class="string">    导出的usb流量信息</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">usb_codes = &#123;</span><br><span class="line">   <span class="number">0x04</span>:<span class="string">&quot;aA&quot;</span>, <span class="number">0x05</span>:<span class="string">&quot;bB&quot;</span>, <span class="number">0x06</span>:<span class="string">&quot;cC&quot;</span>, <span class="number">0x07</span>:<span class="string">&quot;dD&quot;</span>, <span class="number">0x08</span>:<span class="string">&quot;eE&quot;</span>, <span class="number">0x09</span>:<span class="string">&quot;fF&quot;</span>,</span><br><span class="line">   <span class="number">0x0A</span>:<span class="string">&quot;gG&quot;</span>, <span class="number">0x0B</span>:<span class="string">&quot;hH&quot;</span>, <span class="number">0x0C</span>:<span class="string">&quot;iI&quot;</span>, <span class="number">0x0D</span>:<span class="string">&quot;jJ&quot;</span>, <span class="number">0x0E</span>:<span class="string">&quot;kK&quot;</span>, <span class="number">0x0F</span>:<span class="string">&quot;lL&quot;</span>,</span><br><span class="line">   <span class="number">0x10</span>:<span class="string">&quot;mM&quot;</span>, <span class="number">0x11</span>:<span class="string">&quot;nN&quot;</span>, <span class="number">0x12</span>:<span class="string">&quot;oO&quot;</span>, <span class="number">0x13</span>:<span class="string">&quot;pP&quot;</span>, <span class="number">0x14</span>:<span class="string">&quot;qQ&quot;</span>, <span class="number">0x15</span>:<span class="string">&quot;rR&quot;</span>,</span><br><span class="line">   <span class="number">0x16</span>:<span class="string">&quot;sS&quot;</span>, <span class="number">0x17</span>:<span class="string">&quot;tT&quot;</span>, <span class="number">0x18</span>:<span class="string">&quot;uU&quot;</span>, <span class="number">0x19</span>:<span class="string">&quot;vV&quot;</span>, <span class="number">0x1A</span>:<span class="string">&quot;wW&quot;</span>, <span class="number">0x1B</span>:<span class="string">&quot;xX&quot;</span>,</span><br><span class="line">   <span class="number">0x1C</span>:<span class="string">&quot;yY&quot;</span>, <span class="number">0x1D</span>:<span class="string">&quot;zZ&quot;</span>, <span class="number">0x1E</span>:<span class="string">&quot;1!&quot;</span>, <span class="number">0x1F</span>:<span class="string">&quot;2@&quot;</span>, <span class="number">0x20</span>:<span class="string">&quot;3#&quot;</span>, <span class="number">0x21</span>:<span class="string">&quot;4$&quot;</span>,</span><br><span class="line">   <span class="number">0x22</span>:<span class="string">&quot;5%&quot;</span>, <span class="number">0x23</span>:<span class="string">&quot;6^&quot;</span>, <span class="number">0x24</span>:<span class="string">&quot;7&amp;&quot;</span>, <span class="number">0x25</span>:<span class="string">&quot;8*&quot;</span>, <span class="number">0x26</span>:<span class="string">&quot;9(&quot;</span>, <span class="number">0x27</span>:<span class="string">&quot;0)&quot;</span>,</span><br><span class="line">   <span class="number">0x2C</span>:<span class="string">&quot;  &quot;</span>, <span class="number">0x2D</span>:<span class="string">&quot;-_&quot;</span>, <span class="number">0x2E</span>:<span class="string">&quot;=+&quot;</span>, <span class="number">0x2F</span>:<span class="string">&quot;[&#123;&quot;</span>, <span class="number">0x30</span>:<span class="string">&quot;]&#125;&quot;</span>,  <span class="number">0x32</span>:<span class="string">&quot;#~&quot;</span>,</span><br><span class="line">   <span class="number">0x33</span>:<span class="string">&quot;;:&quot;</span>, <span class="number">0x34</span>:<span class="string">&quot;&#x27;\&quot;&quot;</span>,  <span class="number">0x36</span>:<span class="string">&quot;,&lt;&quot;</span>,  <span class="number">0x37</span>:<span class="string">&quot;.&gt;&quot;</span>, <span class="number">0x4f</span>:<span class="string">&quot;&gt;&quot;</span>, <span class="number">0x50</span>:<span class="string">&quot;&lt;&quot;</span></span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">code2chr</span>(<span class="params">filepath</span>):</span><br><span class="line">    lines = []</span><br><span class="line">    pos = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">open</span>(filepath,<span class="string">&quot;r&quot;</span>).readlines():</span><br><span class="line">        code = <span class="built_in">int</span>(x[<span class="number">6</span>:<span class="number">8</span>],<span class="number">16</span>)   <span class="comment"># 即第三个字节</span></span><br><span class="line">        <span class="keyword">if</span> code == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="comment"># newline or down arrow - move down</span></span><br><span class="line">        <span class="keyword">if</span> code == <span class="number">0x51</span> <span class="keyword">or</span> code == <span class="number">0x28</span>:</span><br><span class="line">            pos += <span class="number">1</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="comment"># up arrow - move up</span></span><br><span class="line">        <span class="keyword">if</span> code == <span class="number">0x52</span>:</span><br><span class="line">            pos -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"> </span><br><span class="line">        <span class="comment"># select the character based on the Shift key</span></span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(lines) &lt;= pos:</span><br><span class="line">            lines.append(<span class="string">&quot;&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> code <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>,<span class="number">81</span>):</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">int</span>(x[<span class="number">0</span>:<span class="number">2</span>],<span class="number">16</span>) == <span class="number">2</span>:</span><br><span class="line">                lines[pos] += usb_codes[code][<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                lines[pos] += usb_codes[code][<span class="number">0</span>]</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> lines:</span><br><span class="line">        <span class="built_in">print</span>(x)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># check argv</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) != <span class="number">2</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Usage:\n\tpython keyboardScanCode.py datafile.txt\nhow to get datafile:\t tshark -r file.usb.pcapng -T fields -e usb.capdata &gt; datafile.txt&quot;</span>)</span><br><span class="line">        exit(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        filepath = sys.argv[<span class="number">1</span>]</span><br><span class="line">        code2chr(filepath)</span><br></pre></td></tr></table></figure>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2019/09/23/Notes-on-Gathering-Information/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-04-20 21:58:31
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Notes/" title="Notes">
+                        #Notes
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2020/03/20/Introduction-to-Mini-Program-Development/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81"><span class="toc-text">内存取证</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E5%B7%A5%E5%85%B7volatility-%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%9A"><span class="toc-text">内存取证工具volatility 的使用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%96%E8%AF%81%E6%96%B9%E6%B3%95%E5%BB%BA%E8%AE%AE"><span class="toc-text">取证方法建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81payload%EF%BC%9A"><span class="toc-text">常见payload：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-text">常见解题思路：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#USB%E9%80%9A%E6%9D%80EXP"><span class="toc-text">USB通杀EXP</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/L0kiii">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        Copyright © 2024
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Memory%20Forensics + '&url=' + https%3A%2F%2Fl0ki.net%2F2020%2F01%2F10%2FMemory-Forensics%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2020/01/10/Memory-Forensics/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>

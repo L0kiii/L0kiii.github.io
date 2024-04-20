@@ -87,6 +87,29 @@
   </entry>
   
   <entry>
+    <title>Memory Forensics</title>
+    <link href="https://l0ki.net/2020/01/10/Memory-Forensics/"/>
+    <id>https://l0ki.net/2020/01/10/Memory-Forensics/</id>
+    <published>2020-01-10T11:45:00.000Z</published>
+    <updated>2024-04-20T13:58:31.970Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;内存取证&quot;&gt;&lt;a href=&quot;#内存取证&quot; class=&quot;headerlink&quot; title=&quot;内存取证&quot;&gt;&lt;/a&gt;内存取证&lt;/h1&gt;&lt;h2 id=&quot;内存取证工具volatility-的使用：&quot;&gt;&lt;a href=&quot;#内存取证工具volatility-的使用：&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Notes on Gathering Information [1]</title>
     <link href="https://l0ki.net/2019/09/23/Notes-on-Gathering-Information/"/>
     <id>https://l0ki.net/2019/09/23/Notes-on-Gathering-Information/</id>
