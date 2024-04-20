@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="KaynZ" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  
+  
+  <title>
+    
+      Common Web Application Vulnerabilities: Principles, Risks, and Defenses 
+      
+      
+      |
+    
+     L0ki&#39;s Website
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="L0ki's Website" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img no-lazy src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">L0ki</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+        <li class="nav-item" data-path="/projects/">
+          <a href="/projects/">Projects</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Common Web Application Vulnerabilities: Principles, Risks, and Defenses</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-04-21 02:01:02
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Notes/" title="Notes">
+                    #Notes
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="SQL注入-SQL-Inject-OWASP-TOP1-2017"><a href="#SQL注入-SQL-Inject-OWASP-TOP1-2017" class="headerlink" title="SQL注入[SQL Inject](OWASP TOP1 2017)"></a>SQL注入[SQL Inject](OWASP TOP1 2017)</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>SQL注入就是把SQL命令插入到Web表单然后提交到所在页面请求（查询字符串），从而达到欺骗服务器执行恶意的SQL命令。<br>它是利用现在已有的应用程序，将SQL语句插入到数据库中执行，执行一些并非按照设计者意图的SQL语句。</p>
+<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>根据相关技术原理，SQL注入可以分为平台层注入和代码层注入。平台层注入：</p>
+<ul>
+<li>由不安全的数据库配置或数据库平台的漏洞所致</li>
+</ul>
+<p>代码层注入：</p>
+<ul>
+<li>主要是由于程序员对输入未进行细致地过滤，从而执行了非法的数据查询。</li>
+</ul>
+<p>基于此，SQL注入的产生原因通常表现在以下几方面：</p>
+<p>①不当的类型处理；</p>
+<p>②不安全的数据库配置；</p>
+<p>③不合理的查询集处理；</p>
+<p>④不当的错误处理；</p>
+<p>⑤转义字符处理不合适；</p>
+<p>⑥多个提交处理不当。</p>
+<h3 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h3><ul>
+<li>数据库信息泄漏：数据库中存放的用户的隐私信息的泄露。</li>
+<li>网页篡改：通过操作数据库对特定网页进行篡改。</li>
+<li>网站被挂马，传播恶意软件：修改数据库一些字段的值，嵌入网马链接，进行挂马攻击。</li>
+<li>数据库被恶意操作：数据库服务器被攻击，数据库的系统管理员帐户被窜改。</li>
+<li>服务器被远程控制，被安装后门。经由数据库服务器提供的操作系统支持，让黑客得以修改或控制操作系统。</li>
+<li>破坏硬盘数据，瘫痪全系统。</li>
+</ul>
+<h3 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h3><p>(1)严格的数据类型<br>(2)字符转义<br>(3)使用预编译语句<br>(4)存储过程</p>
+<h2 id="XSS-Cross-site-Script-OWASP-TOP7-2017"><a href="#XSS-Cross-site-Script-OWASP-TOP7-2017" class="headerlink" title="XSS[Cross-site Script](OWASP TOP7 2017)"></a>XSS[Cross-site Script](OWASP TOP7 2017)</h2><h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p>攻击者往Web页面里插入恶意html标签或者javascript代码。<br>分别是反射型XSS、持久型XSS和DOM XSS</p>
+<h3 id="危害-1"><a href="#危害-1" class="headerlink" title="危害"></a>危害</h3><p>（1）网络钓鱼，盗取各类用户的账号<br>（2）窃取用户Cookie，获取用户隐私，或者利用用户身份进一步执行操作<br>（3）劫持用户（浏览器）会话，从而执行任意操作，例如进行非法转账、强制发表日志等<br>（4）强制弹出广告页面，刷流量等<br>（5）进行恶意操作，例如任意篡改页面信息，删除文章等，传播跨站脚本蠕虫，网页挂等<br>（6）进行基于大量的客户端攻击，如DDOS攻击<br>（7）结合其它漏洞，如CSRF漏洞。</p>
+<h3 id="防御-1"><a href="#防御-1" class="headerlink" title="防御"></a>防御</h3><p>1）代码里对用户输入的地方和变量都需要仔细检查长度和对”&lt;”,”&gt;”,”;”,”’”等字符做过滤；其次任何内容写到页面之前都必须加以encode，避免不小心把html tag 弄出来。这一个层面做好，至少可以堵住超过一半的XSS 攻击。<br>（2）避免直接在cookie 中泄露用户隐私，例如email、密码等等。<br>（3）通过使cookie 和系统ip 绑定来降低cookie 泄露后的危险。这样攻击者得到的cookie 没有实际价值，不可能拿来重放。<br>（4）尽量采用POST 而非GET 提交表单</p>
+<h2 id="上传漏洞"><a href="#上传漏洞" class="headerlink" title="上传漏洞"></a>上传漏洞</h2><h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><p>文件上传漏洞是指网络攻击者上传了一个可执行的文件到服务器，服务器未经任何检验或过滤，从而造成文件的执行。这里上传的文件可以是木马，病毒，恶意脚本或者WebShell等。</p>
+<h3 id="危害-2"><a href="#危害-2" class="headerlink" title="危害"></a>危害</h3><p>1)上传文件是Web脚本语言，服务器的Web容器解释并执行了用户上传的脚本，导致代码执行。<br>2)上传文件是Flash的策略文件crossdomain.xml，黑客用以控制Flash在该域下的行为（其他通过类似方式控制策略文件的情况类似);<br>3)上传文件是病毒、木马文件，黑客用以诱骗用户或者管理员下载执行。<br>4)上传文件是钓鱼图片或为包含了脚本的图片，在某些版本的浏览器中会被作为脚本执行，被用于钓鱼和欺诈。</p>
+<h3 id="防御-2"><a href="#防御-2" class="headerlink" title="防御"></a>防御</h3><p>（1）文件扩展名服务端白名单校验。<br>（2）文件内容服务端校验。<br>（3）上传文件重命名。<br>（4）隐藏上传文件路径。<br>（5）文件上传的目录设置为不可执行<br>（6）单独设置文件服务器的域名<br>以上几点，可以防御绝大多数上传漏洞，但是需要跟服务器容器结合起来。如果解析漏洞依然存在，那么没有绝对的安全。</p>
+<h2 id="文件解析漏洞"><a href="#文件解析漏洞" class="headerlink" title="文件解析漏洞"></a>文件解析漏洞</h2><h3 id="1-IIS-6-0解析利用方法有两种"><a href="#1-IIS-6-0解析利用方法有两种" class="headerlink" title="1.IIS 6.0解析利用方法有两种"></a>1.IIS 6.0解析利用方法有两种</h3><ul>
+<li>（1）目录解析：&#x2F;xx.asp&#x2F;xx.jpg</li>
+<li>（2）文件解析：wooyun.asp;.jpg</li>
+<li>第一种，在网站下建立文件夹的名字为 .asp、.asa 的文件夹，其目录内的任何扩展名的文件都被IIS当作asp文件来解析并执行。</li>
+<li>第二种，在IIS6.0下，分号后面的不被解析，也就是说wooyun.asp;.jpg会被服务器看成是wooyun.asp<br>还有IIS6.0 默认的可执行文件除了asp还包含这三种.asa、.cer、.cdx</li>
+</ul>
+<h3 id="2-Apache解析漏洞后缀名解析漏洞"><a href="#2-Apache解析漏洞后缀名解析漏洞" class="headerlink" title="2.Apache解析漏洞后缀名解析漏洞"></a>2.Apache解析漏洞后缀名解析漏洞</h3><p>Apache 是从右到左开始判断解析,如果为不可识别解析,就再往左判断直到识别。</p>
+<h3 id="3-PHP-CGI解析漏洞"><a href="#3-PHP-CGI解析漏洞" class="headerlink" title="3.PHP CGI解析漏洞"></a>3.PHP CGI解析漏洞</h3><p>在默认Fast-CGI开启状况下,上传一个名字为wooyun.jpg，内容为</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span>PHP <span class="title function_ invoke__">fputs</span>(<span class="title function_ invoke__">fopen</span>(<span class="string">&#x27;shell.php&#x27;</span>,<span class="string">&#x27;w&#x27;</span>),<span class="string">&#x27;&lt;?php eval($_POST[cmd])?&gt;&#x27;</span>);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>的文件，然后访问wooyun.jpg&#x2F;x.php,（x.php不存在）在这个目录下就会生成一句话木马 shell.php。</p>
+<h3 id="4-00截断漏洞"><a href="#4-00截断漏洞" class="headerlink" title="4.%00截断漏洞"></a>4.%00截断漏洞</h3><p>当程序在输出含有chr(0)变量时，即为%00，chr(0)后面的数据会被停止，换句话说，就是误把它当成结束符，后面的数据直接忽略，这就导致漏洞产生</p>
+<h2 id="CSRF（Cross-Site-Request-Forgery）"><a href="#CSRF（Cross-Site-Request-Forgery）" class="headerlink" title="CSRF（Cross-Site Request Forgery）"></a>CSRF（Cross-Site Request Forgery）</h2><h3 id="原理-3"><a href="#原理-3" class="headerlink" title="原理"></a>原理</h3><p>CSRF是一种夹持用户在已经登陆的web应用程序上执行非本意的操作的攻击方式。相比于XSS，CSRF是利用了系统对页面浏览器的信任，XSS则利用了系统对用户的信任。</p>
+<h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200602152807887.png" alt="image-20200602152807887"></p>
+<ol>
+<li>客户端通过账户密码登陆访问网站A</li>
+<li>网站A验证客户端的账号密码。成功则生成一个sessionID ,井返回给客户端存储在浏览器中</li>
+<li>该客户端tab-个新页面访问了网站B</li>
+<li>网站B自动触发要求该客户端访问网站A (即在网站B中有链接指向网站A)</li>
+<li>客户端通过网站B中的链接访问网站A (此时带携带有合法的sessionID进行访问网站A的)</li>
+<li>此时网站A只需检验sessionID是否合法,合法则执行相应的操作<br>(因此具体啥攻击就得看链接t以及网站B要求访问时携带的数据)</li>
+</ol>
+<p>由上图分析我们可以知道构成CSRF攻击是有条件的：</p>
+<ul>
+<li>客户端必须一个网站并生成cookie凭证存储在浏览器中</li>
+<li>该cookie没有清除，客户端又tab一个页面进行访问别的网站</li>
+</ul>
+<h3 id="危害-3"><a href="#危害-3" class="headerlink" title="危害"></a>危害</h3><p>攻击者利用会话劫持达到自己的目的，比如转账、积分等</p>
+<h3 id="防御-3"><a href="#防御-3" class="headerlink" title="防御"></a>防御</h3><p>（1） GET、POST的正确使用<br>（2） 利用验证码（在一定的情况下使用，但是为了防止客户产生不好印象，尽量不用）<br>（3） Referer Check(HTTP Referer是header的一部分，当浏览器向web服务器发送请求的时候，一般会带上Referer，告诉服务器我是从哪个页面链接过来的，服务器籍此可以获得一些信息用于处理。但服务器并非任何时候都能取到referer、保护客户隐私，不作为预防主要手段)<br>（4） Anti CSRF Token：<br>为每一个表单生成一个随机数秘钥，并在服务器端建立一个拦截器来验证这个token，如果请求中没有token或者token内容不正确，则认为可能是CSRF攻击而拒绝该请求。</p>
+<h2 id="DDos攻击-分布式拒绝服务-Distributed-Denial-of-service-Attack"><a href="#DDos攻击-分布式拒绝服务-Distributed-Denial-of-service-Attack" class="headerlink" title="DDos攻击 分布式拒绝服务(Distributed Denial of service Attack)"></a>DDos攻击 分布式拒绝服务(Distributed Denial of service Attack)</h2><h3 id="原理-4"><a href="#原理-4" class="headerlink" title="原理"></a>原理</h3><p>攻击者想办法让目标服务器的磁盘空间、内存、进程、网络带宽等资源被占满，从而导致正常用户无法访问。<br>攻击者进行拒绝服务攻击，实际上让服务器实现两种效果：一是迫使服务器的缓冲区满，无法接收新的请求;二是使用IP欺骗，迫使服务器把合法用户的连接复位，影响合法用户的连接。<br>攻击者是使用傀儡机(俗称“肉鸡”，受病毒木马操控的计算机或服务器)作为攻击平台，通过大量伪装合法的请求占用大量网络资源，以达到使指定目标的网络或服务瘫痪中断。</p>
+<h3 id="危害-4"><a href="#危害-4" class="headerlink" title="危害"></a>危害</h3><p>服务器瘫痪、用户无法正常访问。</p>
+<h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><p>（1）SYN Flood攻击：这种攻击方法是经典最有效的DDoS方法，主要是通过向受害主机发送大量伪造源 IP 和源端口的 SYN 或 ACK 包，导致主机的缓存资源被耗尽或忙于发送回应包而造成拒绝服务，可通杀各种系统的网络服务。这种攻击由于源头都是伪造的，所以追踪起来比较困难。但是，该攻击实施起来有一定难度，需要大量高带宽的僵尸主机。<br>（2）TCP 全连接攻击：这种攻击是为了绕过常规防火墙的检查而设计的。一般情况下，常规防火墙大多对于正常的 TCP 连接是放过的，但是很多网络服务程序能接受的 TCP 连接数是有限的。TCP全连接攻击就是通过许多僵尸主机不断地与受害服务器建立大量的 TCP 连接，直到服务器的内存等资源被耗尽而被拖跨， 从而造成拒绝服务。种攻击的特点是可绕过一般防火墙的防护而达到攻击;缺点是需要找很多僵尸主机，且僵尸主机的IP 是暴露，易被追踪。<br>（3）刷 Script 脚本攻击：这种攻击是跟服务器建立正常的TCP连接， 并不断的向脚本程序提交查询、 列表等大量耗费数据库资源的调用。一般来说， 提交一个指令对客户端的耗费和带宽的占用是几乎可以忽略的，而服务器为处理此请求却可能要从上万条记录中去查出某个记录，这种处理过程对资源的耗费是非常大。攻击者只需通过代理向目标服务器大量递交查询指令，只需数分钟就会把服务器资源消耗掉而导致拒绝服务。这种攻击的特点是可以完全绕过普通的防火墙防护， 轻松找一些代理就可实施攻击;缺点是对付只有静态页面的网站效果会大打折扣，并且会暴露攻击者的IP地址。</p>
+<h3 id="防御-4"><a href="#防御-4" class="headerlink" title="防御"></a>防御</h3><p>（1）采用高性能的网络设备<br>（2）尽量避免NAT的使用（NAT需要对地址来回转换，转换过程中需要对网络包的校验和进行计算，因此浪费了很多CPU的时间）<br>（3）充足的网络带宽保证<br>（4）升级主机服务器硬件<br>（5）把网站做成静态页面<br>（6）增强操作系统的TCP&#x2F;IP栈<br>（7）安装专业抗DDOS防火墙<br>附：IP Spoof: 即IP地址欺骗，是一台主机设备冒充另外一台主机的IP地址，与其它设备通信，从而达到某种目的技术。属于IP Spoof类的攻击还有TCP 半连接攻击，也就是SYN Flood攻击</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2020/05/25/PHP-Protocols-and-File-Inclusion-Vulnerabilities/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-04-21 02:01:02
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Notes/" title="Notes">
+                        #Notes
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2020/06/04/SSRF-and-Gopher-Protocol/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL%E6%B3%A8%E5%85%A5-SQL-Inject-OWASP-TOP1-2017"><span class="toc-text">SQL注入[SQL Inject](OWASP TOP1 2017)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0"><span class="toc-text">原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B1%E5%AE%B3"><span class="toc-text">危害</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1"><span class="toc-text">防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS-Cross-site-Script-OWASP-TOP7-2017"><span class="toc-text">XSS[Cross-site Script](OWASP TOP7 2017)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-1"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B1%E5%AE%B3-1"><span class="toc-text">危害</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1-1"><span class="toc-text">防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="toc-text">上传漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-2"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B1%E5%AE%B3-2"><span class="toc-text">危害</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1-2"><span class="toc-text">防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="toc-text">文件解析漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-IIS-6-0%E8%A7%A3%E6%9E%90%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95%E6%9C%89%E4%B8%A4%E7%A7%8D"><span class="toc-text">1.IIS 6.0解析利用方法有两种</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Apache%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E5%90%8E%E7%BC%80%E5%90%8D%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="toc-text">2.Apache解析漏洞后缀名解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-PHP-CGI%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="toc-text">3.PHP CGI解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-00%E6%88%AA%E6%96%AD%E6%BC%8F%E6%B4%9E"><span class="toc-text">4.%00截断漏洞</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSRF%EF%BC%88Cross-Site-Request-Forgery%EF%BC%89"><span class="toc-text">CSRF（Cross-Site Request Forgery）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-3"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E8%A7%A3"><span class="toc-text">图解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B1%E5%AE%B3-3"><span class="toc-text">危害</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1-3"><span class="toc-text">防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DDos%E6%94%BB%E5%87%BB-%E5%88%86%E5%B8%83%E5%BC%8F%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1-Distributed-Denial-of-service-Attack"><span class="toc-text">DDos攻击 分布式拒绝服务(Distributed Denial of service Attack)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86-4"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B1%E5%AE%B3-4"><span class="toc-text">危害</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B"><span class="toc-text">类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1-4"><span class="toc-text">防御</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/L0kiii">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        Copyright © 2024
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Common%20Web%20Application%20Vulnerabilities%3A%20Principles%2C%20Risks%2C%20and%20Defenses + '&url=' + https%3A%2F%2Fl0ki.net%2F2020%2F06%2F02%2FCommon-Web-Application-Vulnerabilities%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2020/06/02/Common-Web-Application-Vulnerabilities/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>

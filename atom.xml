@@ -116,6 +116,52 @@
   </entry>
   
   <entry>
+    <title>SSRF and the Gopher Protocol</title>
+    <link href="https://l0ki.net/2020/06/04/SSRF-and-Gopher-Protocol/"/>
+    <id>https://l0ki.net/2020/06/04/SSRF-and-Gopher-Protocol/</id>
+    <published>2020-06-04T01:16:00.000Z</published>
+    <updated>2024-04-20T17:59:16.318Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;0x01-SSRF&quot;&gt;&lt;a href=&quot;#0x01-SSRF&quot; class=&quot;headerlink&quot; title=&quot;0x01 SSRF&quot;&gt;&lt;/a&gt;0x01 SSRF&lt;/h2&gt;&lt;h3 id=&quot;概念&quot;&gt;&lt;a href=&quot;#概念&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Common Web Application Vulnerabilities: Principles, Risks, and Defenses</title>
+    <link href="https://l0ki.net/2020/06/02/Common-Web-Application-Vulnerabilities/"/>
+    <id>https://l0ki.net/2020/06/02/Common-Web-Application-Vulnerabilities/</id>
+    <published>2020-06-02T07:34:00.000Z</published>
+    <updated>2024-04-20T18:01:02.357Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;SQL注入-SQL-Inject-OWASP-TOP1-2017&quot;&gt;&lt;a href=&quot;#SQL注入-SQL-Inject-OWASP-TOP1-2017&quot; class=&quot;headerlink&quot; title=&quot;SQL注入[SQL Inject](OWASP</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>PHP Protocols and File Inclusion Vulnerabilities</title>
     <link href="https://l0ki.net/2020/05/25/PHP-Protocols-and-File-Inclusion-Vulnerabilities/"/>
     <id>https://l0ki.net/2020/05/25/PHP-Protocols-and-File-Inclusion-Vulnerabilities/</id>
@@ -407,53 +453,6 @@
     
     
     <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Notes on Gathering Information [1]</title>
-    <link href="https://l0ki.net/2019/09/23/Notes-on-Gathering-Information/"/>
-    <id>https://l0ki.net/2019/09/23/Notes-on-Gathering-Information/</id>
-    <published>2019-09-23T11:37:00.000Z</published>
-    <updated>2024-04-20T16:49:22.479Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;知识点&quot;&gt;&lt;a href=&quot;#知识点&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Kali Updating Sources</title>
-    <link href="https://l0ki.net/2019/09/09/Kali-Updating-Sources/"/>
-    <id>https://l0ki.net/2019/09/09/Kali-Updating-Sources/</id>
-    <published>2019-09-09T11:34:00.000Z</published>
-    <updated>2024-04-20T16:48:53.862Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;kali更新源：&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
     
   </entry>
   
