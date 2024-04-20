@@ -162,7 +162,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-04-20 21:30:32
+          2024-04-20 21:33:39
         </span>
         
               <span class="post-tags">
@@ -353,7 +353,7 @@ $money = $money - $price;
 <h4 id="iconv函数字符编码转换截断：【对PHP版本有要求】"><a href="#iconv函数字符编码转换截断：【对PHP版本有要求】" class="headerlink" title="iconv函数字符编码转换截断：【对PHP版本有要求】"></a>iconv函数字符编码转换截断：【对PHP版本有要求】</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!php</span><br><span class="line"></span><br><span class="line">chr(128)—chr(255)可以截断字符</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">$a = &#x27;1&#x27;.chr(130).&#x27;2’;</span><br><span class="line"></span><br><span class="line">echo $a.&quot;&lt;br&gt;&quot;; //12</span><br><span class="line"></span><br><span class="line">echo iconv(&quot;UTF-8&quot;, &quot;GBK&quot;, $a); //1</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="php-输入输出流："><a href="#php-输入输出流：" class="headerlink" title="php:&#x2F;&#x2F; 输入输出流："></a>php:&#x2F;&#x2F; 输入输出流：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!php</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">include($_GET[‘file&#x27;]);</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 <p>1.php?file&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode(内容被base64编码)&#x2F; resource&#x3D;example.txt(远程文件)</p>
-<h2 id="php代码解析标签："><a href="#php代码解析标签：" class="headerlink" title="php代码解析标签："></a>php代码解析标签：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a &lt;script language=&quot;php&quot;&gt;…&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">b &lt;?…?&gt;：php3.0.4版本后可用</span><br><span class="line"></span><br><span class="line">c &lt;%…%&gt;：asp标签，需要asp_tags=on，默认是oﬀ</span><br></pre></td></tr></table></figure>
+<h2 id="php代码解析标签："><a href="#php代码解析标签：" class="headerlink" title="php代码解析标签："></a>php代码解析标签：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a &lt;script language=&quot;php&quot;&gt;…&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">b &lt;?…?&gt;：php3.0.4版本后可用</span><br><span class="line"></span><br><span class="line">c &lt;%…%&gt;：asp标签，需要asp_tags=on，默认是 oﬀ </span><br></pre></td></tr></table></figure>
 
 
 
@@ -362,7 +362,7 @@ $money = $money - $price;
 <p>a 没有使用^ 和 $ 限定匹配开始位置：</p>
 <p>b 特殊字符未转义：</p>
 <p>报错注入：</p>
-<p>windows findfirstfile 利用：若要搜索12345.txt文件，可使用1&lt;&lt;来代替或者12&lt;&lt;，不可以单独使用一个”&lt;</p>
+<p>windows findfirstfile<br>利用：<br>若要搜索12345.txt文件，可使用1&lt;&lt;来代替或者12&lt;&lt;，不可以单独使用一个”&lt;</p>
 
       </div>
       
@@ -378,7 +378,7 @@ $money = $money - $price;
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-04-20 21:30:32
+              2024-04-20 21:33:39
             </span>
             
                   <span class="post-tags">
