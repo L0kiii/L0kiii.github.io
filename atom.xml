@@ -272,6 +272,29 @@
   </entry>
   
   <entry>
+    <title>Basic Preparation for Mini Program Development</title>
+    <link href="https://l0ki.net/2020/03/20/Basic-Preparation-for-Mini-Program-Development/"/>
+    <id>https://l0ki.net/2020/03/20/Basic-Preparation-for-Mini-Program-Development/</id>
+    <published>2020-03-20T02:34:00.000Z</published>
+    <updated>2024-04-20T17:54:48.463Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;小程序开发基础准备&quot;&gt;&lt;a href=&quot;#小程序开发基础准备&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>CTF Skills Summary</title>
     <link href="https://l0ki.net/2020/02/13/CTF-Skills-Summary/"/>
     <id>https://l0ki.net/2020/02/13/CTF-Skills-Summary/</id>
@@ -425,29 +448,6 @@
         
     <summary type="html">&lt;h1 id=&quot;一、常见的代码审计工具&quot;&gt;&lt;a href=&quot;#一、常见的代码审计工具&quot; class=&quot;headerlink&quot; title=&quot;一、常见的代码审计工具&quot;&gt;&lt;/a&gt;一、常见的代码审计工具&lt;/h1&gt;&lt;p&gt;1、Fortify SCA&lt;/p&gt;
 &lt;p&gt;Fortify</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Setting Up an Intranet Server Using Docker</title>
-    <link href="https://l0ki.net/2019/05/14/Setting-Up-an-Intranet-Server-Using-Docker/"/>
-    <id>https://l0ki.net/2019/05/14/Setting-Up-an-Intranet-Server-Using-Docker/</id>
-    <published>2019-05-14T11:40:00.000Z</published>
-    <updated>2024-04-20T16:49:38.335Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;docker&quot;&gt;&lt;a href=&quot;#docker&quot; class=&quot;headerlink&quot; title=&quot;docker&quot;&gt;&lt;/a&gt;docker&lt;/h3&gt;&lt;h4 id=&quot;几条重要的命令&quot;&gt;&lt;a href=&quot;#几条重要的命令&quot; class=&quot;headerlink&quot;</summary>
         
       
     
