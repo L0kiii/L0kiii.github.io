@@ -127,6 +127,23 @@
   </entry>
   
   <entry>
+    <title>Tomcat AJP Unauthorized Access (CVE-2020-1938)</title>
+    <link href="https://l0ki.net/2020/07/29/CVE-2020-1938/"/>
+    <id>https://l0ki.net/2020/07/29/CVE-2020-1938/</id>
+    <published>2020-07-29T03:37:00.000Z</published>
+    <updated>2024-04-20T18:25:03.983Z</updated>
+    
+    
+    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
+    
+    
+    
+    
+    <category term="Intranet Penetration" scheme="https://l0ki.net/tags/Intranet-Penetration/"/>
+    
+  </entry>
+  
+  <entry>
     <title>File Upload Vulnerabilities</title>
     <link href="https://l0ki.net/2020/07/16/File-Upload-Vulnerabilities/"/>
     <id>https://l0ki.net/2020/07/16/File-Upload-Vulnerabilities/</id>
@@ -432,23 +449,6 @@
     
     
     <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Red Team Operations Manual</title>
-    <link href="https://l0ki.net/2020/06/14/Red-Team-Operations-Manual/"/>
-    <id>https://l0ki.net/2020/06/14/Red-Team-Operations-Manual/</id>
-    <published>2020-06-14T04:35:00.000Z</published>
-    <updated>2024-04-20T17:52:06.913Z</updated>
-    
-    
-    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
-    
-    
-    
-    
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
     
   </entry>
   
