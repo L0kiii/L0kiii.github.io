@@ -93,6 +93,23 @@
   </entry>
   
   <entry>
+    <title>HFS Server Remote Command Execution</title>
+    <link href="https://l0ki.net/2020/07/29/HFS-Server-Remote-Command-Execution/"/>
+    <id>https://l0ki.net/2020/07/29/HFS-Server-Remote-Command-Execution/</id>
+    <published>2020-07-29T03:37:00.000Z</published>
+    <updated>2024-04-20T18:22:37.770Z</updated>
+    
+    
+    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
+    
+    
+    
+    
+    <category term="Intranet Penetration" scheme="https://l0ki.net/tags/Intranet-Penetration/"/>
+    
+  </entry>
+  
+  <entry>
     <title>File Upload Vulnerabilities</title>
     <link href="https://l0ki.net/2020/07/16/File-Upload-Vulnerabilities/"/>
     <id>https://l0ki.net/2020/07/16/File-Upload-Vulnerabilities/</id>
@@ -438,29 +455,6 @@
     
     
     <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Common Web Application Vulnerabilities: Principles, Risks, and Defenses</title>
-    <link href="https://l0ki.net/2020/06/02/Common-Web-Application-Vulnerabilities/"/>
-    <id>https://l0ki.net/2020/06/02/Common-Web-Application-Vulnerabilities/</id>
-    <published>2020-06-02T07:34:00.000Z</published>
-    <updated>2024-04-20T18:01:02.357Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;SQL注入-SQL-Inject-OWASP-TOP1-2017&quot;&gt;&lt;a href=&quot;#SQL注入-SQL-Inject-OWASP-TOP1-2017&quot; class=&quot;headerlink&quot; title=&quot;SQL注入[SQL Inject](OWASP</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
     
   </entry>
   
