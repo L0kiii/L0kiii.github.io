@@ -116,6 +116,23 @@
   </entry>
   
   <entry>
+    <title>ASP Arbitrary File Upload Webshell Large Trojan</title>
+    <link href="https://l0ki.net/2020/07/29/ASP-Arbitrary-File-Upload-Webshell-Large-Trojan/"/>
+    <id>https://l0ki.net/2020/07/29/ASP-Arbitrary-File-Upload-Webshell-Large-Trojan/</id>
+    <published>2020-07-29T03:39:00.000Z</published>
+    <updated>2024-04-20T18:34:48.454Z</updated>
+    
+    
+    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
+    
+    
+    
+    
+    <category term="Intranet Penetration" scheme="https://l0ki.net/tags/Intranet-Penetration/"/>
+    
+  </entry>
+  
+  <entry>
     <title>JMX RMI RCE</title>
     <link href="https://l0ki.net/2020/07/29/JMX-RMI-RCE/"/>
     <id>https://l0ki.net/2020/07/29/JMX-RMI-RCE/</id>
@@ -395,29 +412,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;0x01-漏洞简述&quot;&gt;&lt;a href=&quot;#0x01-漏洞简述&quot; class=&quot;headerlink&quot; title=&quot;0x01 漏洞简述&quot;&gt;&lt;/a&gt;0x01 漏洞简述&lt;/h2&gt;&lt;p&gt;&lt;code&gt;F5 BIG-IP&lt;/code&gt;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Summary of SQL Injection</title>
-    <link href="https://l0ki.net/2020/07/03/Comprehensive-SQL-Injection-Summary/"/>
-    <id>https://l0ki.net/2020/07/03/Comprehensive-SQL-Injection-Summary/</id>
-    <published>2020-07-03T07:10:00.000Z</published>
-    <updated>2024-04-20T18:20:17.996Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;False注入&quot;&gt;&lt;a href=&quot;#False注入&quot; class=&quot;headerlink&quot; title=&quot;False注入&quot;&gt;&lt;/a&gt;False注入&lt;/h2&gt;&lt;h3 id=&quot;适用场景&quot;&gt;&lt;a href=&quot;#适用场景&quot; class=&quot;headerlink&quot;</summary>
         
       
     
