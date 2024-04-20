@@ -6,7 +6,7 @@
   <link href="https://l0ki.net/atom.xml" rel="self"/>
   
   <link href="https://l0ki.net/"/>
-  <updated>2024-04-20T13:53:55.212Z</updated>
+  <updated>2024-04-20T16:47:27.342Z</updated>
   <id>https://l0ki.net/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>File Parsing Vulnerabilities</title>
+    <link href="https://l0ki.net/2020/07/02/File-Parsing-Vulnerabilities/"/>
+    <id>https://l0ki.net/2020/07/02/File-Parsing-Vulnerabilities/</id>
+    <published>2020-07-02T10:54:00.000Z</published>
+    <updated>2024-04-20T16:47:27.342Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
     <title>PHP Protocols and File Inclusion Vulnerabilities</title>
     <link href="https://l0ki.net/2020/05/25/PHP-Protocols-and-File-Inclusion-Vulnerabilities/"/>
     <id>https://l0ki.net/2020/05/25/PHP-Protocols-and-File-Inclusion-Vulnerabilities/</id>
     <published>2020-05-24T16:25:00.000Z</published>
-    <updated>2024-04-20T13:53:55.212Z</updated>
+    <updated>2024-04-20T16:47:33.725Z</updated>
     
     
       
@@ -35,7 +58,7 @@
     
     
     
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
     
   </entry>
   
@@ -130,7 +153,7 @@
     <link href="https://l0ki.net/2020/03/20/Introduction-to-Mini-Program-Development/"/>
     <id>https://l0ki.net/2020/03/20/Introduction-to-Mini-Program-Development/</id>
     <published>2020-03-20T04:44:00.000Z</published>
-    <updated>2024-04-20T13:50:40.318Z</updated>
+    <updated>2024-04-20T16:48:08.430Z</updated>
     
     
       
@@ -177,7 +200,7 @@
     <link href="https://l0ki.net/2020/01/10/Memory-Forensics/"/>
     <id>https://l0ki.net/2020/01/10/Memory-Forensics/</id>
     <published>2020-01-10T11:45:00.000Z</published>
-    <updated>2024-04-20T13:58:31.970Z</updated>
+    <updated>2024-04-20T16:47:42.350Z</updated>
     
     
       
@@ -191,7 +214,7 @@
     
     
     
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
     
   </entry>
   
@@ -200,7 +223,7 @@
     <link href="https://l0ki.net/2019/09/23/Notes-on-Gathering-Information/"/>
     <id>https://l0ki.net/2019/09/23/Notes-on-Gathering-Information/</id>
     <published>2019-09-23T11:37:00.000Z</published>
-    <updated>2024-04-20T13:27:01.534Z</updated>
+    <updated>2024-04-20T16:49:22.479Z</updated>
     
     
       
@@ -223,7 +246,7 @@
     <link href="https://l0ki.net/2019/09/09/Kali-Updating-Sources/"/>
     <id>https://l0ki.net/2019/09/09/Kali-Updating-Sources/</id>
     <published>2019-09-09T11:34:00.000Z</published>
-    <updated>2024-04-20T13:08:10.776Z</updated>
+    <updated>2024-04-20T16:48:53.862Z</updated>
     
     
       
@@ -247,7 +270,7 @@
     <link href="https://l0ki.net/2019/07/25/Learning-Code-Auditing-1/"/>
     <id>https://l0ki.net/2019/07/25/Learning-Code-Auditing-1/</id>
     <published>2019-07-25T11:41:00.000Z</published>
-    <updated>2024-04-20T13:33:39.887Z</updated>
+    <updated>2024-04-20T16:49:01.583Z</updated>
     
     
       
@@ -271,7 +294,7 @@
     <link href="https://l0ki.net/2019/05/14/Setting-Up-an-Intranet-Server-Using-Docker/"/>
     <id>https://l0ki.net/2019/05/14/Setting-Up-an-Intranet-Server-Using-Docker/</id>
     <published>2019-05-14T11:40:00.000Z</published>
-    <updated>2024-04-20T13:24:28.607Z</updated>
+    <updated>2024-04-20T16:49:38.335Z</updated>
     
     
       
@@ -294,14 +317,14 @@
     <link href="https://l0ki.net/2019/05/14/Introduction-to-Penetration-Testing/"/>
     <id>https://l0ki.net/2019/05/14/Introduction-to-Penetration-Testing/</id>
     <published>2019-05-14T11:38:00.000Z</published>
-    <updated>2024-04-20T13:17:02.724Z</updated>
+    <updated>2024-04-20T16:48:03.688Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;什么是渗透测试&quot;&gt;&lt;a href=&quot;#什么是渗透测试&quot; class=&quot;headerlink&quot; title=&quot;什么是渗透测试&quot;&gt;&lt;/a&gt;什么是渗透测试&lt;/h2&gt;&lt;h3 id=&quot;基于百度搜索引擎得到的结果：&quot;&gt;&lt;a href=&quot;#基于百度搜索引擎得到的结果：&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;什么是渗透测试&quot;&gt;&lt;a href=&quot;#什么是渗透测试&quot; class=&quot;headerlink&quot; title=&quot;什么是渗透测试&quot;&gt;&lt;/a&gt;什么是渗透测试&lt;/h2&gt;&lt;h3 id=&quot;基于百度搜索引擎得到的结果&quot;&gt;&lt;a href=&quot;#基于百度搜索引擎得到的结果&quot;</summary>
         
       
     
@@ -317,7 +340,7 @@
     <link href="https://l0ki.net/2019/05/14/ISCC2019-MISC/"/>
     <id>https://l0ki.net/2019/05/14/ISCC2019-MISC/</id>
     <published>2019-05-14T11:29:00.000Z</published>
-    <updated>2024-04-20T12:42:10.636Z</updated>
+    <updated>2024-04-20T16:48:43.216Z</updated>
     
     
       
@@ -443,29 +466,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;less-1&quot;&gt;&lt;a href=&quot;#less-1&quot; class=&quot;headerlink&quot; title=&quot;less-1&quot;&gt;&lt;/a&gt;less-1&lt;/h2&gt;&lt;p&gt;输入单引号后报错，根据报错信息，可以确定输入参数的内容被存放到一对单引号中间&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Sql Lab" scheme="https://l0ki.net/tags/Sql-Lab/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Sql Lab(21-40)</title>
-    <link href="https://l0ki.net/2019/01/20/sql-lab(21-40)/"/>
-    <id>https://l0ki.net/2019/01/20/sql-lab(21-40)/</id>
-    <published>2019-01-20T12:05:00.000Z</published>
-    <updated>2024-04-20T16:36:54.609Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;less-21&quot;&gt;&lt;a href=&quot;#less-21&quot; class=&quot;headerlink&quot; title=&quot;less-21&quot;&gt;&lt;/a&gt;less-21&lt;/h2&gt;&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
         
       
     

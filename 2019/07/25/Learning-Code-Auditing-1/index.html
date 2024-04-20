@@ -162,7 +162,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-04-20 21:33:39
+          2024-04-21 00:49:01
         </span>
         
               <span class="post-tags">
@@ -239,7 +239,7 @@
 <p>● 老版本下的session_destroy()，可以删除文件，现已基本被修复。</p>
 <p>Metinfo的任意文件删除漏洞：</p>
 <p>$action &#x3D; delete即可删除.sql的文件，如果文件不是sql直接删除提交的文件名</p>
-<p><a target="_blank" rel="noopener" href="http://target.com/recovery.php?&action=delete&filename=../../index.php">http://target.com/recovery.php?&amp;action=delete&amp;filename=../../index.php</a></p>
+<p><a target="_blank" rel="noopener" href="http://target.com/recovery.php?&amp;action=delete&amp;filename=../../index.php">http://target.com/recovery.php?&amp;action=delete&amp;filename=../../index.php</a></p>
 <p>B.代码执行漏洞</p>
 <p>1.代码执行函数：</p>
 <p>搜索关键函数：</p>
@@ -262,7 +262,6 @@
 <p>动态函数后门：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!php</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">$_GET[&#x27;a&#x27;]($_GET[&#x27;b&#x27;]);</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
-
 <p>3.命令执行函数：</p>
 <p>搜索关键函数：</p>
 <blockquote>
@@ -270,12 +269,12 @@
 </blockquote>
 <p>(1) popen和proc_open()：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!php</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">popen( &#x27;whoami &gt;&gt; /Users/bingdaojueai/Desktop/1.txt&#x27;, &#x27;r&#x27; ); ?&gt;</span><br></pre></td></tr></table></figure>
+
 <p>所在路径就会出现一个1.txt 里面的内容为命令执行后的结果</p>
 <p>(2) 反引号命令执行：</p>
 <p>echo whoami; 直接就可以执行命令</p>
 <p>双引号和单引号的区别：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!php</span><br><span class="line"></span><br><span class="line">$a = 1</span><br><span class="line"></span><br><span class="line">echo &quot; $a &quot; output：1</span><br><span class="line"></span><br><span class="line">echo &#x27; $a &#x27; output：$a</span><br></pre></td></tr></table></figure>
-
 
 <p>双引号时，可以直接解析变量，造成代码执行漏洞，过狗绕过。</p>
 <p>C.变量覆盖漏洞</p>
@@ -308,8 +307,7 @@
 <p>● 客户端修改总价和购买数量</p>
 <p>● 服务端未校验严格</p>
 <p>重复发包利用时间差：</p>
-<p>#!php</p>
-<?php
+<h1 id="php"><a href="#php" class="headerlink" title="!php"></a>!php</h1><?php
 
 if (check_money($price)){
 
@@ -322,7 +320,6 @@ $money = $money - $price;
 }
 
 ?>
-
 
 <p>可能导致漏洞函数： str_replace()</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#!php</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">$a = addslashes($_GET[&#x27;a&#x27;]);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$b = addslashes($_GET[&#x27;b&#x27;]);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo &quot;$a&lt;br&gt;$b&lt;br&gt;&quot;;</span><br><span class="line"></span><br><span class="line">$c = str_replace($a,&#x27;&#x27;,$b);</span><br><span class="line"></span><br><span class="line">echo trim($c);</span><br><span class="line"></span><br><span class="line">?&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -343,20 +340,17 @@ $money = $money - $price;
 <p>mb_convert_encoding()：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!php</span><br><span class="line"></span><br><span class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html;charset=utf-8&quot;/&gt; &lt;?php</span><br><span class="line"></span><br><span class="line">$sql = &quot;WHERE id=&#x27;&quot;.urldecode(&quot;-1%df%5c&#x27; == &quot;).&quot;&#x27;&quot;; print_r(mb_convert_encoding($sql,&quot;UTF-8&quot;,&quot;GBK&quot;)); ?&gt;</span><br></pre></td></tr></table></figure>
 
-
-
-
 <p>(2)字符串问题：</p>
 <p>● 利用报错，找到敏感信息</p>
-<h2 id="字符串截断："><a href="#字符串截断：" class="headerlink" title="字符串截断："></a>字符串截断：</h2><p>%00空字符截断：【PHP版本小于5.3】</p>
+<h2 id="字符串截断"><a href="#字符串截断" class="headerlink" title="字符串截断"></a>字符串截断</h2><p>%00空字符截断：【PHP版本小于5.3】</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!php</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">include($_GET[&#x27;file&#x27;].&#x27;.php&#x27;);</span><br><span class="line"></span><br><span class="line">//1.php?file=2.txt%00</span><br><span class="line"></span><br><span class="line">//2.txt里面是 &lt;?php phpinfo()?&gt;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
 <h4 id="iconv函数字符编码转换截断：【对PHP版本有要求】"><a href="#iconv函数字符编码转换截断：【对PHP版本有要求】" class="headerlink" title="iconv函数字符编码转换截断：【对PHP版本有要求】"></a>iconv函数字符编码转换截断：【对PHP版本有要求】</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!php</span><br><span class="line"></span><br><span class="line">chr(128)—chr(255)可以截断字符</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">$a = &#x27;1&#x27;.chr(130).&#x27;2’;</span><br><span class="line"></span><br><span class="line">echo $a.&quot;&lt;br&gt;&quot;; //12</span><br><span class="line"></span><br><span class="line">echo iconv(&quot;UTF-8&quot;, &quot;GBK&quot;, $a); //1</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="php-输入输出流："><a href="#php-输入输出流：" class="headerlink" title="php:&#x2F;&#x2F; 输入输出流："></a>php:&#x2F;&#x2F; 输入输出流：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!php</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">include($_GET[‘file&#x27;]);</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="php-输入输出流"><a href="#php-输入输出流" class="headerlink" title="php:&#x2F;&#x2F; 输入输出流"></a>php:&#x2F;&#x2F; 输入输出流</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!php</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">include($_GET[‘file&#x27;]);</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
 <p>1.php?file&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode(内容被base64编码)&#x2F; resource&#x3D;example.txt(远程文件)</p>
-<h2 id="php代码解析标签："><a href="#php代码解析标签：" class="headerlink" title="php代码解析标签："></a>php代码解析标签：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a &lt;script language=&quot;php&quot;&gt;…&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">b &lt;?…?&gt;：php3.0.4版本后可用</span><br><span class="line"></span><br><span class="line">c &lt;%…%&gt;：asp标签，需要asp_tags=on，默认是 oﬀ </span><br></pre></td></tr></table></figure>
-
-
-
+<h2 id="php代码解析标签"><a href="#php代码解析标签" class="headerlink" title="php代码解析标签"></a>php代码解析标签</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a &lt;script language=&quot;php&quot;&gt;…&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">b &lt;?…?&gt;：php3.0.4版本后可用</span><br><span class="line"></span><br><span class="line">c &lt;%…%&gt;：asp标签，需要asp_tags=on，默认是 oﬀ </span><br></pre></td></tr></table></figure>
 
 <p>正则表达式：</p>
 <p>a 没有使用^ 和 $ 限定匹配开始位置：</p>
@@ -378,7 +372,7 @@ $money = $money - $price;
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-04-20 21:33:39
+              2024-04-21 00:49:01
             </span>
             
                   <span class="post-tags">
@@ -412,7 +406,7 @@ $money = $money - $price;
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%B8%B8%E8%A7%81%E7%9A%84%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%B7%A5%E5%85%B7"><span class="toc-text">一、常见的代码审计工具</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8D%B1%E9%99%A9%E5%87%BD%E6%95%B0%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">二、代码审计中常见的危险函数和字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E6%95%B4%E4%BD%93"><span class="toc-text">0x01 整体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E5%90%84%E7%A7%8D%E6%B4%9E%E6%B4%9E"><span class="toc-text">0x02 各种洞洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%AA%E6%96%AD%EF%BC%9A"><span class="toc-text">字符串截断：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#iconv%E5%87%BD%E6%95%B0%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%BD%AC%E6%8D%A2%E6%88%AA%E6%96%AD%EF%BC%9A%E3%80%90%E5%AF%B9PHP%E7%89%88%E6%9C%AC%E6%9C%89%E8%A6%81%E6%B1%82%E3%80%91"><span class="toc-text">iconv函数字符编码转换截断：【对PHP版本有要求】</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%B5%81%EF%BC%9A"><span class="toc-text">php:&#x2F;&#x2F; 输入输出流：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90%E6%A0%87%E7%AD%BE%EF%BC%9A"><span class="toc-text">php代码解析标签：</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%B8%B8%E8%A7%81%E7%9A%84%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%B7%A5%E5%85%B7"><span class="toc-text">一、常见的代码审计工具</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8D%B1%E9%99%A9%E5%87%BD%E6%95%B0%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">二、代码审计中常见的危险函数和字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E6%95%B4%E4%BD%93"><span class="toc-text">0x01 整体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E5%90%84%E7%A7%8D%E6%B4%9E%E6%B4%9E"><span class="toc-text">0x02 各种洞洞</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#php"><span class="toc-text">!php</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%AA%E6%96%AD"><span class="toc-text">字符串截断</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#iconv%E5%87%BD%E6%95%B0%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E8%BD%AC%E6%8D%A2%E6%88%AA%E6%96%AD%EF%BC%9A%E3%80%90%E5%AF%B9PHP%E7%89%88%E6%9C%AC%E6%9C%89%E8%A6%81%E6%B1%82%E3%80%91"><span class="toc-text">iconv函数字符编码转换截断：【对PHP版本有要求】</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%B5%81"><span class="toc-text">php:&#x2F;&#x2F; 输入输出流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#php%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90%E6%A0%87%E7%AD%BE"><span class="toc-text">php代码解析标签</span></a></li></ol></li></ol>
       
     </div>
   </div>

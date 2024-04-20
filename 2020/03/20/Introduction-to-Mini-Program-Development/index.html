@@ -162,7 +162,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-04-20 21:50:40
+          2024-04-21 00:48:08
         </span>
         
               <span class="post-tags">
@@ -193,8 +193,6 @@
 
 <p>则需要在 app.json 中写</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;pages&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;pages/index/index&quot;</span><span class="punctuation">,</span><span class="string">&quot;pages/logs/logs&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-
 
 <h3 id="0x003-字体属性"><a href="#0x003-字体属性" class="headerlink" title="0x003 字体属性"></a>0x003 字体属性</h3><table>
 <thead>
@@ -482,24 +480,25 @@
 <h3 id="0x002-相对路径与绝对路径"><a href="#0x002-相对路径与绝对路径" class="headerlink" title="0x002 相对路径与绝对路径"></a>0x002 相对路径与绝对路径</h3><p><strong>相对路径</strong></p>
 <p>大家注意我们之前使用的路径基本都是相对路径，相对路径使用“&#x2F;”字符作为目录的分隔字符，</p>
 <ul>
-<li><p>“.&#x2F;“ 代表当前目录 </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;./img/icon.jpg&quot; /&gt;等同于&lt;img src=&quot;img/icon.jpg&quot; /&gt;</span><br></pre></td></tr></table></figure></li>
+<li>“.&#x2F;“ 代表当前目录</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;./img/icon.jpg&quot; /&gt;等同于&lt;img src=&quot;img/icon.jpg&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
 <li><p>“..&#x2F;” 代表上一级目录</p>
 </li>
 <li><p>“&#x2F;“  <strong>当前根目录</strong>，是相对目录；</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;/img/icon.jpg&quot; /&gt;</span><br></pre></td></tr></table></figure></li>
+</li>
 </ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;/img/icon.jpg&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
 <p><strong>绝对路径</strong></p>
 <p>网络链接就是绝对路径，还有C:*Windows*\System32，这种从<strong>盘符开始</strong>的路径也是绝对路径。通常相对路径用的会比较多一些。</p>
 <h3 id="0x003-云存储"><a href="#0x003-云存储" class="headerlink" title="0x003 云存储"></a>0x003 云存储</h3><p><strong>免费的图床：</strong><a target="_blank" rel="noopener" href="https://cloud.tencent.com/login">腾讯云对象存储COS</a></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&quot;imglist&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">image</span> <span class="attr">class</span>=<span class="string">&quot;imgitem&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://hackwork.oss-cn-shanghai.aliyuncs.com/lesson/weapp/4/weapp.jpg&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-
-
 <h3 id="0x004-尺寸单位rpx"><a href="#0x004-尺寸单位rpx" class="headerlink" title="0x004 尺寸单位rpx"></a>0x004 尺寸单位rpx</h3><p>所有的手机屏幕的宽度都为750rpx</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.imglist</span> <span class="selector-class">.imgitem</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">700</span>rpx;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">415</span>rpx;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">20</span>rpx;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
 
 <h3 id="0x005-图片的裁剪"><a href="#0x005-图片的裁剪" class="headerlink" title="0x005 图片的裁剪"></a>0x005 图片的裁剪</h3><p>引入widthFix：<strong>宽度不变，高度自动变化，保持原图宽高比不变</strong></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&quot;imglist&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">image</span> <span class="attr">class</span>=<span class="string">&quot;imgitem&quot;</span> <span class="attr">mode</span>=<span class="string">&quot;widthFix&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://hackwork.oss-cn-shanghai.aliyuncs.com/lesson/weapp/4/weapp.jpg&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -510,8 +509,6 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&quot;imglist&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">image</span> <span class="attr">class</span>=<span class="string">&quot;imgfull&quot;</span> <span class="attr">mode</span>=<span class="string">&quot;center&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://tcb-1251009918.cos.ap-guangzhou.myqcloud.com/background.png&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.imglist .imgfull&#123;</span><br><span class="line">  width: 100%;</span><br><span class="line">  height: 100px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
 
 <h3 id="0x006-背景属性"><a href="#0x006-背景属性" class="headerlink" title="0x006 背景属性"></a>0x006 背景属性</h3><table>
 <thead>
@@ -568,8 +565,6 @@
 
 <h3 id="0x004-增加颜色的百分比"><a href="#0x004-增加颜色的百分比" class="headerlink" title="0x004 增加颜色的百分比"></a>0x004 增加颜色的百分比</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(<span class="number">19deg</span>, <span class="built_in">rgb</span>(<span class="number">33</span>, <span class="number">212</span>, <span class="number">253</span>) <span class="number">0%</span>, <span class="built_in">rgb</span>(<span class="number">183</span>, <span class="number">33</span>, <span class="number">255</span>) <span class="number">100%</span>);</span><br></pre></td></tr></table></figure>
 
-
-
 <h3 id="0x005-Filter滤镜"><a href="#0x005-Filter滤镜" class="headerlink" title="0x005 Filter滤镜"></a>0x005 Filter滤镜</h3><p>filter属性可以对图片进行高斯模糊、调整对比度、转换为灰度图像、色相旋转、图片透明等操作</p>
 <p>新建的filter页面</p>
 <p>在wxml文件中嵌入</p>
@@ -583,9 +578,6 @@
 <h3 id="0x006-图片由灰色变为彩色"><a href="#0x006-图片由灰色变为彩色" class="headerlink" title="0x006 图片由灰色变为彩色"></a>0x006 图片由灰色变为彩色</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wxml</span><br><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&quot;filter-display&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">text</span>&gt;</span>将鼠标悬停（模拟器）或手指（手机微信）按住或放开图片查看效果<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&quot;grayscale&quot;</span> <span class="attr">hover-class</span>=<span class="string">&quot;grayscale-hover&quot;</span> &gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">image</span> <span class="attr">mode</span>=<span class="string">&quot;widthFix&quot;</span>  <span class="attr">src</span>=<span class="string">&quot;https://hackwork-1251009918.cos.ap-shanghai.myqcloud.com/handbook/html5/weapp.jpg&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wxss</span><br><span class="line"><span class="selector-class">.filter-display</span> image&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;<span class="attribute">height</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.grayscale</span>&#123;</span><br><span class="line">  <span class="attribute">filter</span>: <span class="built_in">grayscale</span>(<span class="number">90%</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.grayscale-hover</span>&#123;</span><br><span class="line">  <span class="attribute">filter</span>:<span class="built_in">grayscale</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 
       </div>
       
@@ -601,7 +593,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-04-20 21:50:40
+              2024-04-21 00:48:08
             </span>
             
                   <span class="post-tags">
