@@ -301,6 +301,30 @@
   </entry>
   
   <entry>
+    <title>PHP Function Vulnerabilities</title>
+    <link href="https://l0ki.net/2019/12/18/PHP-Function-Vulnerabilities/"/>
+    <id>https://l0ki.net/2019/12/18/PHP-Function-Vulnerabilities/</id>
+    <published>2019-12-18T12:20:00.000Z</published>
+    <updated>2024-04-20T17:50:24.231Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;preg-replace-函数&quot;&gt;&lt;a href=&quot;#preg-replace-函数&quot; class=&quot;headerlink&quot; title=&quot;preg_replace()函数&quot;&gt;&lt;/a&gt;preg_replace()函数&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Notes on Gathering Information [1]</title>
     <link href="https://l0ki.net/2019/09/23/Notes-on-Gathering-Information/"/>
     <id>https://l0ki.net/2019/09/23/Notes-on-Gathering-Information/</id>
@@ -437,30 +461,6 @@
     
     
     <category term="CTF" scheme="https://l0ki.net/tags/CTF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Troubleshooting Docker Installation on Kali Linux</title>
-    <link href="https://l0ki.net/2019/05/14/Troubleshooting-Docker-Installation-on-Kali-Linux/"/>
-    <id>https://l0ki.net/2019/05/14/Troubleshooting-Docker-Installation-on-Kali-Linux/</id>
-    <published>2019-05-13T21:14:00.000Z</published>
-    <updated>2024-04-20T12:50:31.687Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Kali安装docker:&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Issues" scheme="https://l0ki.net/tags/Issues/"/>
     
   </entry>
   
