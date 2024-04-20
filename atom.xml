@@ -407,6 +407,29 @@
   </entry>
   
   <entry>
+    <title>XSS-Wooyun Practice</title>
+    <link href="https://l0ki.net/2019/03/14/XSS-Wooyun-Practice/"/>
+    <id>https://l0ki.net/2019/03/14/XSS-Wooyun-Practice/</id>
+    <published>2019-03-14T12:29:00.000Z</published>
+    <updated>2024-04-20T16:55:50.165Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&amp;lt;1&amp;gt;&quot;&gt;&lt;/a&gt;&amp;lt;1&amp;gt;&lt;/h2&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
     <title>XSS Cross-Site Attacks</title>
     <link href="https://l0ki.net/2019/03/09/XSS-Cross-Site-Attacks/"/>
     <id>https://l0ki.net/2019/03/09/XSS-Cross-Site-Attacks/</id>
@@ -450,29 +473,6 @@
     
     
     <category term="CTF" scheme="https://l0ki.net/tags/CTF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Sql Lab(41-65)</title>
-    <link href="https://l0ki.net/2019/02/26/sql-lab(41-65)/"/>
-    <id>https://l0ki.net/2019/02/26/sql-lab(41-65)/</id>
-    <published>2019-02-26T10:50:00.000Z</published>
-    <updated>2024-04-20T16:38:28.792Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;less-41&quot;&gt;&lt;a href=&quot;#less-41&quot; class=&quot;headerlink&quot; title=&quot;less-41&quot;&gt;&lt;/a&gt;less-41&lt;/h2&gt;&lt;p&gt;只有输入id&amp;#x3D;1才会出现回显，尝试输入 ?id&amp;#x3D;0 union select</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Sql Lab" scheme="https://l0ki.net/tags/Sql-Lab/"/>
     
   </entry>
   
