@@ -80,16 +80,10 @@
     <link href="https://l0ki.net/2020/07/29/JMX-RMI-RCE/"/>
     <id>https://l0ki.net/2020/07/29/JMX-RMI-RCE/</id>
     <published>2020-07-29T03:37:00.000Z</published>
-    <updated>2024-04-20T17:37:14.192Z</updated>
+    <updated>2024-04-20T18:17:42.209Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;JMX-RMI-RCE&quot;&gt;&lt;a href=&quot;#JMX-RMI-RCE&quot; class=&quot;headerlink&quot; title=&quot;JMX RMI RCE&quot;&gt;&lt;/a&gt;JMX RMI RCE&lt;/h2&gt;&lt;h3 id=&quot;JMX&quot;&gt;&lt;a href=&quot;#JMX&quot;</summary>
-        
-      
+    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
     
     
     
@@ -167,6 +161,36 @@
     
     
     <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ASCII Comparison Chart</title>
+    <link href="https://l0ki.net/2020/07/07/ASCII-Comparison-Chart/"/>
+    <id>https://l0ki.net/2020/07/07/ASCII-Comparison-Chart/</id>
+    <published>2020-07-07T07:55:31.000Z</published>
+    <updated>2024-04-20T18:17:59.503Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&quot;left&quot;&gt;ASCII值&lt;/th&gt;
+&lt;th align=&quot;left&quot;&gt;控制字符&lt;/th&gt;
+&lt;th align=&quot;left&quot;&gt;ASCII值&lt;/th&gt;
+&lt;th align=&quot;left&quot;&gt;控制字符&lt;/th&gt;
+&lt;th</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
     
   </entry>
   
@@ -437,23 +461,6 @@
     
     
     <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2020HW Cheat Sheet</title>
-    <link href="https://l0ki.net/2020/05/14/2020HW-Cheat-Sheet/"/>
-    <id>https://l0ki.net/2020/05/14/2020HW-Cheat-Sheet/</id>
-    <published>2020-05-14T11:46:00.000Z</published>
-    <updated>2024-04-20T14:28:27.155Z</updated>
-    
-    
-    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
-    
-    
-    
-    
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
     
   </entry>
   
