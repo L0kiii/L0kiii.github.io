@@ -30,6 +30,29 @@
   </entry>
   
   <entry>
+    <title>JMX RMI RCE</title>
+    <link href="https://l0ki.net/2020/07/29/JMX-RMI-RCE/"/>
+    <id>https://l0ki.net/2020/07/29/JMX-RMI-RCE/</id>
+    <published>2020-07-29T03:37:00.000Z</published>
+    <updated>2024-04-20T17:37:14.192Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;JMX-RMI-RCE&quot;&gt;&lt;a href=&quot;#JMX-RMI-RCE&quot; class=&quot;headerlink&quot; title=&quot;JMX RMI RCE&quot;&gt;&lt;/a&gt;JMX RMI RCE&lt;/h2&gt;&lt;h3 id=&quot;JMX&quot;&gt;&lt;a href=&quot;#JMX&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Intranet Penetration" scheme="https://l0ki.net/tags/Intranet-Penetration/"/>
+    
+  </entry>
+  
+  <entry>
     <title>File Parsing Vulnerabilities</title>
     <link href="https://l0ki.net/2020/07/02/File-Parsing-Vulnerabilities/"/>
     <id>https://l0ki.net/2020/07/02/File-Parsing-Vulnerabilities/</id>
@@ -439,29 +462,6 @@
     
     
     <category term="CTF" scheme="https://l0ki.net/tags/CTF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>XSS-Wooyun Practice</title>
-    <link href="https://l0ki.net/2019/03/14/XSS-Wooyun-Practice/"/>
-    <id>https://l0ki.net/2019/03/14/XSS-Wooyun-Practice/</id>
-    <published>2019-03-14T12:29:00.000Z</published>
-    <updated>2024-04-20T16:55:50.165Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&amp;lt;1&amp;gt;&quot;&gt;&lt;/a&gt;&amp;lt;1&amp;gt;&lt;/h2&gt;&lt;p&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
     
   </entry>
   
