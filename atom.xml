@@ -360,6 +360,30 @@
   </entry>
   
   <entry>
+    <title>2019 Jiaweisi Cup Web</title>
+    <link href="https://l0ki.net/2019/03/20/2019-Jiaweisi-Cup-Web/"/>
+    <id>https://l0ki.net/2019/03/20/2019-Jiaweisi-Cup-Web/</id>
+    <published>2019-03-20T14:12:00.000Z</published>
+    <updated>2024-04-20T16:40:12.186Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;由于时间关系大部分我只给出解题过程，图就不贴了&lt;/p&gt;
+&lt;h2 id=&quot;1&quot;&gt;&lt;a href=&quot;#1&quot; class=&quot;headerlink&quot; title=&quot;1&quot;&gt;&lt;/a&gt;1&lt;/h2&gt;&lt;p&gt;试了一下发现union 不行，那就试试&lt;br&gt;报错注入：&lt;br&gt;and</summary>
+        
+      
+    
+    
+    
+    
+    <category term="CTF" scheme="https://l0ki.net/tags/CTF/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Sql Lab(41-65)</title>
     <link href="https://l0ki.net/2019/02/26/sql-lab(41-65)/"/>
     <id>https://l0ki.net/2019/02/26/sql-lab(41-65)/</id>
@@ -449,30 +473,6 @@
     
     
     <category term="Sql Lab" scheme="https://l0ki.net/tags/Sql-Lab/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HTML Quick Reference Notes</title>
-    <link href="https://l0ki.net/2019/01/19/HTML-Quick-Reference-Notes/"/>
-    <id>https://l0ki.net/2019/01/19/HTML-Quick-Reference-Notes/</id>
-    <published>2019-01-19T13:01:00.000Z</published>
-    <updated>2024-04-20T16:25:09.732Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-19afe47c8345a317.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
-&lt;h1 id=&quot;随笔&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
     
   </entry>
   
