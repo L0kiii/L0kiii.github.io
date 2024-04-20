@@ -13,7 +13,7 @@
   
   <title>
     
-      archive_a: 2019 
+      Troubleshooting Docker Installation on Kali Linux&#34; 
       
       
       |
@@ -113,57 +113,145 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2020</span>
-          </h2>
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Troubleshooting Docker Installation on Kali Linux"</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-04-20 20:47:38
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Issues/" title="Issues">
+                    #Issues
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>Kali安装docker:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span><br><span class="line">echo &#x27;deb https://apt.dockerproject.org/repo debian-stretch main&#x27; &gt; /etc/apt/sources.list.d/docker.list</span><br><span class="line">apt-get install apt-transport-https ca-certificates</span><br><span class="line">apt-get update &amp;&amp; sudo apt-get install docker-engine</span><br><span class="line">systemctl start docker</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>使用加速器加快镜像的下载</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi  /etc/docker/daemon.json</span><br><span class="line">输入一下内容即可</span><br><span class="line">&#123;&quot;registry-mirrors&quot;:[&quot;https://registry.docker-cn.com&quot;]&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Error"><a href="#Error" class="headerlink" title="Error:"></a>Error:</h3><p>如果用完docker未通过正确方式关闭，导致下次docker无法开启，那么解决方案：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 rm -rf /var/lib/docker/</span><br><span class="line">2 vim /etc/docker/daemon.json</span><br><span class="line">  添加如下内容：</span><br><span class="line">&#123; &quot;graph&quot;: &quot;/mnt/docker-data&quot;, &quot;storage-driver&quot;: &quot;overlay&quot; &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-04-20 20:47:38
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Issues/" title="Issues">
+                        #Issues
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2019/05/14/ISCC2019-MISC/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
         </div>
       
-      <div class="post-item" title="L0kiTown v1.0">
-        <div class="time-m-d">05-13</div>
-        <div class="title">
-          <a href="/2020/05/13/L0kiTown-v1.0/">
-            <span>L0kiTown v1.0</span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2019</span>
-          </h2>
-        </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
       
-      <div class="post-item" title="ISCC 2019-MISC">
-        <div class="time-m-d">05-14</div>
-        <div class="title">
-          <a href="/2019/05/14/ISCC2019-MISC/">
-            <span>ISCC 2019-MISC</span>
-          </a>
-        </div>
-      </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Error"><span class="toc-text">Error:</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      <div class="post-item" title="Troubleshooting Docker Installation on Kali Linux"">
-        <div class="time-m-d">05-14</div>
-        <div class="title">
-          <a href="/2019/05/14/Troubleshooting%20Docker%20Installation%20on%20Kali%20Linux/">
-            <span>Troubleshooting Docker Installation on Kali Linux"</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         
 <div class="footer">
@@ -413,6 +501,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Troubleshooting%20Docker%20Installation%20on%20Kali%20Linux%22 + '&url=' + https%3A%2F%2Fl0ki.net%2F2019%2F05%2F14%2FTroubleshooting%2520Docker%2520Installation%2520on%2520Kali%2520Linux%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2019/05/14/Troubleshooting%20Docker%20Installation%20on%20Kali%20Linux/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>
