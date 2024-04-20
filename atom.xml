@@ -53,6 +53,23 @@
   </entry>
   
   <entry>
+    <title>Default Login Credentials for Network Devices</title>
+    <link href="https://l0ki.net/2020/12/14/Default-Login-Credentials-Network-Devices/"/>
+    <id>https://l0ki.net/2020/12/14/Default-Login-Credentials-Network-Devices/</id>
+    <published>2020-12-14T08:20:00.000Z</published>
+    <updated>2024-04-20T18:45:56.202Z</updated>
+    
+    
+    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
+    
+    
+    
+    
+    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Redis Vulnerability Exploitation and Security Hardening</title>
     <link href="https://l0ki.net/2020/11/03/Redis-Vulnerability-Exploitation-and-Security-Hardening/"/>
     <id>https://l0ki.net/2020/11/03/Redis-Vulnerability-Exploitation-and-Security-Hardening/</id>
@@ -392,32 +409,6 @@
     
     
     <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Little Tips</title>
-    <link href="https://l0ki.net/2020/07/15/Marks/"/>
-    <id>https://l0ki.net/2020/07/15/Marks/</id>
-    <published>2020-07-15T02:57:00.000Z</published>
-    <updated>2024-04-20T18:16:37.701Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;7.15&lt;br&gt;对于腾讯系或阿里系,进行目录结构扫描时,dirsearch需要加参数-s 2或3（慢一点，不然扫不到）&lt;/p&gt;
-&lt;p&gt;7.27&lt;/p&gt;
-&lt;p&gt;使用nmap对端口服务探测 &lt;code&gt;nmap -sV -p port ip&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;开启的</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
     
   </entry>
   
