@@ -193,6 +193,23 @@
   </entry>
   
   <entry>
+    <title>Encountered Dubbo Deserialization Vulnerability in Practice</title>
+    <link href="https://l0ki.net/2020/07/14/Practical-Dubbo-Deserialization-Vulnerability/"/>
+    <id>https://l0ki.net/2020/07/14/Practical-Dubbo-Deserialization-Vulnerability/</id>
+    <published>2020-07-14T10:56:00.000Z</published>
+    <updated>2024-04-20T18:28:49.507Z</updated>
+    
+    
+    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
+    
+    
+    
+    
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
     <title>3 Common Types of Error-SQL Injection</title>
     <link href="https://l0ki.net/2020/07/12/3-Common-Error-SQL-Injection/"/>
     <id>https://l0ki.net/2020/07/12/3-Common-Error-SQL-Injection/</id>
@@ -426,29 +443,6 @@
     
     
     <category term="CTF" scheme="https://l0ki.net/tags/CTF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Common Ports, Corresponding Services, and Intrusion Approaches</title>
-    <link href="https://l0ki.net/2020/06/16/Common-Ports-Services-and-Intrusion-Approaches/"/>
-    <id>https://l0ki.net/2020/06/16/Common-Ports-Services-and-Intrusion-Approaches/</id>
-    <published>2020-06-15T17:57:00.000Z</published>
-    <updated>2024-04-20T18:06:00.308Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;0x01-端口服务及利用简析&quot;&gt;&lt;a href=&quot;#0x01-端口服务及利用简析&quot; class=&quot;headerlink&quot; title=&quot;0x01 端口服务及利用简析&quot;&gt;&lt;/a&gt;0x01 端口服务及利用简析&lt;/h2&gt;&lt;h3 id=&quot;1-1-文件共享服务端口&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
     
   </entry>
   
