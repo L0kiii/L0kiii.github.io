@@ -325,6 +325,25 @@
     </entry>
     
     
+    
+    <entry>
+      <title>JAVA Environment Variable Configuration</title>
+      <link href="/2018/12/08/JAVA-Environment-Variable-Configuration/"/>
+      <url>/2018/12/08/JAVA-Environment-Variable-Configuration/</url>
+      
+        <content type="html"><![CDATA[<p><strong>本篇主要从3个方面入手，具体从下载——安装——配置——测试，解决经常出现的问题。</strong></p><hr><h2 id="提纲："><a href="#提纲：" class="headerlink" title="提纲："></a><strong>提纲：</strong></h2><p><em><strong>1.JAVA环境安装包</strong></em></p><p><em><strong>2.JAVA环境安装</strong></em></p><p><em><strong>3.JAVA环境配置</strong></em></p><p><em><strong>4.JAVA环境测试</strong></em></p><hr><h2 id="（一）JAVA环境安装包"><a href="#（一）JAVA环境安装包" class="headerlink" title="（一）JAVA环境安装包"></a><strong>（一）JAVA环境安装包</strong></h2><p>链接：<a href="https://pan.baidu.com/s/1dXknN5u3H4Fxol6u_BMNcw">https://pan.baidu.com/s/1dXknN5u3H4Fxol6u_BMNcw</a></p><p>提取码：ytz9</p><h2 id="（二）JAVA环境安装"><a href="#（二）JAVA环境安装" class="headerlink" title="（二）JAVA环境安装"></a><strong>（二）JAVA环境安装</strong></h2><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-ead00713757397a7.jpg" alt="img"></p><p><strong>注意</strong></p><p>必须时系统C盘，否则在接下来配置的时候找不到文件等等各种问题，导致配置失败。</p><h2 id="（三）JAVA环境配置"><a href="#（三）JAVA环境配置" class="headerlink" title="（三）JAVA环境配置"></a><strong>（三）JAVA环境配置</strong></h2><p>a. 打开环境变量配置</p><p>1）打开控制面板——系统和安全</p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-62751bf8dadd0ce6.png" alt="img"></p><p>2）点击查看RAM的大小和处理器速度</p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-ff3bdbdbcaac3f9f.png" alt="img"></p><p>3）点击左侧高级系统设置</p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-8172a2be3c3bd63f.png" alt="img"></p><p>4)点击环境变量</p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-16d1c7f4ed70821d.png" alt="img"></p><p>b. 配置环境变量</p><p>1). JAVA_HOME 系统默认是没有的 需要新建</p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-bc982da8adb9fb4b.png" alt="img"></p><p>2)变量名写JAVA_HOME</p><p>变量值写jdk的安装目录, 也就是之前的解压jdk的目录 你可以先找到这个路径 然后复制过来(比如下图中的红色部分)——C:\Program Files\Java\jre1.8.0_191</p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-d9aa798fb6edd159.png" alt="img"></p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-e450d96cacc1549c.png" alt="img"></p><p>3)新建系统变量CLASSPATH</p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-8cf636fc9802e36d.png" alt="img"></p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-cb12cd4918c0c94a.png" alt="img"></p><p><em><strong>注意需要将选中的所有字输入</strong></em></p><p><em><strong>.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;</strong></em></p><p><em><strong>（上述从.开始到;结束都是需要输入的）</strong></em></p><p>4）在系统变量中找到Path,双击出现如下</p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-ea543dfde1ba3a2c.png" alt="img"></p><p>双击后</p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-c93ae72a3a00ad39.png" alt="img"></p><p>5）双击后点击新建（新建两次）</p><p>第一次输入 <strong>%JAVA_HOME%\bin</strong></p><p>第二次输入 <strong>%JAVA_HOME%\jre\bin</strong></p><p>点击确定</p><h2 id="（四）JAVA环境测试"><a href="#（四）JAVA环境测试" class="headerlink" title="（四）JAVA环境测试"></a><strong>（四）JAVA环境测试</strong></h2><p>1）打开cmd<br>win键（键盘上的四个小方块组成的一个大方块）+r 输入cmd</p><p>2）输入java</p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-ff1e406459007bdc.png" alt="img"></p><p>如果出现类似上述的情况，那么！！！！</p><p>恭喜你！配置成功！！</p><h2 id="但是"><a href="#但是" class="headerlink" title="但是"></a><strong>但是</strong></h2><h3 id="如果出现"><a href="#如果出现" class="headerlink" title="如果出现"></a>如果出现</h3><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-a973208ca688f669.png" alt="img"></p><p>那么只好按照上述步骤从新捋一遍，找到配置不到位的部分。</p><p>以上是本人在配置环境时的拙见，希望能给即将配置环境的朋友提供方便~</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Notes </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
   
   
 </search>
