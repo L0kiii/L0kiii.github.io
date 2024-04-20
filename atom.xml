@@ -99,6 +99,23 @@
   </entry>
   
   <entry>
+    <title>Axis2 Weak Password GetShell</title>
+    <link href="https://l0ki.net/2020/07/29/Axis2-Weak-Password-GetShell/"/>
+    <id>https://l0ki.net/2020/07/29/Axis2-Weak-Password-GetShell/</id>
+    <published>2020-07-29T03:39:00.000Z</published>
+    <updated>2024-04-20T18:31:30.286Z</updated>
+    
+    
+    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
+    
+    
+    
+    
+    <category term="Intranet Penetration" scheme="https://l0ki.net/tags/Intranet-Penetration/"/>
+    
+  </entry>
+  
+  <entry>
     <title>JMX RMI RCE</title>
     <link href="https://l0ki.net/2020/07/29/JMX-RMI-RCE/"/>
     <id>https://l0ki.net/2020/07/29/JMX-RMI-RCE/</id>
@@ -413,29 +430,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;触发事件XSS语句的总结&quot;&gt;&lt;a href=&quot;#触发事件XSS语句的总结&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CBC Byte Flipping Attack</title>
-    <link href="https://l0ki.net/2020/06/29/CBC-Byte-Flipping-Attack/"/>
-    <id>https://l0ki.net/2020/06/29/CBC-Byte-Flipping-Attack/</id>
-    <published>2020-06-29T03:55:00.000Z</published>
-    <updated>2024-04-20T18:07:42.032Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;0x01-什么是CBC字节翻转&quot;&gt;&lt;a href=&quot;#0x01-什么是CBC字节翻转&quot; class=&quot;headerlink&quot; title=&quot;0x01 什么是CBC字节翻转&quot;&gt;&lt;/a&gt;0x01</summary>
         
       
     
