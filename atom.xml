@@ -44,7 +44,7 @@
     <link href="https://l0ki.net/2020/05/14/2020HW-Cheat-Sheet/"/>
     <id>https://l0ki.net/2020/05/14/2020HW-Cheat-Sheet/</id>
     <published>2020-05-14T11:46:00.000Z</published>
-    <updated>2024-04-20T14:24:21.799Z</updated>
+    <updated>2024-04-20T14:28:27.155Z</updated>
     
     
     <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
@@ -76,6 +76,29 @@
     
     
     <category term="Tools" scheme="https://l0ki.net/tags/Tools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>From Basics to Analysis with Wireshark [1]</title>
+    <link href="https://l0ki.net/2020/05/05/From-Basics-to-Analysis-with-Wireshark-1/"/>
+    <id>https://l0ki.net/2020/05/05/From-Basics-to-Analysis-with-Wireshark-1/</id>
+    <published>2020-05-05T11:47:00.000Z</published>
+    <updated>2024-04-20T15:55:43.164Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;数据分析基础&quot;&gt;&lt;a href=&quot;#数据分析基础&quot; class=&quot;headerlink&quot; title=&quot;数据分析基础&quot;&gt;&lt;/a&gt;数据分析基础&lt;/h2&gt;&lt;h4 id=&quot;数据包分析概念&quot;&gt;&lt;a href=&quot;#数据包分析概念&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
     
   </entry>
   
