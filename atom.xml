@@ -76,6 +76,23 @@
   </entry>
   
   <entry>
+    <title>Red Team Operations Manual</title>
+    <link href="https://l0ki.net/2020/06/14/Red-Team-Operations-Manual/"/>
+    <id>https://l0ki.net/2020/06/14/Red-Team-Operations-Manual/</id>
+    <published>2020-06-14T04:35:00.000Z</published>
+    <updated>2024-04-20T17:52:06.913Z</updated>
+    
+    
+    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
+    
+    
+    
+    
+    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>PHP Protocols and File Inclusion Vulnerabilities</title>
     <link href="https://l0ki.net/2020/05/25/PHP-Protocols-and-File-Inclusion-Vulnerabilities/"/>
     <id>https://l0ki.net/2020/05/25/PHP-Protocols-and-File-Inclusion-Vulnerabilities/</id>
@@ -438,29 +455,6 @@
     
     
     <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ISCC 2019-MISC</title>
-    <link href="https://l0ki.net/2019/05/14/ISCC2019-MISC/"/>
-    <id>https://l0ki.net/2019/05/14/ISCC2019-MISC/</id>
-    <published>2019-05-14T11:29:00.000Z</published>
-    <updated>2024-04-20T16:48:43.216Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;Misc&quot;&gt;&lt;a href=&quot;#Misc&quot; class=&quot;headerlink&quot; title=&quot;Misc&quot;&gt;&lt;/a&gt;Misc&lt;/h2&gt;&lt;h3 id=&quot;1&quot;&gt;&lt;a href=&quot;#1&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="CTF" scheme="https://l0ki.net/tags/CTF/"/>
     
   </entry>
   
