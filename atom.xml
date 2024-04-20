@@ -30,6 +30,29 @@
   </entry>
   
   <entry>
+    <title>Basic Idea and Principle of Domain Fronting</title>
+    <link href="https://l0ki.net/2021/04/02/Basic-Idea-and-Principle-of-Domain-Fronting/"/>
+    <id>https://l0ki.net/2021/04/02/Basic-Idea-and-Principle-of-Domain-Fronting/</id>
+    <published>2021-04-02T02:38:00.000Z</published>
+    <updated>2024-04-20T18:43:11.077Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;0x01-前言&quot;&gt;&lt;a href=&quot;#0x01-前言&quot; class=&quot;headerlink&quot; title=&quot;0x01 前言&quot;&gt;&lt;/a&gt;0x01 前言&lt;/h1&gt;&lt;p&gt;就在昨天——愚人节，开普勒安全团队发生了一件这样的事，具体看&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Redis Vulnerability Exploitation and Security Hardening</title>
     <link href="https://l0ki.net/2020/11/03/Redis-Vulnerability-Exploitation-and-Security-Hardening/"/>
     <id>https://l0ki.net/2020/11/03/Redis-Vulnerability-Exploitation-and-Security-Hardening/</id>
@@ -395,23 +418,6 @@
     
     
     <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Encountered Dubbo Deserialization Vulnerability in Practice</title>
-    <link href="https://l0ki.net/2020/07/14/Practical-Dubbo-Deserialization-Vulnerability/"/>
-    <id>https://l0ki.net/2020/07/14/Practical-Dubbo-Deserialization-Vulnerability/</id>
-    <published>2020-07-14T10:56:00.000Z</published>
-    <updated>2024-04-20T18:28:49.507Z</updated>
-    
-    
-    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
-    
-    
-    
-    
-    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
     
   </entry>
   

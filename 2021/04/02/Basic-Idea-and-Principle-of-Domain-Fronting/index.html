@@ -13,6 +13,11 @@
   
   <title>
     
+      Basic Idea and Principle of Domain Fronting 
+      
+      
+      |
+    
      L0ki&#39;s Website
   </title>
 
@@ -153,22 +158,51 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title"></div>
+      <div class="post-title">Basic Idea and Principle of Domain Fronting</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-04-21 01:04:32
+          2024-04-21 02:43:11
         </span>
         
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Notes/" title="Notes">
+                    #Notes
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
       <div class="markdown-body">
-        
+        <h1 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01 前言"></a>0x01 前言</h1><p>就在昨天——愚人节，开普勒安全团队发生了一件这样的事，具体看<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/452446051">知乎</a></p>
+<p>由此，引出了一个名词——域前置&#x2F;域前端。</p>
+<h1 id="0x02-什么是域前置？"><a href="#0x02-什么是域前置？" class="headerlink" title="0x02 什么是域前置？"></a>0x02 什么是域前置？</h1><p>我们来看百度百科是如何解释的</p>
+<blockquote>
+<p><strong>域前置</strong>（英语：Domain fronting），又译为域名幌子，是一种隐藏连接真实端点来规避互联网审查的技术。在<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E5%B1%82/16412033">应用层</a>上运作时，域前置使用户能通过<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/HTTPS/285356">HTTPS</a>连接到被屏蔽的服务，而表面上像在与另一个完全不同的站点通信。</p>
+</blockquote>
+<p>简言之，Domain Fronting基于HTTPS通用规避技术，也被称为域前端网络攻击技术。</p>
+<p>这是一种审查规避技术，主要用于隐蔽通信中会被禁止的远程端点，如用来隐藏Metasploit，Cobalt Strike等团队控制服务器流量，以此来一定程度绕过检查器或防火墙检测的技术，如Amazon ,Google，Akamai 等大型厂商会提供一些域前端技术服务。</p>
+<h1 id="0x03-域前置的技术原理是什么？"><a href="#0x03-域前置的技术原理是什么？" class="headerlink" title="0x03 域前置的技术原理是什么？"></a>0x03 域前置的技术原理是什么？</h1><p>需要明白域前置技术的使用场景和特点：<br>域前置发生在应用层，主要使用了HTTPS协议进行通信。<br>易于部署和使用，不需要任何特殊的网络媒介。</p>
+<p>需要明白检测器可见的明文层（通信外层）是：<br>DNS请求和TLS SNI</p>
+<p>需要明白检测器不可见的加密层（通信内层）是：<br>HTTP层，HTTP Host Header的域名会在HTTPS加密之下</p>
+<blockquote>
+<p>Host头对于检查器是不可见的，但是对于接收HTTPS请求的前端服务器是可见的</p>
+</blockquote>
+<p>那么由此就延伸出第一个问题：如何绕过检测？<br>使用域前置技术，让检测器误认为是一个其他的合法地址，即在不同的通信层使用不同的域名，我们在检测器可见的明文层（明文的DNS请求和TLS SNI服务器名称指示）使用一个无害的域名(allowed.domain)进行初始化连接；我们在检测器不可见的加密层（HTTP层）在Host头中使用另一个恶意域名(evil.domain)，其中evil.domain是我们真实但隐蔽的域名，这个域名由于在HTTPS加密之下，所以对检测器而言是不可见的。</p>
+<p>最终的执行流程是这样的：明文的DNS请求和TLS服务器名称指示（SNI）中使用无害的域名(allowed.domain)来初始化连接，而实际要连接的被禁止的域名仅在创建加密的HTTPS连接后发出，在Host头中携带了另一个C2恶意域名(evil.domain)。</p>
+<p>那么由此就延伸出第二个问题：为什么这样做就可以绕过检测？<br>对于检测器而言，它很难在通信流量中判断一个域名是否使用了域前置技术，留给它的选项只能是放行和完全禁止，而事实上在通信中大部分是不会使用域前置技术，如果完全禁止，那么很有可能造成误伤，误伤则可能会带来严重的附带损害。</p>
+<p>所以，域前置技术的核心基础设施是cdn。</p>
+
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2021/04/02/Basic-Idea-and-Principle-of-Domain-Fronting/" target="_self">
+              <a href="/2020/11/03/Redis-Vulnerability-Exploitation-and-Security-Hardening/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -177,17 +211,50 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-04-21 01:04:32
+              2024-04-21 02:43:11
             </span>
             
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Notes/" title="Notes">
+                        #Notes
+                      </a>
+                    </span>
+                    
+                  </span>
+              
           </div>
           <div class="post-foot-prev">
+            
+              <a href="/2024/04/21/SQL-Injection-Types/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
             
           </div>
         </div>
       
     </div>
     
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0x01-%E5%89%8D%E8%A8%80"><span class="toc-text">0x01 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x02-%E4%BB%80%E4%B9%88%E6%98%AF%E5%9F%9F%E5%89%8D%E7%BD%AE%EF%BC%9F"><span class="toc-text">0x02 什么是域前置？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-%E5%9F%9F%E5%89%8D%E7%BD%AE%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">0x03 域前置的技术原理是什么？</span></a></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
 
     
       <div class="comments-container">
@@ -459,12 +526,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' +  + '&url=' + https%3A%2F%2Fl0ki.net%2F2024%2F04%2F21%2FSQL-Injection-Types%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Basic%20Idea%20and%20Principle%20of%20Domain%20Fronting + '&url=' + https%3A%2F%2Fl0ki.net%2F2021%2F04%2F02%2FBasic-Idea-and-Principle-of-Domain-Fronting%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2024/04/21/SQL-Injection-Types/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2021/04/02/Basic-Idea-and-Principle-of-Domain-Fronting/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
