@@ -195,6 +195,29 @@
   </entry>
   
   <entry>
+    <title>Common Defenses and Bypass Techniques for SQL Injection</title>
+    <link href="https://l0ki.net/2020/07/07/Common-SQL-Injection-Defenses-and-Bypasses/"/>
+    <id>https://l0ki.net/2020/07/07/Common-SQL-Injection-Defenses-and-Bypasses/</id>
+    <published>2020-07-07T06:28:00.000Z</published>
+    <updated>2024-04-20T18:19:03.193Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;0x01-PHP防御的几种姿势&quot;&gt;&lt;a href=&quot;#0x01-PHP防御的几种姿势&quot; class=&quot;headerlink&quot; title=&quot;0x01 PHP防御的几种姿势&quot;&gt;&lt;/a&gt;0x01 PHP防御的几种姿势&lt;/h2&gt;&lt;h3 id=&quot;关闭错误提示&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
     <title>CVE-2020-5902: F5 BIG-IP Remote Code Execution Vulnerability</title>
     <link href="https://l0ki.net/2020/07/06/CVE-2020-5902/"/>
     <id>https://l0ki.net/2020/07/06/CVE-2020-5902/</id>
@@ -438,29 +461,6 @@
     
     
     <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hash Length Extension Attack</title>
-    <link href="https://l0ki.net/2020/05/17/Hash-Length-Extension-Attack/"/>
-    <id>https://l0ki.net/2020/05/17/Hash-Length-Extension-Attack/</id>
-    <published>2020-05-17T14:23:00.000Z</published>
-    <updated>2024-04-20T17:35:13.163Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;0×01-前言&quot;&gt;&lt;a href=&quot;#0×01-前言&quot; class=&quot;headerlink&quot; title=&quot;0×01 前言&quot;&gt;&lt;/a&gt;0×01 前言&lt;/h2&gt;&lt;p&gt;哈希长度扩展攻击利用了 md5、sha1</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
     
   </entry>
   
