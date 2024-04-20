@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>L0kiTown v1.0</title>
+      <link href="/2024/04/20/L0kiTown%20v1.0/"/>
+      <url>/2024/04/20/L0kiTown%20v1.0/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一直想集成一套学习中心,终于抽身做了出来.<br>1.0集合了渗透测试实验室，渗透测试工具,渗透测试靶场,网盘,以及资源分享中心<br><a href="https://demo.l0ki.top/">地址</a></p><h2 id="食用说明"><a href="#食用说明" class="headerlink" title="食用说明"></a>食用说明</h2><p><img src="https://l0ki.top/usr/uploads/2020/08/3871374550.png" alt="image.png"></p><h3 id="KODBOX"><a href="#KODBOX" class="headerlink" title="KODBOX"></a>KODBOX</h3><p>KODBOX模块为网盘和文档协作等等,需要注册。<br><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200602205103699.png" alt="image-20200602205103699"></p><h3 id="Pentest-Lab"><a href="#Pentest-Lab" class="headerlink" title="Pentest Lab"></a>Pentest Lab</h3><p>Pentest Lab模块为渗透测试实验室,暂不对外开放,目前仅供本人学习使用.</p><h3 id="Share-Center"><a href="#Share-Center" class="headerlink" title="Share Center"></a>Share Center</h3><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200602205213381.png" alt="image-20200602205213381"><br>Share Center模块为共享中心,里面集成渗透测试靶场，渗透测试工具，资源分享中心</p><h4 id="Pentest-Ranges"><a href="#Pentest-Ranges" class="headerlink" title="Pentest Ranges"></a>Pentest Ranges</h4><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200604143044397.png" alt="image-20200604143044397"><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200604143107832.png" alt="image-20200604143107832"><br>渗透测试靶场,该模块集成所有可以使用的靶场,仅供学习。</p><h4 id="Pentest-Tools"><a href="#Pentest-Tools" class="headerlink" title="Pentest Tools"></a>Pentest Tools</h4><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200604143117977.png" alt="image-20200604143117977"><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200604143135098.png" alt="image-20200604143135098"><br>渗透测试工具箱,该模块集成可供利用的渗透测试工具,其中PocBox为米斯特安全团队出品,可结合DoraBox靶场使用。</p><h4 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h4><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200604143157969.png" alt="image-20200604143157969"><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200604143210690.png" alt="image-20200604143210690"><br>资源中心,该模块集成可供学习下载的pdf资源,如小程序开发,蓝队体系建设等.</p><h3 id="Contact-Me"><a href="#Contact-Me" class="headerlink" title="Contact Me"></a>Contact Me</h3><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200602205841633.png" alt="image-20200602205841633"><br>该模块为本人博客,可供学习参考.</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>L0kiTown初衷作为本人学习使用,如果对大家学习使用有帮助后续会继续升级，不断优化,如果有什么建议,欢迎大家留言.</p><h4 id="待开发"><a href="#待开发" class="headerlink" title="待开发"></a>待开发</h4><ul><li>博客wiki，<a href="https://www.mi1k7ea.com/tags/">参考</a></li><li>制作工具箱</li><li>引入本地渗透工具跳转链接</li><li>ifream在线代码编写</li><li>markdown解析代码</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Tools </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hello World</title>
       <link href="/2024/04/09/hello-world/"/>
       <url>/2024/04/09/hello-world/</url>
