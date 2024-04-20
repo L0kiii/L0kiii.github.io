@@ -6,7 +6,7 @@
   <link href="https://l0ki.net/atom.xml" rel="self"/>
   
   <link href="https://l0ki.net/"/>
-  <updated>2024-04-20T12:37:02.954Z</updated>
+  <updated>2024-04-20T13:53:55.212Z</updated>
   <id>https://l0ki.net/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PHP Protocols and File Inclusion Vulnerabilities</title>
+    <link href="https://l0ki.net/2020/05/25/PHP-Protocols-and-File-Inclusion-Vulnerabilities/"/>
+    <id>https://l0ki.net/2020/05/25/PHP-Protocols-and-File-Inclusion-Vulnerabilities/</id>
+    <published>2020-05-24T16:25:00.000Z</published>
+    <updated>2024-04-20T13:53:55.212Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;0x01-PHP伪协议&quot;&gt;&lt;a href=&quot;#0x01-PHP伪协议&quot; class=&quot;headerlink&quot; title=&quot;0x01 PHP伪协议&quot;&gt;&lt;/a&gt;0x01</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    
+  </entry>
   
   <entry>
     <title>L0kiTown v1.0</title>
