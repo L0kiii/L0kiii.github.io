@@ -13,7 +13,7 @@
   
   <title>
     
-      Tags 
+      GitHub Search Syntax 
       
       
       |
@@ -147,21 +147,119 @@
 
 
 
-  <!-- 标签页 url形式：https://yoursite/tags/ -->
-  <div class="container tag-index">
-    <div>
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/" rel="tag">CTF</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intranet-Penetration/" rel="tag">Intranet Penetration</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Issues/" rel="tag">Issues</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Notes/" rel="tag">Notes</a><span class="tag-list-count">27</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql-Lab/" rel="tag">Sql Lab</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vulnerabilities/" rel="tag">Vulnerabilities</a><span class="tag-list-count">22</span></li></ul>
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">GitHub Search Syntax</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-04-21 02:48:27
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Notes/" title="Notes">
+                    #Notes
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="Github的搜索语法："><a href="#Github的搜索语法：" class="headerlink" title="Github的搜索语法："></a>Github的搜索语法：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">in</span>:name <span class="built_in">test</span>               <span class="comment">#仓库标题搜索含有关键字 SpringCloud</span></span><br><span class="line"><span class="keyword">in</span>:descripton <span class="built_in">test</span>         <span class="comment">#仓库描述搜索含有关键字</span></span><br><span class="line"><span class="keyword">in</span>:readme <span class="built_in">test</span>             <span class="comment">#Readme文件搜素含有关键字</span></span><br><span class="line">stars:&gt;3000 <span class="built_in">test</span>           <span class="comment">#stars数量大于3000的搜索关键字</span></span><br><span class="line">stars:1000..3000 <span class="built_in">test</span>      <span class="comment">#stars数量大于1000小于3000的搜索关键字</span></span><br><span class="line">forks:&gt;1000 <span class="built_in">test</span>           <span class="comment">#forks数量大于1000的搜索关键字</span></span><br><span class="line">forks:1000..3000 <span class="built_in">test</span>      <span class="comment">#forks数量大于1000小于3000的搜索关键字</span></span><br><span class="line">size:&gt;=5000 <span class="built_in">test</span>           <span class="comment">#指定仓库大于5000k(5M)的搜索关键字</span></span><br><span class="line">pushed:&gt;2019-02-12 <span class="built_in">test</span>    <span class="comment">#发布时间大于2019-02-12的搜索关键字</span></span><br><span class="line">created:&gt;2019-02-12 <span class="built_in">test</span>   <span class="comment">#创建时间大于2019-02-12的搜索关键字</span></span><br><span class="line">user:<span class="built_in">test</span>                  <span class="comment">#用户名搜素</span></span><br><span class="line">license:apache-2.0 <span class="built_in">test</span>    <span class="comment">#明确仓库的 LICENSE 搜索关键字</span></span><br><span class="line">language:java <span class="built_in">test</span>         <span class="comment">#在java语言的代码中搜索关键字</span></span><br><span class="line">user:<span class="built_in">test</span> <span class="keyword">in</span>:name <span class="built_in">test</span>     <span class="comment">#组合搜索,用户名test的标题含有test的</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-Github-进行邮件配置信息收集"><a href="#使用-Github-进行邮件配置信息收集" class="headerlink" title="使用 Github 进行邮件配置信息收集"></a>使用 Github 进行邮件配置信息收集</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">site:Github.com smtp</span><br><span class="line"> </span><br><span class="line">site:Github.com smtp @qq.com</span><br><span class="line"> </span><br><span class="line">site:Github.com smtp @126.com</span><br><span class="line"> </span><br><span class="line">site:Github.com smtp @163.com</span><br><span class="line"> </span><br><span class="line">site:Github.com smtp @sina.com.cn</span><br><span class="line"> </span><br><span class="line">site:Github.com smtp password</span><br><span class="line"> </span><br><span class="line">site:Github.com String password smtp</span><br><span class="line"> </span><br><span class="line">……</span><br><span class="line"> </span><br><span class="line">我们也可以锁定域名搜索结合厂商域名 灵活运用例如搜百度的</span><br><span class="line"> </span><br><span class="line">site:Github.com smtp @baidu.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用Github进行数据库信息收集"><a href="#使用Github进行数据库信息收集" class="headerlink" title="使用Github进行数据库信息收集"></a>使用Github进行数据库信息收集</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">site:Github.com sa password</span><br><span class="line"> </span><br><span class="line">site:Github.com root password</span><br><span class="line"> </span><br><span class="line">site:Github.com User ID=’sa’;Password</span><br><span class="line"> </span><br><span class="line">site:Github.com inurl:sql</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用Github进行-SVN-信息收集"><a href="#使用Github进行-SVN-信息收集" class="headerlink" title="使用Github进行 SVN 信息收集"></a>使用Github进行 SVN 信息收集</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">site:Github.com svn</span><br><span class="line"> </span><br><span class="line">site:Github.com svn username</span><br><span class="line"> </span><br><span class="line">site:Github.com svn password</span><br><span class="line"> </span><br><span class="line">site:Github.com svn username password </span><br></pre></td></tr></table></figure>
+
+<h2 id="使用Github进行综合信息收集"><a href="#使用Github进行综合信息收集" class="headerlink" title="使用Github进行综合信息收集"></a>使用Github进行综合信息收集</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">site:Github.com password</span><br><span class="line"> </span><br><span class="line">site:Github.com ftp ftppassword</span><br><span class="line"> </span><br><span class="line">site:Github.com 密码</span><br><span class="line"> </span><br><span class="line">site:Github.com 内部</span><br></pre></td></tr></table></figure>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2020/12/14/Default-Login-Credentials-Network-Devices/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-04-21 02:48:27
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Notes/" title="Notes">
+                        #Notes
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2021/04/02/Basic-Idea-and-Principle-of-Domain-Fronting/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Github%E7%9A%84%E6%90%9C%E7%B4%A2%E8%AF%AD%E6%B3%95%EF%BC%9A"><span class="toc-text">Github的搜索语法：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Github-%E8%BF%9B%E8%A1%8C%E9%82%AE%E4%BB%B6%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">使用 Github 进行邮件配置信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Github%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">使用Github进行数据库信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Github%E8%BF%9B%E8%A1%8C-SVN-%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">使用Github进行 SVN 信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Github%E8%BF%9B%E8%A1%8C%E7%BB%BC%E5%90%88%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">使用Github进行综合信息收集</span></a></li></ol>
+      
     </div>
   </div>
-  
 
   
+<script src="/js/catalog.js"></script>
 
-  
 
-  
 
-  
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
 
         
 <div class="footer">
@@ -418,12 +516,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Tags + '&url=' + https%3A%2F%2Fl0ki.net%2Ftags%2Findex.html + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + GitHub%20Search%20Syntax + '&url=' + https%3A%2F%2Fl0ki.net%2F2020%2F12%2F15%2FGitHub-Search-Syntax%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/tags/index.html" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2020/12/15/GitHub-Search-Syntax/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
