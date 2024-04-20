@@ -30,6 +30,29 @@
   </entry>
   
   <entry>
+    <title>Redis Vulnerability Exploitation and Security Hardening</title>
+    <link href="https://l0ki.net/2020/11/03/Redis-Vulnerability-Exploitation-and-Security-Hardening/"/>
+    <id>https://l0ki.net/2020/11/03/Redis-Vulnerability-Exploitation-and-Security-Hardening/</id>
+    <published>2020-11-03T15:25:00.000Z</published>
+    <updated>2024-04-20T18:41:58.016Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;0x00-导语&quot;&gt;&lt;a href=&quot;#0x00-导语&quot; class=&quot;headerlink&quot; title=&quot;0x00 导语&quot;&gt;&lt;/a&gt;0x00</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Github Monitor Pro Batch Script</title>
     <link href="https://l0ki.net/2020/08/11/Github-Monitor-Pro-Batch-Script/"/>
     <id>https://l0ki.net/2020/08/11/Github-Monitor-Pro-Batch-Script/</id>
@@ -384,29 +407,6 @@
     
     
     <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
-    
-    
-    
-    
-    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>3 Common Types of Error-SQL Injection</title>
-    <link href="https://l0ki.net/2020/07/12/3-Common-Error-SQL-Injection/"/>
-    <id>https://l0ki.net/2020/07/12/3-Common-Error-SQL-Injection/</id>
-    <published>2020-07-12T09:30:00.000Z</published>
-    <updated>2024-04-20T18:13:35.903Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;exp&quot;&gt;&lt;a href=&quot;#exp&quot; class=&quot;headerlink&quot; title=&quot;exp()&quot;&gt;&lt;/a&gt;exp()&lt;/h2&gt;&lt;h3 id=&quot;原理概述&quot;&gt;&lt;a href=&quot;#原理概述&quot; class=&quot;headerlink&quot;</summary>
-        
-      
     
     
     
