@@ -13,7 +13,7 @@
   
   <title>
     
-      archive_a: 2019/5 
+      Notes on Gathering Information-1 
       
       
       |
@@ -113,66 +113,207 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2020</span>
-          </h2>
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Notes on Gathering Information-1</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-04-20 21:06:06
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Notes/" title="Notes">
+                    #Notes
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h1><ul>
+<li><p>HTTrack:网站克隆</p>
+</li>
+<li><p>Google指令——利用谷歌搜索实践</p>
+</li>
+<li><p>The Harvester:挖掘并利用邮箱地址</p>
+</li>
+<li><p>Whois</p>
+</li>
+<li><p>Netcraft</p>
+</li>
+<li><p>host 工具</p>
+</li>
+<li><p>从DNS中提取信息</p>
+</li>
+<li><p>从电子邮件服务器中提取信息</p>
+</li>
+<li><p>MetaGooFil</p>
+</li>
+<li><p>社会工程学</p>
+</li>
+<li><p>筛选提炼信息：找到可攻击目标</p>
+</li>
+</ul>
+<h1 id="对信息收集的认识误区"><a href="#对信息收集的认识误区" class="headerlink" title="对信息收集的认识误区"></a>对信息收集的认识误区</h1><p>信息收集是渗透测试的中最不受重视的一个环节</p>
+<blockquote>
+<p>这样的认识很明显是打错特所的，正相反，这是最重要的一步，但也是最容易被忽略的一步，那么它的影响程度到底有多大呢？<br>可以毫不夸张的说，在收集目标信息上所花费的时间越多，后续阶段的成功率也就越高。</p>
+</blockquote>
+<h1 id="信息收集浅谈"><a href="#信息收集浅谈" class="headerlink" title="信息收集浅谈"></a>信息收集浅谈</h1><p>信息收集主要分为主动和被动</p>
+<p>主动收集：与目标系统的直接交互，目标系统可能会记录下我们的IP地址及活动</p>
+<p>被动收集：利用Google获取海量信息，不会与目标交互，不会被记录活动</p>
+<p>信息收集的目的在于尽可能多的收集与目标相关的信息。并且收集信息的时候要尽可能将数据集中保存起来。</p>
+<h3 id="HTTrack"><a href="#HTTrack" class="headerlink" title="HTTrack"></a>HTTrack</h3><p>当浏览或者探测某个网站的时间越多，那么我们的活动就越有可能被跟踪(哪怕只是随意的浏览网站)，只要是属于目标的资源，任何时候与之交互都有可能留下痕迹。</p>
+<p>利用HTTrack我们可以从某个网站的本地副本中提取额外或者隐藏的信息<br>HTTrack可以将整个网页逐页下载下来，通过它可以建立完全的脱机副本。<br>Kali命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install webhttrack</span><br></pre></td></tr></table></figure>
+
+<h3 id="关注点"><a href="#关注点" class="headerlink" title="关注点"></a>关注点</h3><p>物理地址和位置、电话号码、电子邮箱地址、运营时间、商业关系、员工姓名、与社会化媒体的联系、以及其他公开的花絮趣闻等等</p>
+<p>综上所述，我们要彻查目标网站，对目标有一个全面的了解：是什么(这是一家什么样的公司)、做什么(具体做什么业务)、公司设在哪里。</p>
+<p>在有了这些基本信息之后，我们可以进入被动侦察(即，被动收集)阶段。</p>
+<h3 id="被动侦察"><a href="#被动侦察" class="headerlink" title="被动侦察"></a>被动侦察</h3><p>首先要做的事利用各大搜索引擎对目标进行地毯式的搜索</p>
+<p>不过 仅仅利用好谷歌，我们就可以完成整个渗透测试工作<br>(推荐看Google Hacking  作者:Jonny)</p>
+<p>不得不提一点，在我们被动侦擦过程中，如果我们点击搜索结果的任何一条链接，都会与目标建立系统的联系，也就回到了主动侦察的模式。。。。。</p>
+<h3 id="Google指令——搜索实践"><a href="#Google指令——搜索实践" class="headerlink" title="Google指令——搜索实践"></a>Google指令——搜索实践</h3><p>指令格式：<br>1)你想要用的指令<br>2)半角冒号<br>3)指令中要用到的具体内容</p>
+<p>Eg:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">site:domain term(搜索某网站我们想知道的信息)</span><br></pre></td></tr></table></figure>
+<p>allintitle:网页标题必须包含所有的关键字才会出现在搜索结果里<br>intitle:只需包含任意一个关键字即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">allintitle:index of(查看web服务器上的所有可用的索引目录列表)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inurl:admin(这条命令用于发现目标网站的管理或者设者页面)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用Google快照会减少在目标服务器上留下痕迹，而且有机会浏览到原网站已移除的网页和文件。只要是谷歌爬虫抓取过的页面，都会在网页快照中保存一个精简的副本。</p>
+</blockquote>
+<p>cache:让谷歌只显示网页快照里的信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cache:domain</span><br></pre></td></tr></table></figure>
+<p>filetype:搜索特定文件的扩展名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filetype:pdf</span><br></pre></td></tr></table></figure>
+<p>命令结合使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">site:domain filetype:xxx(搜索某网站所有xxx格式的文件)</span><br></pre></td></tr></table></figure>
+
+<h3 id="利用社交资源"><a href="#利用社交资源" class="headerlink" title="利用社交资源"></a>利用社交资源</h3><p>当我们彻查完目标网页，并借助谷歌服务我们之后，其他社交媒体也会发挥作用。</p>
+<p>一些论坛，或者新闻中心等等可能会出现关于目标的言论，如技术问题。</p>
+<p>简言之，公共论坛算是分享信息并寻求技术支持的宝地。</p>
+<h3 id="The-Harvester"><a href="#The-Harvester" class="headerlink" title="The Harvester"></a>The Harvester</h3><p>….</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2019/05/14/ISCC2019-MISC/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-04-20 21:06:06
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Notes/" title="Notes">
+                        #Notes
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2020/05/13/L0kiTown-v1.0/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
         </div>
       
-      <div class="post-item" title="L0kiTown v1.0">
-        <div class="time-m-d">05-13</div>
-        <div class="title">
-          <a href="/2020/05/13/L0kiTown-v1.0/">
-            <span>L0kiTown v1.0</span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2019</span>
-          </h2>
-        </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
       
-      <div class="post-item" title="Notes on Gathering Information-1">
-        <div class="time-m-d">09-23</div>
-        <div class="title">
-          <a href="/2019/09/23/Notes-on-Gathering-Information/">
-            <span>Notes on Gathering Information-1</span>
-          </a>
-        </div>
-      </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-text">知识点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%B9%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E7%9A%84%E8%AE%A4%E8%AF%86%E8%AF%AF%E5%8C%BA"><span class="toc-text">对信息收集的认识误区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E6%B5%85%E8%B0%88"><span class="toc-text">信息收集浅谈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTrack"><span class="toc-text">HTTrack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E6%B3%A8%E7%82%B9"><span class="toc-text">关注点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A2%AB%E5%8A%A8%E4%BE%A6%E5%AF%9F"><span class="toc-text">被动侦察</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Google%E6%8C%87%E4%BB%A4%E2%80%94%E2%80%94%E6%90%9C%E7%B4%A2%E5%AE%9E%E8%B7%B5"><span class="toc-text">Google指令——搜索实践</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E7%A4%BE%E4%BA%A4%E8%B5%84%E6%BA%90"><span class="toc-text">利用社交资源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Harvester"><span class="toc-text">The Harvester</span></a></li></ol></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      <div class="post-item" title="ISCC 2019-MISC">
-        <div class="time-m-d">05-14</div>
-        <div class="title">
-          <a href="/2019/05/14/ISCC2019-MISC/">
-            <span>ISCC 2019-MISC</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Troubleshooting Docker Installation on Kali Linux">
-        <div class="time-m-d">05-14</div>
-        <div class="title">
-          <a href="/2019/05/14/Troubleshooting-Docker-Installation-on-Kali-Linux/">
-            <span>Troubleshooting Docker Installation on Kali Linux</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         
 <div class="footer">
@@ -422,6 +563,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Notes%20on%20Gathering%20Information-1 + '&url=' + https%3A%2F%2Fl0ki.net%2F2019%2F09%2F23%2FNotes-on-Gathering-Information%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2019/09/23/Notes-on-Gathering-Information/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>

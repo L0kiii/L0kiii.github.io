@@ -23,6 +23,25 @@
     
     
     <entry>
+      <title>Notes on Gathering Information-1</title>
+      <link href="/2019/09/23/Notes-on-Gathering-Information/"/>
+      <url>/2019/09/23/Notes-on-Gathering-Information/</url>
+      
+        <content type="html"><![CDATA[<h1 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h1><ul><li><p>HTTrack:网站克隆</p></li><li><p>Google指令——利用谷歌搜索实践</p></li><li><p>The Harvester:挖掘并利用邮箱地址</p></li><li><p>Whois</p></li><li><p>Netcraft</p></li><li><p>host 工具</p></li><li><p>从DNS中提取信息</p></li><li><p>从电子邮件服务器中提取信息</p></li><li><p>MetaGooFil</p></li><li><p>社会工程学</p></li><li><p>筛选提炼信息：找到可攻击目标</p></li></ul><h1 id="对信息收集的认识误区"><a href="#对信息收集的认识误区" class="headerlink" title="对信息收集的认识误区"></a>对信息收集的认识误区</h1><p>信息收集是渗透测试的中最不受重视的一个环节</p><blockquote><p>这样的认识很明显是打错特所的，正相反，这是最重要的一步，但也是最容易被忽略的一步，那么它的影响程度到底有多大呢？<br>可以毫不夸张的说，在收集目标信息上所花费的时间越多，后续阶段的成功率也就越高。</p></blockquote><h1 id="信息收集浅谈"><a href="#信息收集浅谈" class="headerlink" title="信息收集浅谈"></a>信息收集浅谈</h1><p>信息收集主要分为主动和被动</p><p>主动收集：与目标系统的直接交互，目标系统可能会记录下我们的IP地址及活动</p><p>被动收集：利用Google获取海量信息，不会与目标交互，不会被记录活动</p><p>信息收集的目的在于尽可能多的收集与目标相关的信息。并且收集信息的时候要尽可能将数据集中保存起来。</p><h3 id="HTTrack"><a href="#HTTrack" class="headerlink" title="HTTrack"></a>HTTrack</h3><p>当浏览或者探测某个网站的时间越多，那么我们的活动就越有可能被跟踪(哪怕只是随意的浏览网站)，只要是属于目标的资源，任何时候与之交互都有可能留下痕迹。</p><p>利用HTTrack我们可以从某个网站的本地副本中提取额外或者隐藏的信息<br>HTTrack可以将整个网页逐页下载下来，通过它可以建立完全的脱机副本。<br>Kali命令：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install webhttrack</span><br></pre></td></tr></table></figure><h3 id="关注点"><a href="#关注点" class="headerlink" title="关注点"></a>关注点</h3><p>物理地址和位置、电话号码、电子邮箱地址、运营时间、商业关系、员工姓名、与社会化媒体的联系、以及其他公开的花絮趣闻等等</p><p>综上所述，我们要彻查目标网站，对目标有一个全面的了解：是什么(这是一家什么样的公司)、做什么(具体做什么业务)、公司设在哪里。</p><p>在有了这些基本信息之后，我们可以进入被动侦察(即，被动收集)阶段。</p><h3 id="被动侦察"><a href="#被动侦察" class="headerlink" title="被动侦察"></a>被动侦察</h3><p>首先要做的事利用各大搜索引擎对目标进行地毯式的搜索</p><p>不过 仅仅利用好谷歌，我们就可以完成整个渗透测试工作<br>(推荐看Google Hacking  作者:Jonny)</p><p>不得不提一点，在我们被动侦擦过程中，如果我们点击搜索结果的任何一条链接，都会与目标建立系统的联系，也就回到了主动侦察的模式。。。。。</p><h3 id="Google指令——搜索实践"><a href="#Google指令——搜索实践" class="headerlink" title="Google指令——搜索实践"></a>Google指令——搜索实践</h3><p>指令格式：<br>1)你想要用的指令<br>2)半角冒号<br>3)指令中要用到的具体内容</p><p>Eg:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">site:domain term(搜索某网站我们想知道的信息)</span><br></pre></td></tr></table></figure><p>allintitle:网页标题必须包含所有的关键字才会出现在搜索结果里<br>intitle:只需包含任意一个关键字即可</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">allintitle:index of(查看web服务器上的所有可用的索引目录列表)</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inurl:admin(这条命令用于发现目标网站的管理或者设者页面)</span><br></pre></td></tr></table></figure><blockquote><p>使用Google快照会减少在目标服务器上留下痕迹，而且有机会浏览到原网站已移除的网页和文件。只要是谷歌爬虫抓取过的页面，都会在网页快照中保存一个精简的副本。</p></blockquote><p>cache:让谷歌只显示网页快照里的信息</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cache:domain</span><br></pre></td></tr></table></figure><p>filetype:搜索特定文件的扩展名</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filetype:pdf</span><br></pre></td></tr></table></figure><p>命令结合使用：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">site:domain filetype:xxx(搜索某网站所有xxx格式的文件)</span><br></pre></td></tr></table></figure><h3 id="利用社交资源"><a href="#利用社交资源" class="headerlink" title="利用社交资源"></a>利用社交资源</h3><p>当我们彻查完目标网页，并借助谷歌服务我们之后，其他社交媒体也会发挥作用。</p><p>一些论坛，或者新闻中心等等可能会出现关于目标的言论，如技术问题。</p><p>简言之，公共论坛算是分享信息并寻求技术支持的宝地。</p><h3 id="The-Harvester"><a href="#The-Harvester" class="headerlink" title="The Harvester"></a>The Harvester</h3><p>….</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Notes </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ISCC 2019-MISC</title>
       <link href="/2019/05/14/ISCC2019-MISC/"/>
       <url>/2019/05/14/ISCC2019-MISC/</url>
