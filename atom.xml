@@ -99,6 +99,32 @@
   </entry>
   
   <entry>
+    <title>Little Tips</title>
+    <link href="https://l0ki.net/2020/07/15/Marks/"/>
+    <id>https://l0ki.net/2020/07/15/Marks/</id>
+    <published>2020-07-15T02:57:00.000Z</published>
+    <updated>2024-04-20T18:16:37.701Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;7.15&lt;br&gt;对于腾讯系或阿里系,进行目录结构扫描时,dirsearch需要加参数-s 2或3（慢一点，不然扫不到）&lt;/p&gt;
+&lt;p&gt;7.27&lt;/p&gt;
+&lt;p&gt;使用nmap对端口服务探测 &lt;code&gt;nmap -sV -p port ip&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;开启的</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>3 Common Types of Error-SQL Injection</title>
     <link href="https://l0ki.net/2020/07/12/3-Common-Error-SQL-Injection/"/>
     <id>https://l0ki.net/2020/07/12/3-Common-Error-SQL-Injection/</id>
@@ -428,29 +454,6 @@
     
     
     <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>L0kiTown v1.0</title>
-    <link href="https://l0ki.net/2020/05/13/L0kiTown-v1.0/"/>
-    <id>https://l0ki.net/2020/05/13/L0kiTown-v1.0/</id>
-    <published>2020-05-13T07:18:00.000Z</published>
-    <updated>2024-04-20T12:37:02.954Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;Introduction&quot;&gt;&lt;a href=&quot;#Introduction&quot; class=&quot;headerlink&quot; title=&quot;Introduction&quot;&gt;&lt;/a&gt;Introduction&lt;/h2&gt;&lt;p&gt;I’ve always wanted to</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Tools" scheme="https://l0ki.net/tags/Tools/"/>
     
   </entry>
   

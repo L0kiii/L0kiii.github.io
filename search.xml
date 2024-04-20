@@ -74,6 +74,25 @@
     
     
     <entry>
+      <title>Little Tips</title>
+      <link href="/2020/07/15/Marks/"/>
+      <url>/2020/07/15/Marks/</url>
+      
+        <content type="html"><![CDATA[<p>7.15<br>对于腾讯系或阿里系,进行目录结构扫描时,dirsearch需要加参数-s 2或3（慢一点，不然扫不到）</p><p>7.27</p><p>使用nmap对端口服务探测 <code>nmap -sV -p port ip</code></p><p>开启的 jmx 服务默认是不需要验证的</p><p>未授权的话可以直接连</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jconsole  ip:port</span><br></pre></td></tr></table></figure><p>检测JMX RMI漏洞</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msf:</span><br><span class="line">use auxiliary/scanner/misc/java_rmi_server</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nmap脚本:</span><br><span class="line">nmap --script=rmi-vuln-classloader -p 18983 127.0.0.1</span><br></pre></td></tr></table></figure><p>利用</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msf:</span><br><span class="line">use exploit/multi/misc/java_jmx_server</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">github:</span><br><span class="line">mjet</span><br></pre></td></tr></table></figure><p>7.28</p><p>asp或aspx getshell 可以使用上传AspxSpy2014 Final</p><p>7.29</p><p>JAVA创建进程的三种方式ProcessBuilder、Runtime、Process</p><p>8.14</p><p>Docker 和UFW 防火墙的安全漏洞</p><p>将UFW防火墙设置为拒绝所有通信（除SSH），但是它竟然允许与MongoDB连接访问</p><p>解决方式:</p><p>回到Docker服务器上的终端界面，并发出<code>sudo nano /etc/default/docker</code>命令并添加以下命令：</p><p><code>DOCKER_OPTS=&quot;--iptables=false&quot;</code></p><p>保存并关闭该文件。使用<code>sudo systemctl restart docker</code> 命令来重启docker守护进程。现在，当部署一个容器时，它将不再改变<code>iptables</code>并且严格遵守UFW防火墙的设置规则。</p><p>12.15</p><p>url组成</p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/1188607-20190524123004043-1112804791.png" alt="img"></p><p>1.<strong>协议</strong>：模式&#x2F;协议（scheme）,在Internet中可使用多种协议，如HTTP，FTP等。在”HTTP”后面的“&#x2F;&#x2F;”为分隔符</p><p>2.<strong>域名</strong>：也可使用IP地址作为域名使用。</p><p>3.<strong>端口</strong>：不是一个URL必须的部分，如果省略端口部分，将采用默认端口。</p><p>4.<strong>虚拟目录</strong>：从域名后的第一个“&#x2F;”开始到最后一个“&#x2F;”为止。虚拟目录不是一个URL必须的部分。</p><p>5.<strong>文件名</strong>：从域名后的最后一个“&#x2F;”至“？”(或“#”或至结束)为止，是文件名部分。</p><p>　　文件名部分不是一个URL必须的部分，如果省略该部分，则使用默认的文件名。</p><p>7.<strong>参数</strong>：从“？”开始到“#”（或至结束）为止之间的部分为参数部分，又称搜索部分、查询部分。参数间用“&amp;”作为分隔符。</p><p>6.<strong>锚</strong>：或称片段（fragment），HTTP请求不包括锚部分，从“#”开始到最后，都是锚部分。本例中的锚部分是“r_70732423“。锚部分不是一个URL必须的部分。</p><p>　　锚点作用：打开用户页面时滚动到该锚点位置。如：一个html页面中有一段代码【<div name='r_70732423'>…</div>】，该url的hash为r_70732423</p><p>完整结构说明：</p><p>　　基本URL包含模式（或称协议）、服务器名称（或IP地址）、路径和文件名，如“协议：&#x2F;&#x2F;授权&#x2F;路径?查询”。</p><p>　　完整的、带有授权部分的普通统一资源标志符语法看上去如下：协议：&#x2F;&#x2F;用户名:密码@子域名.域名.顶级域名:端口号&#x2F;目录&#x2F;文件名.文件后缀?参数&#x3D;值#标志。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Notes </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>3 Common Types of Error-SQL Injection</title>
       <link href="/2020/07/12/3-Common-Error-SQL-Injection/"/>
       <url>/2020/07/12/3-Common-Error-SQL-Injection/</url>
