@@ -17,6 +17,25 @@
     
     
     <entry>
+      <title>Github Monitor Pro Batch Script</title>
+      <link href="/2020/08/11/Github-Monitor-Pro-Batch-Script/"/>
+      <url>/2020/08/11/Github-Monitor-Pro-Batch-Script/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Github-Monitor-Pro"><a href="#Github-Monitor-Pro" class="headerlink" title="Github-Monitor-Pro"></a>Github-Monitor-Pro</h1><p>最近在使用这款工具时发现当目标数量过于庞大时我们手动添加很慢 效率极低</p><p>故写了此批处理脚本</p><p>详情见<code>https://github.com/L0kiii/Github-Monitor-Pro</code></p><p>Github敏感信息泄露收集面板 支持批处理</p><p><code>@author: L0ki</code></p><p><code>blog: https://l0ki.net</code></p><h2 id="用法须知"><a href="#用法须知" class="headerlink" title="用法须知"></a>用法须知</h2><p>使用前需要按urls.txt中的格式进行填写补充</p><p>Pro版本为多线程…慎用</p><p>建议每次添加5-10个任务</p><p>keys.txt文件为规则文件 需要添加自行修改</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python3 addTask.py</span><br><span class="line">python3 addTaskPro.py</span><br><span class="line">python3 addToken.py</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Tools </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Information Leakage via Github</title>
       <link href="/2020/08/11/Information-Leakage-via-Github/"/>
       <url>/2020/08/11/Information-Leakage-via-Github/</url>
