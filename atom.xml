@@ -93,6 +93,29 @@
   </entry>
   
   <entry>
+    <title>File Upload Vulnerabilities</title>
+    <link href="https://l0ki.net/2020/07/16/File-Upload-Vulnerabilities/"/>
+    <id>https://l0ki.net/2020/07/16/File-Upload-Vulnerabilities/</id>
+    <published>2020-07-16T08:54:00.000Z</published>
+    <updated>2024-04-20T18:21:29.856Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;概念&quot;&gt;&lt;a href=&quot;#概念&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Little Tips</title>
     <link href="https://l0ki.net/2020/07/15/Marks/"/>
     <id>https://l0ki.net/2020/07/15/Marks/</id>
@@ -438,29 +461,6 @@
     
     
     <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PHP Protocols and File Inclusion Vulnerabilities</title>
-    <link href="https://l0ki.net/2020/05/25/PHP-Protocols-and-File-Inclusion-Vulnerabilities/"/>
-    <id>https://l0ki.net/2020/05/25/PHP-Protocols-and-File-Inclusion-Vulnerabilities/</id>
-    <published>2020-05-24T16:25:00.000Z</published>
-    <updated>2024-04-20T16:47:33.725Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;0x01-PHP伪协议&quot;&gt;&lt;a href=&quot;#0x01-PHP伪协议&quot; class=&quot;headerlink&quot; title=&quot;0x01 PHP伪协议&quot;&gt;&lt;/a&gt;0x01</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
     
   </entry>
   
