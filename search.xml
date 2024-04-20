@@ -327,6 +327,25 @@
     
     
     <entry>
+      <title>Discussion on GET and POST</title>
+      <link href="/2019/01/17/Discussion-on-GET-and-POST/"/>
+      <url>/2019/01/17/Discussion-on-GET-and-POST/</url>
+      
+        <content type="html"><![CDATA[<p>前些天学习了对Get,Post,URL,burp,hackbar,web前端查看元素的相关知识，它加强了我对Get,Post的理解，对burp,hackbar有了新的认识，对web前端查看元素(shift+ctrl+c)有了不同的感触。</p><h2 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h2><p>服务器+端口+路径，说白了，就是网址。。。</p><h1 id="Get与Post的区别"><a href="#Get与Post的区别" class="headerlink" title="Get与Post的区别"></a>Get与Post的区别</h1><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-a52fad0e4018d7fe.png" alt="图片.png"><br>GET一般用于获取&#x2F;查询 资源信息，而POST一般用于更新 资源信息（比如提交表单的内容）<br><strong>GET提交</strong>，请求的数据会附在URL之后（就是把数据放置在HTTP协议头中），以?分割URL和传输数据，多个参数用&amp;连接；<br>例 如：login.action?name&#x3D;hyddd&amp;password&#x3D;idontknow&amp;verify&#x3D;%E4%BD%A0 %E5%A5%BD。如果数据是英文字母&#x2F;数字，原样发送，如果是空格，转换为+，如果是中文&#x2F;其他字符，则直接把字符串用url加密，得出如： %E4%BD%A0%E5%A5%BD，其中％XX中的XX为该符号以16进制表示的ASCII。</p><p><strong>GET请求方式</strong>将请求信息放在URL后面，请求信息和URL之间以？隔开，请求信息的格式为键值对，例如 <a href="https://baike.baidu.com/item/Python/407313?fr=aladdin%EF%BC%8C%E8%BF%99%E7%A7%8D%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F%E5%B0%86%E8%AF%B7%E6%B1%82%E4%BF%A1%E6%81%AF%E7%9B%B4%E6%8E%A5%E6%9A%B4%E9%9C%B2%E5%9C%A8URL%E4%B8%AD%EF%BC%8C%E5%AE%89%E5%85%A8%E6%80%A7%E8%BE%83%E4%BD%8E%E3%80%82%E5%8F%A6%E5%A4%96%E4%BB%8E%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84%E4%B8%8A%E6%9D%A5%E7%9C%8B%EF%BC%8C%E7%94%B1%E4%BA%8E%E8%AF%B7%E6%B1%82%E4%BF%A1%E6%81%AF%E6%94%BE%E7%BD%AE%E5%9C%A8URL%E4%B8%AD%EF%BC%8C%E5%9B%A0%E6%AD%A4%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87%E4%B8%AD%E4%B8%8D%E9%9C%80%E8%A6%81%E6%8A%A5%E6%96%87%E4%BD%93%E3%80%82">https://baike.baidu.com/item/Python/407313?fr=aladdin，这种请求方式将请求信息直接暴露在URL中，安全性较低。另外从报文结构上来看，由于请求信息放置在URL中，因此请求报文中不需要报文体。</a></p><p><strong>POST请求方式</strong>将请求信息放置在报文体中，相获得请求信息必须解析报文，因此安全性较GET方式要高一些（事实上要获得报文体中的请求信息也是很容易的，因此安全性上两者并没有太多的区别，具体解决传输过程中的安全性问题还要靠HTTPS），此外在请求报文中含有报文体。</p><p>　　由于GET中的请求信息放置在URL中，因此是有长度限制的，因为URL本身是有长度限制的。POST中的请求信息是放置在报文体中，因此对数据长度是没有限制的。</p><p>总结一下，Get是向服务器发索取数据的一种请求，而Post是向服务器提交数据的一种请求，在FORM（表单）中，Method默认为”GET”，实质上，GET和POST只是发送机制不同，并不是一个取一个发！</p><h2 id="Hackbar"><a href="#Hackbar" class="headerlink" title="Hackbar"></a>Hackbar</h2><p>乍一听比较高端，其实它就是个插件而已，火狐浏览器在插件中搜索它就会看到。虽然它是个插件，但是它为我们提供了不小的便利。<br>安装好后，F12查看<img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-5de602b883fdb4f2.png" alt="图片.png"><br>这就是我们的奇妙的Hackbar,<img src="https://upload-images.jianshu.io/upload_images/14443259-57b1ebff2988c5bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片.png">第一个按钮会给我们将URL展示出来，我们可以肆意在URL加GET请求（以？分割）<br>第二个按钮，剪刀的样子，很明显，它起到分割换行的作用，<br>第三个则是运行相当于我们输入完网址按回车键一样。<br><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-a5556d3fd80bc221.png" alt="图片.png"></p><p>这些分别是POST,访客来路途径，使用者代理，终端数据</p><h2 id="通过留言板对POST-GET认识"><a href="#通过留言板对POST-GET认识" class="headerlink" title="通过留言板对POST,GET认识"></a>通过留言板对POST,GET认识</h2><p>在写完留言板之后，回顾代码，我发现用到POST的地方别多，代表是传值，而通过传值可以把用户的数据传到数据库中，十分方便，这改变了我对POST抽象的认知，而GET ，通过发送请求可以把想要的数据显示出来，即完成了从数据库索取数据。</p><h2 id="学习方法总结"><a href="#学习方法总结" class="headerlink" title="学习方法总结"></a>学习方法总结</h2><p>在留言板之前，所写的内容全部都是理论,而在写完留言板之后，进行了对理论认知的更新，这便是理论与实践相结合，大大改变了我们对理论抽象的认识。对于学习新的知识我们可以先进行理论的大概学习，再通过进行项目实践，来感知这些新的事物，你会发现那些你曾经在学习中受到困扰的问题，都会在实践中迎刃而解。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Notes </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JAVA Environment Variable Configuration</title>
       <link href="/2018/12/08/JAVA-Environment-Variable-Configuration/"/>
       <url>/2018/12/08/JAVA-Environment-Variable-Configuration/</url>
