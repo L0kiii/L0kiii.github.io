@@ -53,6 +53,29 @@
   </entry>
   
   <entry>
+    <title>CSRF</title>
+    <link href="https://l0ki.net/2020/12/15/CSRF/"/>
+    <id>https://l0ki.net/2020/12/15/CSRF/</id>
+    <published>2020-12-15T09:30:00.000Z</published>
+    <updated>2024-04-20T18:49:37.655Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;0x01-CSRF-攻击原理&quot;&gt;&lt;a href=&quot;#0x01-CSRF-攻击原理&quot; class=&quot;headerlink&quot; title=&quot;0x01 CSRF 攻击原理&quot;&gt;&lt;/a&gt;0x01 CSRF 攻击原理&lt;/h2&gt;&lt;p&gt;Cookie</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
     <title>GitHub Search Syntax</title>
     <link href="https://l0ki.net/2020/12/15/GitHub-Search-Syntax/"/>
     <id>https://l0ki.net/2020/12/15/GitHub-Search-Syntax/</id>
@@ -384,23 +407,6 @@
     <id>https://l0ki.net/2020/07/29/Oracle-Database-Server-RCE/</id>
     <published>2020-07-29T03:37:00.000Z</published>
     <updated>2024-04-20T18:32:28.241Z</updated>
-    
-    
-    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
-    
-    
-    
-    
-    <category term="Intranet Penetration" scheme="https://l0ki.net/tags/Intranet-Penetration/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>S2-016 (CVE-2013-2251)</title>
-    <link href="https://l0ki.net/2020/07/29/S2-016-CVE-2013-2251/"/>
-    <id>https://l0ki.net/2020/07/29/S2-016-CVE-2013-2251/</id>
-    <published>2020-07-29T03:37:00.000Z</published>
-    <updated>2024-04-20T18:33:34.573Z</updated>
     
     
     <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
