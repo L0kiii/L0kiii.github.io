@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="KaynZ" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  
+  
+  <title>
+    
+      Introduction to Penetration Testing 
+      
+      
+      |
+    
+     L0ki&#39;s Website
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="L0ki's Website" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img no-lazy src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">L0ki</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+        <li class="nav-item" data-path="/projects/">
+          <a href="/projects/">Projects</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Introduction to Penetration Testing</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-04-20 21:17:02
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Notes/" title="Notes">
+                    #Notes
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="什么是渗透测试"><a href="#什么是渗透测试" class="headerlink" title="什么是渗透测试"></a>什么是渗透测试</h2><h3 id="基于百度搜索引擎得到的结果："><a href="#基于百度搜索引擎得到的结果：" class="headerlink" title="基于百度搜索引擎得到的结果："></a>基于百度搜索引擎得到的结果：</h3><p>渗透测试（Penetration Test）是一种黑盒安全测试方法，安全专家通过模拟真实黑客的技术手段对目标进行漏洞检测，突破系统的安全防护手段，深入评估漏洞所可能造成的实际影响。</p>
+<h2 id="渗透测试与入侵的区别"><a href="#渗透测试与入侵的区别" class="headerlink" title="渗透测试与入侵的区别"></a>渗透测试与入侵的区别</h2><h3 id="渗透测试："><a href="#渗透测试：" class="headerlink" title="渗透测试："></a>渗透测试：</h3><p>以安全为基本原则，通过攻击者以及防御者的角度去分析目标所存在的安全隐患以及脆弱性，以保护系统安全为最终目标。</p>
+<h3 id="入侵："><a href="#入侵：" class="headerlink" title="入侵："></a>入侵：</h3><p>通过各种方法，甚至破坏性的操作，来获取系统权限以及各种敏感信息。</p>
+<h3 id="一般的渗透测试流程：-基于Freebuf"><a href="#一般的渗透测试流程：-基于Freebuf" class="headerlink" title="一般的渗透测试流程：(基于Freebuf)"></a>一般的渗透测试流程：(基于Freebuf)</h3><p>1.明确目标</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">确定范围：测试目标的范围、ip、域名、内外网、测试账户。</span><br><span class="line"></span><br><span class="line">确定规则：能渗透到什么程度，所需要的时间、能否修改上传、能否提权、等等。</span><br><span class="line"></span><br><span class="line">确定需求：web应用的漏洞、业务逻辑漏洞、人员权限管理漏洞、等等。</span><br></pre></td></tr></table></figure>
+<p>2.信息收集</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">方式：主动扫描，开放搜索等。</span><br><span class="line"></span><br><span class="line">开放搜索：利用搜索引擎获得：后台、未授权页面、敏感url、等等。</span><br><span class="line"></span><br><span class="line">基础信息：IP、网段、域名、端口。</span><br><span class="line"></span><br><span class="line">应用信息：各端口的应用。例如web应用、邮件应用、等等。</span><br><span class="line"></span><br><span class="line">系统信息：操作系统版本</span><br><span class="line"></span><br><span class="line">版本信息：所有这些探测到的东西的版本。</span><br><span class="line"></span><br><span class="line">服务信息：中间件的各类信息，插件信息。</span><br><span class="line"></span><br><span class="line">人员信息：域名注册人员信息，web应用中发帖人的id，管理员姓名等。</span><br><span class="line"></span><br><span class="line">防护信息：试着看能否探测到防护设备。</span><br></pre></td></tr></table></figure>
+<p>3.漏洞探测</p>
+<p>利用上一步中列出的各种系统，应用等使用相应的漏洞。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">方法：</span><br><span class="line"></span><br><span class="line">(1)   漏扫，awvs，IBM appscan等。</span><br><span class="line"></span><br><span class="line">(2)   结合漏洞去exploit-db等位置找利用。</span><br><span class="line"></span><br><span class="line">(3)   在网上寻找验证poc。</span><br><span class="line"></span><br><span class="line">内容：</span><br><span class="line"></span><br><span class="line">系统漏洞：系统没有及时打补丁</span><br><span class="line"></span><br><span class="line">WebSever漏洞：WebSever配置问题</span><br><span class="line"></span><br><span class="line">Web应用漏洞：Web应用开发问题</span><br><span class="line"></span><br><span class="line">其它端口服务漏洞：各种21/8080(st2)/7001/22/3389</span><br><span class="line"></span><br><span class="line">通信安全：明文传输，token在cookie中传送等。</span><br></pre></td></tr></table></figure>
+<p>4.漏洞验证</p>
+<p>将上一步中发现的有可能可以成功利用的全部漏洞都验证一遍。结合实际情况，搭建模拟环境进行试验。成功后再应用于目标中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">自动化验证：结合自动化扫描工具提供的结果</span><br><span class="line"></span><br><span class="line">手工验证，根据公开资源进行验证</span><br><span class="line"></span><br><span class="line">试验验证：自己搭建模拟环境进行验证</span><br><span class="line"></span><br><span class="line">登陆猜解：有时可以尝试猜解一下登陆口的账号密码等信息</span><br><span class="line"></span><br><span class="line">业务漏洞验证：如发现业务漏洞，要进行验证</span><br></pre></td></tr></table></figure>
+<p>公开资源的利用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">exploit-db/wooyun/</span><br><span class="line"></span><br><span class="line">google hacking</span><br><span class="line"></span><br><span class="line">渗透代码网站</span><br><span class="line"></span><br><span class="line">通用、缺省口令</span><br><span class="line"></span><br><span class="line">厂商的漏洞警告等等。</span><br></pre></td></tr></table></figure>
+<p>5.信息分析<br>为下一步实施渗透做准备。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">精准打击：准备好上一步探测到的漏洞的exp，用来精准打击</span><br><span class="line"></span><br><span class="line">绕过防御机制：是否有防火墙等设备，如何绕过</span><br><span class="line"></span><br><span class="line">定制攻击路径：最佳工具路径，根据薄弱入口，高内网权限位置，最终目标</span><br><span class="line"></span><br><span class="line">绕过检测机制：是否有检测机制，流量监控，杀毒软件，恶意代码检测等（免杀）</span><br><span class="line"></span><br><span class="line">攻击代码：经过试验得来的代码，包括不限于xss代码，sql注入语句等</span><br></pre></td></tr></table></figure>
+<p>6.获取所需<br>实施攻击：根据前几步的结果，进行攻击</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">获取内部信息：基础设施（网络连接，vpn，路由，拓扑等）</span><br><span class="line"></span><br><span class="line">进一步渗透：内网入侵，敏感目标</span><br><span class="line"></span><br><span class="line">持续性存在：一般我们对客户做渗透不需要。rookit，后门，添加管理账号，驻扎手法等</span><br><span class="line"></span><br><span class="line">清理痕迹：清理相关日志（访问，操作），上传文件等</span><br></pre></td></tr></table></figure>
+<p>7.信息整理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">整理渗透工具：整理渗透过程中用到的代码，poc，exp等</span><br><span class="line"></span><br><span class="line">整理收集信息：整理渗透过程中收集到的一切信息</span><br><span class="line"></span><br><span class="line">整理漏洞信息：整理渗透过程中遇到的各种漏洞，各种脆弱位置信息</span><br></pre></td></tr></table></figure>
+<p>8.形成报告</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">按需整理：按照之前第一步跟客户确定好的范围，需求来整理资料，并将资料形成报告</span><br><span class="line"></span><br><span class="line">补充介绍：要对漏洞成因，验证过程和带来危害进行分析</span><br><span class="line"></span><br><span class="line">修补建议：当然要对所有产生的问题提出合理高效安全的解决办法</span><br></pre></td></tr></table></figure>
+
+<h3 id="学习规划-基于CnHacker"><a href="#学习规划-基于CnHacker" class="headerlink" title="学习规划: (基于CnHacker)"></a>学习规划: (基于CnHacker)</h3><p>基础：Web安全相关概念</p>
+<blockquote>
+<p>熟悉基本概念（SQL注入、上传、XSS、CSRF、一句话木马等）.</p>
+</blockquote>
+<blockquote>
+<p>通过关键字（SQL注入、上传、XSS、CSRF、一句话木马等）进行Google&#x2F;SecWiki；</p>
+</blockquote>
+<blockquote>
+<p>阅读《精通脚本黑客》，虽然很旧也有错误，但是入门还是可以的；</p>
+</blockquote>
+<blockquote>
+<p>看一些渗透笔记&#x2F;视频，了解渗透实战的整个过程，可以Google（渗透笔记、渗透过程、入侵过程等）；</p>
+</blockquote>
+<p>3周<br>熟悉渗透相关工具</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">熟悉AWVS、sqlmap、Burp、nessus、chopper、nmap、Appscan等相关工具的使用。</span><br><span class="line">了解该类工具的用途和使用场景，先用软件名字Google/SecWiki；</span><br><span class="line">下载无后们版的这些软件进行安装；</span><br><span class="line">学习并进行使用，具体教材可以在SecWiki上搜索，例如：Brup的教程、sqlmap；</span><br><span class="line">待常用的这几个软件都学会了可以安装音速启动做一个渗透工具箱；</span><br></pre></td></tr></table></figure>
+<p>5周<br>渗透实战操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">掌握渗透的整个阶段并能够独立渗透小型站点。</span><br><span class="line">网上找渗透视频看并思考其中的思路和原理，关键字（渗透、SQL注入视频、文件上传入侵、数据库备份、dedecms漏洞利用等等）；</span><br><span class="line">自己找站点/搭建测试环境进行测试，记住请隐藏好你自己；</span><br><span class="line">思考渗透主要分为几个阶段，每个阶段需要做那些工作，例如这个：PTES渗透测试执行标准；</span><br><span class="line">研究SQL注入的种类、注入原理、手动注入技巧；</span><br><span class="line">研究文件上传的原理，如何进行截断、双重后缀欺骗(IIS、PHP)、解析漏洞利用（IIS、Nignix、Apache）等，参照：上传攻击框架；</span><br><span class="line">研究XSS形成的原理和种类，具体学习方法可以Google/SecWiki，可以参考：XSS；</span><br><span class="line">研究Windows/Linux提权的方法和具体使用，可以参考：提权；</span><br><span class="line">可以参考: 开源渗透测试脆弱系统；</span><br></pre></td></tr></table></figure>
+<p>1周<br>关注安全圈动态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">关注安全圈的最新漏洞、安全事件与技术文章。</span><br><span class="line">通过SecWiki浏览每日的安全技术文章/事件；</span><br><span class="line">通过Weibo/twitter关注安全圈的从业人员（遇到大牛的关注或者好友果断关注），天天抽时间刷一下；</span><br><span class="line">通过feedly/鲜果订阅国内外安全技术博客（不要仅限于国内，平时多注意积累），没有订阅源的可以看一下SecWiki的聚合栏目；</span><br><span class="line">养成习惯，每天主动提交安全技术文章链接到SecWiki进行积淀；</span><br><span class="line">多关注下最新漏洞列表，推荐几个：exploit-db、CVE中文库、Wooyun等，遇到公开的漏洞都去实践下。</span><br><span class="line">关注国内国际上的安全会议的议题或者录像，推荐SecWiki-Conference。</span><br></pre></td></tr></table></figure>
+<p>3周<br>熟悉Windows&#x2F;Kali Linux</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">学习Windows/Kali Linux基本命令、常用工具；</span><br><span class="line">熟悉Windows下的常用的cmd命令，例如：ipconfig,nslookup,tracert,net,tasklist,taskkill等；</span><br><span class="line">熟悉Linux下的常用命令，例如：ifconfig,ls,cp,mv,vi,wget,service,sudo等；</span><br><span class="line">熟悉Kali Linux系统下的常用工具，可以参考SecWiki,《Web Penetration Testing with Kali Linux》、《Hacking with Kali》等；</span><br><span class="line">熟悉metasploit工具，可以参考SecWiki、《Metasploit渗透测试指南》。</span><br></pre></td></tr></table></figure>
+<p>3周<br>服务器安全配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">学习服务器环境配置，并能通过思考发现配置存在的安全问题。</span><br><span class="line">Windows2003/2008环境下的IIS配置，特别注意配置安全和运行权限，可以参考：SecWiki-配置；</span><br><span class="line">Linux环境下的LAMP的安全配置，主要考虑运行权限、跨目录、文件夹权限等，可以参考：SecWiki-配置；</span><br><span class="line">远程系统加固，限制用户名和口令登陆，通过iptables限制端口；</span><br><span class="line">配置软件Waf加强系统安全，在服务器配置mod_security等系统，参见SecWiki-ModSecurity；</span><br><span class="line">通过Nessus软件对配置环境进行安全检测，发现未知安全威胁。</span><br></pre></td></tr></table></figure>
+<p>4周<br>脚本编程学习</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">选择脚本语言Perl/Python/PHP/Go/Java中的一种，对常用库进行编程学习。</span><br><span class="line">搭建开发环境和选择IDE，PHP环境推荐Wamp和XAMPP，IDE强烈推荐Sublime，一些Sublime的技巧：SecWiki-Sublime；</span><br><span class="line">Python编程学习，学习内容包含：语法、正则、文件、网络、多线程等常用库，推荐《Python核心编程》，不要看完；</span><br><span class="line">用Python编写漏洞的exp，然后写一个简单的网络爬虫，可参见SecWiki-爬虫、视频；</span><br><span class="line">PHP基本语法学习并书写一个简单的博客系统，参见《PHP与MySQL程序设计（第4版）》、视频；</span><br><span class="line">熟悉MVC架构，并试着学习一个PHP框架或者Python框架（可选）；</span><br><span class="line">了解Bootstrap的布局或者CSS，可以参考：SecWiki-Bootstrap;</span><br></pre></td></tr></table></figure>
+<p>3周 源码审计与漏洞分析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">能独立分析脚本源码程序并发现安全问题。</span><br><span class="line">熟悉源码审计的动态和静态方法，并知道如何去分析程序，参见SecWiki-审计；</span><br><span class="line">从Wooyun上寻找开源程序的漏洞进行分析并试着自己分析；</span><br><span class="line">了解Web漏洞的形成原因，然后通过关键字进行查找分析，参见SecWiki-代码审计、高级PHP应用程序漏洞审核技术；</span><br><span class="line">研究Web漏洞形成原理和如何从源码层面避免该类漏洞，并整理成checklist。</span><br></pre></td></tr></table></figure>
+<p>5周<br>安全体系设计与开发</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">能建立自己的安全体系，并能提出一些安全建议或者系统架构。</span><br><span class="line">开发一些实用的安全小工具并开源，体现个人实力；</span><br><span class="line">建立自己的安全体系，对公司安全有自己的一些认识和见解；</span><br><span class="line">提出或者加入大型安全系统的架构或者开发；</span><br></pre></td></tr></table></figure>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2019/05/14/ISCC2019-MISC/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-04-20 21:17:02
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Notes/" title="Notes">
+                        #Notes
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2019/09/09/Kali-Updating-Sources/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95"><span class="toc-text">什么是渗透测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%99%BE%E5%BA%A6%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E5%BE%97%E5%88%B0%E7%9A%84%E7%BB%93%E6%9E%9C%EF%BC%9A"><span class="toc-text">基于百度搜索引擎得到的结果：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E4%B8%8E%E5%85%A5%E4%BE%B5%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">渗透测试与入侵的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%EF%BC%9A"><span class="toc-text">渗透测试：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A5%E4%BE%B5%EF%BC%9A"><span class="toc-text">入侵：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B%EF%BC%9A-%E5%9F%BA%E4%BA%8EFreebuf"><span class="toc-text">一般的渗透测试流程：(基于Freebuf)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E8%A7%84%E5%88%92-%E5%9F%BA%E4%BA%8ECnHacker"><span class="toc-text">学习规划: (基于CnHacker)</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/L0kiii">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        Copyright © 2024
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Introduction%20to%20Penetration%20Testing + '&url=' + https%3A%2F%2Fl0ki.net%2F2019%2F05%2F14%2FIntroduction-to-Penetration-Testing%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2019/05/14/Introduction-to-Penetration-Testing/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>
