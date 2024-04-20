@@ -162,7 +162,7 @@
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-04-20 20:48:39
+          2024-04-20 20:50:31
         </span>
         
               <span class="post-tags">
@@ -183,7 +183,7 @@
 <p>使用加速器加快镜像的下载</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi  /etc/docker/daemon.json</span><br><span class="line">输入一下内容即可</span><br><span class="line">&#123;&quot;registry-mirrors&quot;:[&quot;https://registry.docker-cn.com&quot;]&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="Error"><a href="#Error" class="headerlink" title="Error:"></a>Error:</h3><p>如果用完docker未通过正确方式关闭，导致下次docker无法开启，那么解决方案：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 rm -rf /var/lib/docker/</span><br><span class="line">2 vim /etc/docker/daemon.json</span><br><span class="line">  添加如下内容：</span><br><span class="line">&#123; &quot;graph&quot;: &quot;/mnt/docker-data&quot;, &quot;storage-driver&quot;: &quot;overlay&quot; &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /var/lib/docker/</span><br><span class="line">vim /etc/docker/daemon.json</span><br><span class="line">add：</span><br><span class="line"> &#123; &quot;graph&quot;: &quot;/mnt/docker-data&quot;, &quot;storage-driver&quot;: &quot;overlay&quot; &#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
       </div>
       
         <div class="prev-or-next">
@@ -193,7 +193,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-04-20 20:48:39
+              2024-04-20 20:50:31
             </span>
             
                   <span class="post-tags">
