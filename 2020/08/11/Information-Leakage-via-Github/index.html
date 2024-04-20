@@ -13,7 +13,7 @@
   
   <title>
     
-      FOFA Advanced Information Crawling Tool 
+      Information Leakage via Github 
       
       
       |
@@ -158,11 +158,11 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">FOFA Advanced Information Crawling Tool</div>
+      <div class="post-title">Information Leakage via Github</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-04-21 02:36:34
+          2024-04-21 02:38:03
         </span>
         
               <span class="post-tags">
@@ -178,23 +178,66 @@
           
       </div>
       <div class="markdown-body">
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近写了一个爬虫小工具，地址</p>
-<p><code>https://github.com/L0kiii/FofaScan</code></p>
-<h2 id="【红队信息收集利器】FOFA-Host-Details"><a href="#【红队信息收集利器】FOFA-Host-Details" class="headerlink" title="【红队信息收集利器】FOFA Host Details"></a>【红队信息收集利器】FOFA Host Details</h2><p><code>author:L0ki</code></p>
-<p><code>blog：http://l0ki.net</code></p>
-<p>IP 端口 协议 网站组件分层  指纹识别 序列化输出显示</p>
-<p>指纹识别基于<code>@author:w8ay</code></p>
-<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#若cms无对应值则代表识别不到</span><br><span class="line">python3 HostDetails.py</span><br></pre></td></tr></table></figure>
+        <h2 id="Github的搜索语法："><a href="#Github的搜索语法：" class="headerlink" title="Github的搜索语法："></a>Github的搜索语法：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">in:name test               #仓库标题搜索含有关键字 SpringCloud</span><br><span class="line">in:descripton test         #仓库描述搜索含有关键字</span><br><span class="line">in:readme test             #Readme文件搜素含有关键字</span><br><span class="line">stars:&gt;3000 test           #stars数量大于3000的搜索关键字</span><br><span class="line">stars:1000..3000 test      #stars数量大于1000小于3000的搜索关键字</span><br><span class="line">forks:&gt;1000 test           #forks数量大于1000的搜索关键字</span><br><span class="line">forks:1000..3000 test      #forks数量大于1000小于3000的搜索关键字</span><br><span class="line">size:&gt;=5000 test           #指定仓库大于5000k(5M)的搜索关键字</span><br><span class="line">pushed:&gt;2019-02-12 test    #发布时间大于2019-02-12的搜索关键字</span><br><span class="line">created:&gt;2019-02-12 test   #创建时间大于2019-02-12的搜索关键字</span><br><span class="line">user:test                  #用户名搜素</span><br><span class="line">license:apache-2.0 test    #明确仓库的 LICENSE 搜索关键字</span><br><span class="line">language:java test         #在java语言的代码中搜索关键字</span><br><span class="line">user:test in:name test     #组合搜索,用户名test的标题含有test的</span><br></pre></td></tr></table></figure>
 
-<h2 id="组件信息"><a href="#组件信息" class="headerlink" title="组件信息"></a>组件信息</h2><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200807143505847.png" alt="image-20200807143505847"></p>
-<h2 id="组件分层"><a href="#组件分层" class="headerlink" title="组件分层"></a>组件分层</h2><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/image-20200807143425425.png" alt="image-20200807143425425"></p>
-<h2 id="爬取结果"><a href="#爬取结果" class="headerlink" title="爬取结果"></a>爬取结果</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;url&quot;: &quot;baidu.com&quot;, &quot;ip&quot;: [&quot;39.156.69.79&quot;], &quot;协议&quot;: &quot; https http&quot;, &quot;端口&quot;: &quot;443&quot;, &quot;组件&quot;: &quot;D***********t&quot;,&quot;CMS&quot;:&quot;&quot;&#125;</span><br><span class="line">&#123;&quot;url&quot;: &quot;baidu.com&quot;, &quot;ip&quot;: [&quot;39.156.69.79&quot;], &quot;协议&quot;: &quot; https http&quot;, &quot;端口&quot;: &quot;80&quot;, &quot;组件&quot;: &quot;Apache-Web-Server&quot;,&quot;CMS&quot;:&quot;&quot;&#125;</span><br><span class="line">....</span><br><span class="line"></span><br><span class="line">if u r vip:</span><br><span class="line">&#123;&quot;url&quot;:&quot;baidu.com&quot;,&quot;ip&quot;: [&quot;39.156.69.79&quot;], &quot;协议&quot;: &quot; https http&quot;, &quot;端口&quot;: &quot;443&quot;, &quot;组件&quot;: &quot;DigiCert-Cert&quot;,&quot;CMS&quot;:&quot;&quot;&#125;</span><br><span class="line">&#123;&quot;url&quot;:&quot;baidu.com&quot;,&quot;ip&quot;: [&quot;39.156.69.79&quot;], &quot;协议&quot;: &quot; https http&quot;, &quot;端口&quot;: &quot;80&quot;, &quot;组件&quot;: &quot;Apache-Web-Server&quot;,&quot;CMS&quot;:&quot;&quot;&#125;</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
+<h2 id="使用-Github-进行邮件配置信息收集"><a href="#使用-Github-进行邮件配置信息收集" class="headerlink" title="使用 Github 进行邮件配置信息收集"></a>使用 Github 进行邮件配置信息收集</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">site:Github.com smtp</span><br><span class="line"> </span><br><span class="line">site:Github.com smtp @qq.com</span><br><span class="line"> </span><br><span class="line">site:Github.com smtp @126.com</span><br><span class="line"> </span><br><span class="line">site:Github.com smtp @163.com</span><br><span class="line"> </span><br><span class="line">site:Github.com smtp @sina.com.cn</span><br><span class="line"> </span><br><span class="line">site:Github.com smtp password</span><br><span class="line"> </span><br><span class="line">site:Github.com String password smtp</span><br><span class="line"> </span><br><span class="line">……</span><br><span class="line"> </span><br><span class="line">我们也可以锁定域名搜索结合厂商域名 灵活运用例如搜百度的</span><br><span class="line"> </span><br><span class="line">site:Github.com smtp @baidu.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用Github进行数据库信息收集"><a href="#使用Github进行数据库信息收集" class="headerlink" title="使用Github进行数据库信息收集"></a>使用Github进行数据库信息收集</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">site:Github.com sa password</span><br><span class="line"> </span><br><span class="line">site:Github.com root password</span><br><span class="line"> </span><br><span class="line">site:Github.com User ID=’sa’;Password</span><br><span class="line"> </span><br><span class="line">site:Github.com inurl:sql</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用Github进行-SVN-信息收集"><a href="#使用Github进行-SVN-信息收集" class="headerlink" title="使用Github进行 SVN 信息收集"></a>使用Github进行 SVN 信息收集</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">site:Github.com svn</span><br><span class="line"> </span><br><span class="line">site:Github.com svn username</span><br><span class="line"> </span><br><span class="line">site:Github.com svn password</span><br><span class="line"> </span><br><span class="line">site:Github.com svn username password </span><br></pre></td></tr></table></figure>
+
+<h2 id="使用Github进行综合信息收集"><a href="#使用Github进行综合信息收集" class="headerlink" title="使用Github进行综合信息收集"></a>使用Github进行综合信息收集</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">site:Github.com password</span><br><span class="line"> </span><br><span class="line">site:Github.com ftp ftppassword</span><br><span class="line"> </span><br><span class="line">site:Github.com 密码</span><br><span class="line"> </span><br><span class="line">site:Github.com 内部</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><p><strong>多人协作推荐使用Hawkeye</strong></p>
+<h3 id="gitrob"><a href="#gitrob" class="headerlink" title="gitrob"></a>gitrob</h3><p>Star: 4.7k</p>
+<p>update: 2 years ago</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/michenriksen/gitrob">https://github.com/michenriksen/gitrob</a></p>
+<h3 id="GitMiner"><a href="#GitMiner" class="headerlink" title="GitMiner"></a>GitMiner</h3><p>Star: 1.7k</p>
+<p>update: 7 months ago</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/UnkL4b/GitMiner">https://github.com/UnkL4b/GitMiner</a></p>
+<p>Python开发，功能简单，命令行 协作不便</p>
+<h3 id="GSIL"><a href="#GSIL" class="headerlink" title="GSIL"></a>GSIL</h3><p>Star: 1.5k</p>
+<p>update: 15 months ago</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/FeeiCN/GSIL">https://github.com/FeeiCN/GSIL</a></p>
+<h3 id="Hawkeye-（面板）"><a href="#Hawkeye-（面板）" class="headerlink" title="Hawkeye （面板）"></a>Hawkeye （面板）</h3><p>Star: 1.4k</p>
+<p>update: 9 days ago</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/0xbug/Hawkeye">https://github.com/0xbug/Hawkeye</a></p>
+<p>自己写的批处理配套脚本:</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/L0kiii/Hawkeye-Pro">https://github.com/L0kiii/Hawkeye-Pro</a></p>
+<h3 id="Github-Monitor-（面板）"><a href="#Github-Monitor-（面板）" class="headerlink" title="Github-Monitor （面板）"></a>Github-Monitor （面板）</h3><p>Star: 1k</p>
+<p>update: 10 months ago</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/VKSRC/Github-Monitor">https://github.com/VKSRC/Github-Monitor</a></p>
+<p>自己写的批处理配套脚本</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/L0kiii/Github-Monitor-Pro">https://github.com/L0kiii/Github-Monitor-Pro</a></p>
+<h3 id="Github-Dorks"><a href="#Github-Dorks" class="headerlink" title="Github Dorks"></a>Github Dorks</h3><p>Star: 1k</p>
+<p>update: 3 months ago</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/techgaun/github-dorks">https://github.com/techgaun/github-dorks</a></p>
+<h3 id="gitGraber"><a href="#gitGraber" class="headerlink" title="gitGraber"></a>gitGraber</h3><p>Star: 998</p>
+<p>update: 2 months ago</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hisxo/gitGraber">https://github.com/hisxo/gitGraber</a></p>
+<h3 id="GitGot"><a href="#GitGot" class="headerlink" title="GitGot"></a>GitGot</h3><p>Star: 892</p>
+<p>update: 5 months ago</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/BishopFox/GitGot">https://github.com/BishopFox/GitGot</a></p>
+<h3 id="GitPrey"><a href="#GitPrey" class="headerlink" title="GitPrey"></a>GitPrey</h3><p>Star: 443</p>
+<p>update: 15 months ago</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/repoog/GitPrey">https://github.com/repoog/GitPrey</a></p>
+<p>Python开发，国人开发中文支持，用于企业搜索关键词，及时发现潜在的敏感信息，需要登录</p>
+<h3 id="Github-Hunter"><a href="#Github-Hunter" class="headerlink" title="Github-Hunter"></a>Github-Hunter</h3><p>Star: 374</p>
+<p>update: 10 months ago</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Hell0W0rld0/Github-Hunter">https://github.com/Hell0W0rld0/Github-Hunter</a></p>
+<h3 id="Github-Nuggests"><a href="#Github-Nuggests" class="headerlink" title="Github_Nuggests"></a>Github_Nuggests</h3><p>Star: 259</p>
+<p>update: 4 years ago</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/az0ne/Github_Nuggests">https://github.com/az0ne/Github_Nuggests</a></p>
+<h3 id="gshark-（面板）"><a href="#gshark-（面板）" class="headerlink" title="gshark （面板）"></a>gshark （面板）</h3><p>Star: 179</p>
+<p>update: last month</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/madneal/gshark">https://github.com/madneal/gshark</a></p>
+
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2020/03/20/Mini-Programs-and-JavaScript/" target="_self">
+              <a href="/2020/08/11/Python-Script-Writing-Template/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -203,7 +246,7 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-04-21 02:36:34
+              2024-04-21 02:38:03
             </span>
             
                   <span class="post-tags">
@@ -220,7 +263,7 @@
           </div>
           <div class="post-foot-prev">
             
-              <a href="/2020/05/05/From-Basics-to-Analysis-with-Wireshark/" target="_self">
+              <a href="/2024/04/21/SQL-Injection-Types/" target="_self">
                 <span>Next</span>
                 <i class="iconfont icon-chevronright"></i>
               </a>
@@ -237,7 +280,7 @@
     <div class="title">Contents</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%80%90%E7%BA%A2%E9%98%9F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E5%88%A9%E5%99%A8%E3%80%91FOFA-Host-Details"><span class="toc-text">【红队信息收集利器】FOFA Host Details</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%B3%95"><span class="toc-text">用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E4%BF%A1%E6%81%AF"><span class="toc-text">组件信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E5%88%86%E5%B1%82"><span class="toc-text">组件分层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%AC%E5%8F%96%E7%BB%93%E6%9E%9C"><span class="toc-text">爬取结果</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Github%E7%9A%84%E6%90%9C%E7%B4%A2%E8%AF%AD%E6%B3%95%EF%BC%9A"><span class="toc-text">Github的搜索语法：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Github-%E8%BF%9B%E8%A1%8C%E9%82%AE%E4%BB%B6%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">使用 Github 进行邮件配置信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Github%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">使用Github进行数据库信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Github%E8%BF%9B%E8%A1%8C-SVN-%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">使用Github进行 SVN 信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Github%E8%BF%9B%E8%A1%8C%E7%BB%BC%E5%90%88%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">使用Github进行综合信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7"><span class="toc-text">工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#gitrob"><span class="toc-text">gitrob</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GitMiner"><span class="toc-text">GitMiner</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GSIL"><span class="toc-text">GSIL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hawkeye-%EF%BC%88%E9%9D%A2%E6%9D%BF%EF%BC%89"><span class="toc-text">Hawkeye （面板）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Github-Monitor-%EF%BC%88%E9%9D%A2%E6%9D%BF%EF%BC%89"><span class="toc-text">Github-Monitor （面板）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Github-Dorks"><span class="toc-text">Github Dorks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gitGraber"><span class="toc-text">gitGraber</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GitGot"><span class="toc-text">GitGot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GitPrey"><span class="toc-text">GitPrey</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Github-Hunter"><span class="toc-text">Github-Hunter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Github-Nuggests"><span class="toc-text">Github_Nuggests</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gshark-%EF%BC%88%E9%9D%A2%E6%9D%BF%EF%BC%89"><span class="toc-text">gshark （面板）</span></a></li></ol></li></ol>
       
     </div>
   </div>
@@ -518,12 +561,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + FOFA%20Advanced%20Information%20Crawling%20Tool + '&url=' + https%3A%2F%2Fl0ki.net%2F2020%2F05%2F05%2FFOFA-Advanced-Information-Crawling-Tool%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Information%20Leakage%20via%20Github + '&url=' + https%3A%2F%2Fl0ki.net%2F2020%2F08%2F11%2FInformation-Leakage-via-Github%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2020/05/05/FOFA-Advanced-Information-Crawling-Tool/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2020/08/11/Information-Leakage-via-Github/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
