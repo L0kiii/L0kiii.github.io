@@ -6,7 +6,7 @@
   <link href="https://l0ki.net/atom.xml" rel="self"/>
   
   <link href="https://l0ki.net/"/>
-  <updated>2024-04-20T16:47:27.342Z</updated>
+  <updated>2024-04-20T17:04:32.898Z</updated>
   <id>https://l0ki.net/</id>
   
   <author>
@@ -15,6 +15,19 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://l0ki.net/2024/04/21/SQL-Injection-Types/"/>
+    <id>https://l0ki.net/2024/04/21/SQL-Injection-Types/</id>
+    <published>2024-04-20T17:04:32.898Z</published>
+    <updated>2024-04-20T17:04:32.898Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>File Parsing Vulnerabilities</title>
@@ -450,29 +463,6 @@
     
     
     <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>WPSEC 2019 Web</title>
-    <link href="https://l0ki.net/2019/03/04/WPSEC-2019-Web/"/>
-    <id>https://l0ki.net/2019/03/04/WPSEC-2019-Web/</id>
-    <published>2019-03-04T10:45:00.000Z</published>
-    <updated>2024-04-20T16:52:30.828Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;1&quot;&gt;&lt;a href=&quot;#1&quot; class=&quot;headerlink&quot; title=&quot;1&quot;&gt;&lt;/a&gt;1&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    
-    <category term="CTF" scheme="https://l0ki.net/tags/CTF/"/>
     
   </entry>
   
