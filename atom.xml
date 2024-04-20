@@ -53,6 +53,29 @@
   </entry>
   
   <entry>
+    <title>Code Audit of KKCMS</title>
+    <link href="https://l0ki.net/2020/07/07/Code-Audit-KKCMS/"/>
+    <id>https://l0ki.net/2020/07/07/Code-Audit-KKCMS/</id>
+    <published>2020-07-07T10:48:00.000Z</published>
+    <updated>2024-04-20T18:02:54.380Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;0x01-验证码重用&quot;&gt;&lt;a href=&quot;#0x01-验证码重用&quot; class=&quot;headerlink&quot; title=&quot;0x01 验证码重用&quot;&gt;&lt;/a&gt;0x01 验证码重用&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
     <title>File Parsing Vulnerabilities</title>
     <link href="https://l0ki.net/2020/07/02/File-Parsing-Vulnerabilities/"/>
     <id>https://l0ki.net/2020/07/02/File-Parsing-Vulnerabilities/</id>
@@ -422,30 +445,6 @@
         
         
     <summary type="html">&lt;h1 id=&quot;内存取证&quot;&gt;&lt;a href=&quot;#内存取证&quot; class=&quot;headerlink&quot; title=&quot;内存取证&quot;&gt;&lt;/a&gt;内存取证&lt;/h1&gt;&lt;h2 id=&quot;内存取证工具volatility-的使用：&quot;&gt;&lt;a href=&quot;#内存取证工具volatility-的使用：&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PHP Function Vulnerabilities</title>
-    <link href="https://l0ki.net/2019/12/18/PHP-Function-Vulnerabilities/"/>
-    <id>https://l0ki.net/2019/12/18/PHP-Function-Vulnerabilities/</id>
-    <published>2019-12-18T12:20:00.000Z</published>
-    <updated>2024-04-20T17:50:24.231Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;preg-replace-函数&quot;&gt;&lt;a href=&quot;#preg-replace-函数&quot; class=&quot;headerlink&quot; title=&quot;preg_replace()函数&quot;&gt;&lt;/a&gt;preg_replace()函数&lt;/h2&gt;&lt;hr&gt;
-&lt;p&gt;&lt;a</summary>
         
       
     
