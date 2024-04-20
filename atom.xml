@@ -184,6 +184,23 @@
   </entry>
   
   <entry>
+    <title>Oracle Database Server Remote Code Execution (RCE)</title>
+    <link href="https://l0ki.net/2020/07/29/Oracle-Database-Server-RCE/"/>
+    <id>https://l0ki.net/2020/07/29/Oracle-Database-Server-RCE/</id>
+    <published>2020-07-29T03:37:00.000Z</published>
+    <updated>2024-04-20T18:32:28.241Z</updated>
+    
+    
+    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
+    
+    
+    
+    
+    <category term="Intranet Penetration" scheme="https://l0ki.net/tags/Intranet-Penetration/"/>
+    
+  </entry>
+  
+  <entry>
     <title>File Upload Vulnerabilities</title>
     <link href="https://l0ki.net/2020/07/16/File-Upload-Vulnerabilities/"/>
     <id>https://l0ki.net/2020/07/16/File-Upload-Vulnerabilities/</id>
@@ -407,29 +424,6 @@
         
         
     <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>XSS Payload Quick Reference</title>
-    <link href="https://l0ki.net/2020/07/02/XSS-Payload-Cheatsheet/"/>
-    <id>https://l0ki.net/2020/07/02/XSS-Payload-Cheatsheet/</id>
-    <published>2020-07-02T04:20:00.000Z</published>
-    <updated>2024-04-20T18:08:53.083Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;触发事件XSS语句的总结&quot;&gt;&lt;a href=&quot;#触发事件XSS语句的总结&quot; class=&quot;headerlink&quot;</summary>
         
       
     
