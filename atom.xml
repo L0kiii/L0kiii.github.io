@@ -145,6 +145,29 @@
   </entry>
   
   <entry>
+    <title>CVE-2020-5902: F5 BIG-IP Remote Code Execution Vulnerability</title>
+    <link href="https://l0ki.net/2020/07/06/CVE-2020-5902/"/>
+    <id>https://l0ki.net/2020/07/06/CVE-2020-5902/</id>
+    <published>2020-07-06T05:38:00.000Z</published>
+    <updated>2024-04-20T18:15:06.911Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;0x01-漏洞简述&quot;&gt;&lt;a href=&quot;#0x01-漏洞简述&quot; class=&quot;headerlink&quot; title=&quot;0x01 漏洞简述&quot;&gt;&lt;/a&gt;0x01 漏洞简述&lt;/h2&gt;&lt;p&gt;&lt;code&gt;F5 BIG-IP&lt;/code&gt;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
     <title>File Parsing Vulnerabilities</title>
     <link href="https://l0ki.net/2020/07/02/File-Parsing-Vulnerabilities/"/>
     <id>https://l0ki.net/2020/07/02/File-Parsing-Vulnerabilities/</id>
@@ -428,29 +451,6 @@
     
     
     <category term="Tools" scheme="https://l0ki.net/tags/Tools/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>From Basics to Analysis with Wireshark</title>
-    <link href="https://l0ki.net/2020/05/05/From-Basics-to-Analysis-with-Wireshark/"/>
-    <id>https://l0ki.net/2020/05/05/From-Basics-to-Analysis-with-Wireshark/</id>
-    <published>2020-05-05T11:47:00.000Z</published>
-    <updated>2024-04-20T16:21:00.515Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;数据分析基础&quot;&gt;&lt;a href=&quot;#数据分析基础&quot; class=&quot;headerlink&quot; title=&quot;数据分析基础&quot;&gt;&lt;/a&gt;数据分析基础&lt;/h2&gt;&lt;h4 id=&quot;数据包分析概念&quot;&gt;&lt;a href=&quot;#数据包分析概念&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
     
   </entry>
   
