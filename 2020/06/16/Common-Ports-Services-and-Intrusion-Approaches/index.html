@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="KaynZ" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  
+  
+  <title>
+    
+      Common Ports, Corresponding Services, and Intrusion Approaches 
+      
+      
+      |
+    
+     L0ki&#39;s Website
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="L0ki's Website" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img no-lazy src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">L0ki</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+        <li class="nav-item" data-path="/projects/">
+          <a href="/projects/">Projects</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Common Ports, Corresponding Services, and Intrusion Approaches</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-04-21 02:06:00
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Vulnerabilities/" title="Vulnerabilities">
+                    #Vulnerabilities
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="0x01-端口服务及利用简析"><a href="#0x01-端口服务及利用简析" class="headerlink" title="0x01 端口服务及利用简析"></a>0x01 端口服务及利用简析</h2><h3 id="1-1-文件共享服务端口"><a href="#1-1-文件共享服务端口" class="headerlink" title="1.1 文件共享服务端口"></a>1.1 文件共享服务端口</h3><table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>端口说明</th>
+<th>利用方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>21&#x2F;22&#x2F;69</td>
+<td>FTP&#x2F;TFTP文件传输协议</td>
+<td>允许匿名上传、下载、爆破和嗅探</td>
+</tr>
+<tr>
+<td>2049</td>
+<td>NFS服务</td>
+<td>配置不当</td>
+</tr>
+<tr>
+<td>139</td>
+<td>Samba</td>
+<td>爆破、未授权访问、远程代码执行</td>
+</tr>
+<tr>
+<td>389</td>
+<td>LDAP目录访问协议</td>
+<td>注入、允许匿名访问、弱口令</td>
+</tr>
+</tbody></table>
+<h3 id="1-2-远程连接服务端口"><a href="#1-2-远程连接服务端口" class="headerlink" title="1.2 远程连接服务端口"></a>1.2 远程连接服务端口</h3><table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>端口说明</th>
+<th>利用方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>21</td>
+<td>SSH远程连接</td>
+<td>爆破、SSH隧道及内网代理转发、文件传输</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Telnet</td>
+<td>爆破、嗅探、弱口令</td>
+</tr>
+<tr>
+<td>3389</td>
+<td>RDP远程桌面连接</td>
+<td>Shift后门（Windows Server 2003以下版本）、爆破</td>
+</tr>
+<tr>
+<td>5900</td>
+<td>VNC</td>
+<td>弱口令爆破</td>
+</tr>
+<tr>
+<td>5632</td>
+<td>PyAnyWhere服务</td>
+<td>抓代码、代码执行</td>
+</tr>
+</tbody></table>
+<h3 id="1-3-Web应用服务端口"><a href="#1-3-Web应用服务端口" class="headerlink" title="1.3 Web应用服务端口"></a>1.3 Web应用服务端口</h3><table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>端口说明</th>
+<th>利用方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>80&#x2F;443&#x2F;8080</td>
+<td>常见Web服务端口</td>
+<td>Web攻击、爆破、对应服务版本漏洞</td>
+</tr>
+<tr>
+<td>7001&#x2F;7002</td>
+<td>Weblogic控制台</td>
+<td>Java 反序列化、弱口令</td>
+</tr>
+<tr>
+<td>8080&#x2F;8089</td>
+<td>Jboos&#x2F;Resin&#x2F;Jetty&#x2F;Jenkins</td>
+<td>反序列化、控制台弱口令</td>
+</tr>
+<tr>
+<td>9090</td>
+<td>WebSphere控制台</td>
+<td>Java 反序列化、弱口令</td>
+</tr>
+<tr>
+<td>4848</td>
+<td>GlassFish控制台</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td>1352</td>
+<td>Lotus dominion邮件服务</td>
+<td>弱口令、信息泄露、爆破</td>
+</tr>
+<tr>
+<td>10000</td>
+<td>Webmin-Web控制面板</td>
+<td>弱口令</td>
+</tr>
+</tbody></table>
+<h3 id="1-4-数据库端口服务"><a href="#1-4-数据库端口服务" class="headerlink" title="1.4 数据库端口服务"></a>1.4 数据库端口服务</h3><table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>端口说明</th>
+<th>利用方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3306</td>
+<td>MySQL</td>
+<td>注入、提权、爆破</td>
+</tr>
+<tr>
+<td>1433</td>
+<td>MSSQL</td>
+<td>注入、提权、SAP弱口令、爆破</td>
+</tr>
+<tr>
+<td>1521</td>
+<td>Oracle</td>
+<td>TNS爆破、注入、反弹Shell</td>
+</tr>
+<tr>
+<td>5432</td>
+<td>PostgreSQL</td>
+<td>爆破、注入、弱口令</td>
+</tr>
+<tr>
+<td>27017&#x2F;27018</td>
+<td>MongoDB</td>
+<td>爆破、未授权访问</td>
+</tr>
+<tr>
+<td>6379</td>
+<td>Redis</td>
+<td>未授权访问、弱口令爆破</td>
+</tr>
+<tr>
+<td>5000</td>
+<td>SysBase&#x2F;DB2</td>
+<td>爆破、注入</td>
+</tr>
+</tbody></table>
+<h3 id="1-5-邮件服务端口"><a href="#1-5-邮件服务端口" class="headerlink" title="1.5 邮件服务端口"></a>1.5 邮件服务端口</h3><table>
+<thead>
+<tr>
+<th><strong>端口号</strong></th>
+<th><strong>端口说明</strong></th>
+<th><strong>利用方向</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>25</td>
+<td>SMTP 邮件服务</td>
+<td>邮件伪造</td>
+</tr>
+<tr>
+<td>110</td>
+<td>POP3</td>
+<td>爆破、嗅探</td>
+</tr>
+<tr>
+<td>143</td>
+<td>IMAP</td>
+<td>爆破</td>
+</tr>
+</tbody></table>
+<h3 id="1-6-网络常见协议端口"><a href="#1-6-网络常见协议端口" class="headerlink" title="1.6 网络常见协议端口"></a>1.6 网络常见协议端口</h3><table>
+<thead>
+<tr>
+<th>端口号</th>
+<th>端口说明</th>
+<th>利用方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>53</td>
+<td>DNS域名系统</td>
+<td>允许区域传送、DNS劫持、缓存投毒、欺骗</td>
+</tr>
+<tr>
+<td>67&#x2F;68</td>
+<td>DHCP服务</td>
+<td>劫持、欺骗</td>
+</tr>
+<tr>
+<td>161</td>
+<td>SNMP协议</td>
+<td>爆破、搜集目标内网信息</td>
+</tr>
+</tbody></table>
+<h3 id="1-7-特殊服务端口"><a href="#1-7-特殊服务端口" class="headerlink" title="1.7 特殊服务端口"></a>1.7 特殊服务端口</h3><table>
+<thead>
+<tr>
+<th align="left">端口号</th>
+<th align="left">端口说明</th>
+<th align="left">利用方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">2128</td>
+<td align="left">Zookeeper 服务</td>
+<td align="left">未授权访问</td>
+</tr>
+<tr>
+<td align="left">8068</td>
+<td align="left">Zabbix 服务</td>
+<td align="left">远程执行、SQL注入</td>
+</tr>
+<tr>
+<td align="left">9200&#x2F;9300</td>
+<td align="left">Elasticsearch 服务</td>
+<td align="left">远程执行</td>
+</tr>
+<tr>
+<td align="left">11211</td>
+<td align="left">Memcache 服务</td>
+<td align="left">未授权访问</td>
+</tr>
+<tr>
+<td align="left">512&#x2F;513&#x2F;514</td>
+<td align="left">Linux Rexec 服务</td>
+<td align="left">爆破、Rlogin登陆</td>
+</tr>
+<tr>
+<td align="left">873</td>
+<td align="left">Rsync 服务</td>
+<td align="left">匿名访问、文件上传</td>
+</tr>
+<tr>
+<td align="left">3690</td>
+<td align="left">Svn 服务</td>
+<td align="left">Svn泄露、未授权访问</td>
+</tr>
+<tr>
+<td align="left">50000</td>
+<td align="left">SAP Management Console</td>
+<td align="left">远程执行</td>
+</tr>
+</tbody></table>
+<h2 id="0x02-端口入侵姿势详情"><a href="#0x02-端口入侵姿势详情" class="headerlink" title="0x02 端口入侵姿势详情"></a>0x02 端口入侵姿势详情</h2><h3 id="2-1-21端口入侵"><a href="#2-1-21端口入侵" class="headerlink" title="2.1 21端口入侵"></a>2.1 21端口入侵</h3><p><strong>简介</strong></p>
+<blockquote>
+<p>FTP通常用作对远程服务器进行管理，典型应用就是对web系统进行管理。</p>
+<p>一旦FTP密码泄露就直接威胁web系统安全，甚至黑客通过提权可以直接控制服务器。</p>
+</blockquote>
+<p><strong>姿势</strong></p>
+<p>这里以Serv_uFTP服务器为例，剖析渗透FTP服务器的几种方法:</p>
+<ul>
+<li>（1）对Serv_u5.004以及以下版本可直接使用溢出程序进行远程溢出，成功后可直接得到系统权限。使用Metloit渗透工具包进行溢出。这个工具是需要安装的。</li>
+<li>（2）暴力破解FTP密码，关键是字典的制作。一般用的破解工具是X-way。</li>
+<li>（3）读取Serv_u用户配置文件，并破解用户加密密码。一般使用webshell进行读取。</li>
+<li>（4）通过本地提权工具，可执行任意系统命令。</li>
+<li>（5）使用嗅探方式截取FTP密码，使用工具Cain进行渗透。</li>
+</ul>
+<h3 id="2-2-23端口入侵"><a href="#2-2-23端口入侵" class="headerlink" title="2.2 23端口入侵"></a>2.2 23端口入侵</h3><p><strong>简介</strong></p>
+<blockquote>
+<p>telnet是一种旧的远程管理方式</p>
+<p>使用telnet工具登录系统过程中，网络上传输的用户和密码都是以明文方式传送的</p>
+<p>黑客可使用嗅探技术截获到此类密码。</p>
+</blockquote>
+<p><strong>姿势</strong></p>
+<ul>
+<li>（1）暴力破解技术是常用的技术，使用X-SCAN扫描器对其进行破解。</li>
+<li>（2）在linux系统中一般采用SSH进行远程访问，传输的敏感数据都是经过加密的。而对于windows下的telnet来说是脆弱的，因为默认没有经过任何加密就在网络中进行传输。使用cain等嗅探工具可轻松截获远程登录密码。</li>
+</ul>
+<h3 id="2-3-53端口入侵"><a href="#2-3-53端口入侵" class="headerlink" title="2.3 53端口入侵"></a>2.3 53端口入侵</h3><p><strong>简介</strong></p>
+<blockquote>
+<p>53端口是DNS域名服务器的通信端口</p>
+<p>通常用于域名解析</p>
+<p>也是网络中非常关键的服务器之一</p>
+<p>这类服务器容易受到攻击</p>
+</blockquote>
+<p><strong>姿势</strong></p>
+<ul>
+<li>（1）使用DNS远程溢出漏洞直接对其主机进行溢出攻击，成功后可直接获得系统权限。</li>
+<li>（2）使用DNS欺骗攻击，可对DNS域名服务器进行欺骗，如果黑客再配合网页木马进行挂马攻击，无疑是一种杀伤力很强的攻击，黑客可不费吹灰之力就控制内网的大部分主机。这也是内网渗透惯用的技法之一。</li>
+<li>（3）拒绝服务攻击，利用拒绝服务攻击可快速的导致目标服务器运行缓慢，甚至网络瘫痪。如果使用拒绝服务攻击其DNS服务器。将导致用该服务器进行域名解析的用户无法正常上网。</li>
+</ul>
+<h3 id="2-4-80端口入侵"><a href="#2-4-80端口入侵" class="headerlink" title="2.4 80端口入侵"></a>2.4 80端口入侵</h3><p><strong>简介</strong></p>
+<blockquote>
+<p>通常提供web服务</p>
+<p>目前黑客对80端口的攻击典型是采用 SQL 注入的攻击方法</p>
+<p>脚本渗透技术也是一项综合性极高的web渗透技术</p>
+<p>同时脚本渗透技术对80端口也构成严重的威胁</p>
+</blockquote>
+<p><strong>姿势</strong></p>
+<ul>
+<li>（1）对于windows2000的IIS5.0版本，黑客使用远程溢出直接对远程主机进行溢出攻击，成功后直接获得系统权限。</li>
+<li>（2）对于windows2000中IIS5.0版本，黑客也尝试利用‘Microsoft IISCGI’文件名错误解码漏洞攻击。使用X-SCAN可直接探测到IIS漏洞。</li>
+<li>（3）IIS写权限漏洞是由于IIS配置不当造成的安全问题，攻击者可向存在此类漏洞的服务器上传恶意代码，比如上传脚本木马扩大控制权限。</li>
+<li>（4）普通的http封包是没有经过加密就在网络中传输的，这样就可通过嗅探类工具截取到敏感的数据。如使用Cain工具完成此类渗透。</li>
+<li>（5）80端口的攻击，更多的是采用脚本渗透技术，利用web应用程序的漏洞进行渗透是目前很流行的攻击方式。</li>
+<li>（6）对于渗透只开放80端口的服务器来说，难度很大。利用端口复用工具可解决此类技术难题。</li>
+<li>（7）CC攻击效果不及DDOS效果明显，但是对于攻击一些小型web站点还是比较有用的。CC攻击可使目标站点运行缓慢，页面无法打开，有时还会爆出web程序的绝对路径。</li>
+</ul>
+<h3 id="2-5-135端口入侵"><a href="#2-5-135端口入侵" class="headerlink" title="2.5 135端口入侵"></a>2.5 135端口入侵</h3><p><strong>简介</strong></p>
+<blockquote>
+<p>135端口主要用于使用RPC协议并提供DCOM服务</p>
+<p>通过RPC可以保证在一台计算机上运行的程序可以顺利地执行远程计算机上的代码</p>
+<p>使用DCOM可以通过网络直接进行通信</p>
+<p>能够跨包括HTTP协议在内的多种网络传输</p>
+<p>同时这个端口最严重的就是缓冲区溢出漏洞</p>
+<p>曾经疯狂一时的‘冲击波病毒就是利用这个漏洞进行传播的。</p>
+</blockquote>
+<p><strong>姿势</strong></p>
+<ul>
+<li>（1）查找存在RPC溢出的主机，进行远程溢出攻击，直接获得系统权限。如用‘DSScan’扫描存在此漏洞的主机。对存在漏洞的主机可使用‘ms05011.exe’进行溢出，溢出成功后获得系统权限。</li>
+<li>（2）扫描存在弱口令的135主机，利用RPC远程过程调用开启telnet服务并登录telnet执行系统命令。系统弱口令的扫描一般使用X-SCAN和SHCAN。对于telnet服务的开启可使用工具Recton。</li>
+</ul>
+<h3 id="2-6-139-445端口入侵"><a href="#2-6-139-445端口入侵" class="headerlink" title="2.6 139&#x2F;445端口入侵"></a>2.6 139&#x2F;445端口入侵</h3><p><strong>简介</strong></p>
+<blockquote>
+<p>139端口是为‘NetBIOS SessionService’提供的</p>
+<p>主要用于提供windows文件和打印机共享以及UNIX中的Samba服务</p>
+<p>445端口也用于提供windows文件和打印机共享,在内网环境中使用的很广泛</p>
+<p>这两个端口同样属于重点攻击对象，139&#x2F;445端口曾出现过许多严重级别的漏洞。</p>
+</blockquote>
+<p><strong>姿势</strong></p>
+<ul>
+<li>（1）对于开放139&#x2F;445端口的主机，一般尝试利用溢出漏洞对远程主机进行溢出攻击，成功后直接获得系统权限。</li>
+<li>（2）对于攻击只开放445端口的主机，黑客一般使用工具‘MS06040’或‘MS08067’.可使用专用的445端口扫描器进行扫描。NS08067溢出工具对windows2003系统的溢出十分有效，工具基本使用参数在cmd下会有提示。</li>
+<li>（3）对于开放139&#x2F;445端口的主机，黑客一般使用IPC$进行渗透。在没有使用特点的账户和密码进行空连接时，权限是最小的。获得系统特定账户和密码成为提升权限的关键了，比如获得administrator账户的口令。</li>
+<li>（4）对于开放139&#x2F;445端口的主机，可利用共享获取敏感信息，这也是内网渗透中收集信息的基本途径。</li>
+</ul>
+<h3 id="2-7-1433端口入侵"><a href="#2-7-1433端口入侵" class="headerlink" title="2.7 1433端口入侵"></a>2.7 1433端口入侵</h3><p><strong>简介</strong></p>
+<blockquote>
+<p>1433是SQLServer默认的端口</p>
+<p>SQL Server服务使用两个端口：tcp-1433、UDP-1434</p>
+<p>1433用于供SQLServer对外提供服务</p>
+<p>1434用于向请求者返回SQLServer使用了哪些TCP&#x2F;IP端口</p>
+<p>1433端口通常遭到黑客的攻击，而且攻击的方式层出不穷。</p>
+<p>最严重的莫过于远程溢出漏洞了,如:</p>
+<p>由于SQL注射攻击的兴起，各类数据库时刻面临着安全威胁。</p>
+<p>利用SQL注射技术对数据库进行渗透是目前比较流行的攻击方式，此类技术属于脚本渗透技术。</p>
+</blockquote>
+<p><strong>姿势</strong></p>
+<ul>
+<li>（1）对于开放1433端口的SQL Server2000的数据库服务器，黑客尝试使用远程溢出漏洞对主机进行溢出测试，成功后直接获得系统权限。</li>
+<li>（2）暴力破解技术是一项经典的技术。一般破解的对象都是SA用户。通过字典破解的方式很快破解出SA的密码。</li>
+<li>（3）嗅探技术同样能嗅探到SQL Server的登录密码。</li>
+<li>（4）由于脚本程序编写的不严密，例如，程序员对参数过滤不严等，这都会造成严重的注射漏洞。通过SQL注射可间接性的对数据库服务器进行渗透，通过调用一些存储过程执行系统命令。可以使用SQL综合利用工具完成。</li>
+</ul>
+<h3 id="2-8-1521端口入侵"><a href="#2-8-1521端口入侵" class="headerlink" title="2.8 1521端口入侵"></a>2.8 1521端口入侵</h3><p><strong>简介</strong></p>
+<blockquote>
+<p>大型数据库Oracle的默认监听端口</p>
+</blockquote>
+<p><strong>姿势</strong></p>
+<ul>
+<li>（1）Oracle拥有非常多的默认用户名和密码，为了获得数据库系统的访问权限，破解数据库系统用户以及密码是黑客必须攻破的一道安全防线。</li>
+<li>（2）SQL注射同样对Oracle十分有效，通过注射可获得数据库的敏感信息，包括管理员密码等。</li>
+<li>（3）在注入点直接创建java，执行系统命令。</li>
+</ul>
+<h3 id="2-9-3306端口入侵"><a href="#2-9-3306端口入侵" class="headerlink" title="2.9 3306端口入侵"></a>2.9 3306端口入侵</h3><p><strong>简介</strong></p>
+<blockquote>
+<p>3306是MYSQL数据库默认的监听端口</p>
+<p>通常部署在中型web系统中</p>
+<p>在国内LAMP的配置是非常流行的</p>
+<p>对于php+mysql构架的攻击也是属于比较热门的话题</p>
+<p>mysql数据库允许用户使用自定义函数功能</p>
+<p>这使得黑客可编写恶意的自定义函数对服务器进行渗透</p>
+<p>最后取得服务器最高权限</p>
+</blockquote>
+<p><strong>姿势</strong></p>
+<ul>
+<li>（1）由于管理者安全意识淡薄，通常管理密码设置过于简单，甚至为空口令。使用破解软件很容易破解此类密码，利用破解的密码登录远程mysql数据库，上传构造的恶意UDF自定义函数代码进行注册，通过调用注册的恶意函数执行系统命令。或者向web目录导出恶意的脚本程序，以控制整个web系统。</li>
+<li>（2）功能强大的‘cain’同样支持对3306端口的嗅探，同时嗅探也是渗透思路的一种。</li>
+<li>（3）SQL注入同样对mysql数据库威胁巨大，不仅可以获取数据库的敏感信息，还可使用load_file()函数读取系统的敏感配置文件或者从web数据库链接文件中获得root口令等，导出恶意代码到指定路径等。</li>
+</ul>
+<h3 id="2-10-3389端口入侵"><a href="#2-10-3389端口入侵" class="headerlink" title="2.10 3389端口入侵"></a>2.10 3389端口入侵</h3><p><strong>简介</strong></p>
+<blockquote>
+<p>3389是windows远程桌面服务默认监听的端口</p>
+<p>管理员通过远程桌面对服务器进行维护</p>
+<p>通常利用它可对远程服务器进行控制，而且不需要另外安装额外的软件，</p>
+<p>当然这也是系统合法的服务，通常是不会被杀毒软件所查杀的。</p>
+<p>使用‘输入法漏洞’进行渗透。</p>
+</blockquote>
+<p><strong>姿势</strong></p>
+<ul>
+<li>（1）对于windows2000的旧系统版本，使用‘输入法漏洞’进行渗透。</li>
+<li>（2）针对windows2000终端服务的一个密码破解程序，这个程序被微软公司推荐给用户使用，来检查终端服务密码的强壮性。程序使用msrdp空间，可在本地虚拟远程终端连接窗口，通过密码字典进行破解。可以指定多种参数，使用比较灵活，破解速度视攻击主机与被攻击主机网络带宽来定。稍等下，虚拟机有点卡。我们先看第三种方法吧。</li>
+<li>（3）cain是一款超级的渗透工具，同样支持对3389端口的嗅探。</li>
+<li>（4）映像劫持与shift粘贴键的配合使用。通常安全人员配置服务器安全时，都会考虑使用功能强大的组策略。比如阻止非法攻击者执行cmd命令和拒绝非授权远程登录用户等（关于组策略的详细设置方法我们已经在信息系统安全工程师课程做了详细的讲解），即使你拥有管理员权限同样不能进行登录。黑客突破组策略的秘籍就在3389登录框这里，也就是映像劫持与shift粘贴键的配合使用，调出任务管理器然后在任务管理器中打开组策略编辑器，这里可根据实际情侣进行修改了。</li>
+<li>（5）社会工程学通常是最可怕的攻击技术，如果管理者的一切习惯和规律被黑客摸透的话，那么他管理的网络系统会因为他的弱点被渗透。</li>
+</ul>
+<h3 id="2-11-4899端口入侵"><a href="#2-11-4899端口入侵" class="headerlink" title="2.11 4899端口入侵"></a>2.11 4899端口入侵</h3><p><strong>简介</strong></p>
+<blockquote>
+<p>4899端口是remoteadministrator远程控制软件默认监听的端口</p>
+<p>也就是平时常说的radmini影子</p>
+<p>radmini目前支持TCP&#x2F;IP协议</p>
+<p>应用十分广泛</p>
+<p>在很多服务器上都会看到该款软件的影子。</p>
+</blockquote>
+<p><strong>姿势</strong></p>
+<ul>
+<li>（1）radmini同样存在不少弱口令的主机，通过专用扫描器可探测到此类存在漏洞的主机。</li>
+<li>（2）radmini远控的连接密码和端口都是写入到注册表系统中的，通过使用webshell注册表读取功能可读取radmini在注册表的各项键值内容，从而破解加密的密码散列。</li>
+</ul>
+<h3 id="2-12-5631端口入侵"><a href="#2-12-5631端口入侵" class="headerlink" title="2.12 5631端口入侵"></a>2.12 5631端口入侵</h3><p><strong>简介</strong></p>
+<blockquote>
+<p>5631端口是著名远程控制软件symantecpcanywhere的默认监听端口</p>
+<p>同时也是世界领先的远程控制软件</p>
+<p>利用此软件，用户可以有效管理计算机并快速解决技术支持问题。</p>
+<p>由于软件的设计缺陷，使得黑客可:</p>
+<p>随意下载保存连接密码的*.cif文件</p>
+<p>通过专用破解软件进行破解</p>
+<p>这些操作都必须在拥有一定权限下才可完成</p>
+<p>至少通过脚本渗透获得一个webshell。</p>
+<p>通常这些操作在黑客界被称为pcanywhere提权技术。</p>
+</blockquote>
+<h3 id="2-13-5900端口入侵"><a href="#2-13-5900端口入侵" class="headerlink" title="2.13 5900端口入侵"></a>2.13 5900端口入侵</h3><p><strong>简介</strong></p>
+<blockquote>
+<p>5900端口是优秀远程控制软件VNC的默认监听端口</p>
+<p>VNC是在基于unix和linux操作系统的免费的开放源码软件</p>
+<p>远程控制能力强大，高效实用</p>
+<p>其性能可以和windows和MAC中的任何一款控制软件媲美。</p>
+</blockquote>
+<p><strong>姿势</strong></p>
+<ul>
+<li>（1）VNC软件存在密码验证绕过漏洞，此高危漏洞可以使得恶意攻击者不需要密码就可以登录到一个远程系统。</li>
+<li>（2）cain同样支持对VNC的嗅探，同时支持端口修改。</li>
+<li>（3）VNC的配置信息同样被写入注册表系统中，其中包括连接的密码和端口。利用webshell的注册表读取功能进行读取加密算法，然后破解。</li>
+</ul>
+<h3 id="2-14-8080端口入侵"><a href="#2-14-8080端口入侵" class="headerlink" title="2.14 8080端口入侵"></a>2.14 8080端口入侵</h3><p><strong>简介</strong></p>
+<blockquote>
+<p>8080端口通常是apache_Tomcat服务器默认监听端口</p>
+<p>apache是世界使用排名第一的web服务器</p>
+<p>国内很多大型系统都是使用apache服务器</p>
+</blockquote>
+<p><strong>姿势</strong></p>
+<ul>
+<li>（1）apache tomcatUTF-8目录遍历漏洞，tomcat处理请求中的编码时存在漏洞，如果在context.xml或server.xml中将allowlinking设置为true，且连接器配置为URIEncoding&#x3D;UTF-8，若黑客向apache提交恶意请求就可以通过目录遍历攻击读取服务器上的任意文件，包括&#x2F;etc&#x2F;passwd等</li>
+<li>（2）apache后台弱口令漏洞，黑客可使用专用扫描器探测此类漏洞。</li>
+<li>（3）JSP爆源码漏洞，对于一些旧版本的tomcat，黑客通过提交一些注入.jsP.Jsp等，尝试找源码代码和目录文件。查找上传文件，直接上传他们的JSP脚本后门。</li>
+<li>（4）apache在windows环境下是以系统权限启动的，JSP的脚本同样继承了该权限，可直接执行任意系统命令。</li>
+</ul>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2020/06/14/Red-Team-Operations-Manual/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-04-21 02:06:00
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Vulnerabilities/" title="Vulnerabilities">
+                        #Vulnerabilities
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2020/06/28/2020-5Space-CTF-Web/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1%E5%8F%8A%E5%88%A9%E7%94%A8%E7%AE%80%E6%9E%90"><span class="toc-text">0x01 端口服务及利用简析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3"><span class="toc-text">1.1 文件共享服务端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3"><span class="toc-text">1.2 远程连接服务端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Web%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3"><span class="toc-text">1.3 Web应用服务端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AB%AF%E5%8F%A3%E6%9C%8D%E5%8A%A1"><span class="toc-text">1.4 数据库端口服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3"><span class="toc-text">1.5 邮件服务端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-%E7%BD%91%E7%BB%9C%E5%B8%B8%E8%A7%81%E5%8D%8F%E8%AE%AE%E7%AB%AF%E5%8F%A3"><span class="toc-text">1.6 网络常见协议端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-7-%E7%89%B9%E6%AE%8A%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3"><span class="toc-text">1.7 特殊服务端口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5%E5%A7%BF%E5%8A%BF%E8%AF%A6%E6%83%85"><span class="toc-text">0x02 端口入侵姿势详情</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-21%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5"><span class="toc-text">2.1 21端口入侵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-23%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5"><span class="toc-text">2.2 23端口入侵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-53%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5"><span class="toc-text">2.3 53端口入侵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-80%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5"><span class="toc-text">2.4 80端口入侵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-135%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5"><span class="toc-text">2.5 135端口入侵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-139-445%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5"><span class="toc-text">2.6 139&#x2F;445端口入侵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-1433%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5"><span class="toc-text">2.7 1433端口入侵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-1521%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5"><span class="toc-text">2.8 1521端口入侵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-9-3306%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5"><span class="toc-text">2.9 3306端口入侵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-10-3389%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5"><span class="toc-text">2.10 3389端口入侵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-11-4899%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5"><span class="toc-text">2.11 4899端口入侵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-12-5631%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5"><span class="toc-text">2.12 5631端口入侵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-13-5900%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5"><span class="toc-text">2.13 5900端口入侵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-14-8080%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5"><span class="toc-text">2.14 8080端口入侵</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/L0kiii">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        Copyright © 2024
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Common%20Ports%2C%20Corresponding%20Services%2C%20and%20Intrusion%20Approaches + '&url=' + https%3A%2F%2Fl0ki.net%2F2020%2F06%2F16%2FCommon-Ports-Services-and-Intrusion-Approaches%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2020/06/16/Common-Ports-Services-and-Intrusion-Approaches/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>

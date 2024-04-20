@@ -122,6 +122,29 @@
   </entry>
   
   <entry>
+    <title>Common Ports, Corresponding Services, and Intrusion Approaches</title>
+    <link href="https://l0ki.net/2020/06/16/Common-Ports-Services-and-Intrusion-Approaches/"/>
+    <id>https://l0ki.net/2020/06/16/Common-Ports-Services-and-Intrusion-Approaches/</id>
+    <published>2020-06-15T17:57:00.000Z</published>
+    <updated>2024-04-20T18:06:00.308Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;0x01-端口服务及利用简析&quot;&gt;&lt;a href=&quot;#0x01-端口服务及利用简析&quot; class=&quot;headerlink&quot; title=&quot;0x01 端口服务及利用简析&quot;&gt;&lt;/a&gt;0x01 端口服务及利用简析&lt;/h2&gt;&lt;h3 id=&quot;1-1-文件共享服务端口&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Red Team Operations Manual</title>
     <link href="https://l0ki.net/2020/06/14/Red-Team-Operations-Manual/"/>
     <id>https://l0ki.net/2020/06/14/Red-Team-Operations-Manual/</id>
@@ -317,6 +340,29 @@
   </entry>
   
   <entry>
+    <title>Mini Programs and JavaScript</title>
+    <link href="https://l0ki.net/2020/03/20/Mini-Programs-and-JavaScript/"/>
+    <id>https://l0ki.net/2020/03/20/Mini-Programs-and-JavaScript/</id>
+    <published>2020-03-20T09:28:00.000Z</published>
+    <updated>2024-04-20T18:04:17.431Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;小程序与JavaScript&quot;&gt;&lt;a href=&quot;#小程序与JavaScript&quot; class=&quot;headerlink&quot; title=&quot;小程序与JavaScript&quot;&gt;&lt;/a&gt;小程序与JavaScript&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Introduction to Mini Program Development[1]</title>
     <link href="https://l0ki.net/2020/03/20/Introduction-to-Mini-Program-Development/"/>
     <id>https://l0ki.net/2020/03/20/Introduction-to-Mini-Program-Development/</id>
@@ -406,52 +452,6 @@
     
     
     <category term="CTF" scheme="https://l0ki.net/tags/CTF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>XCTF WEB Advanced</title>
-    <link href="https://l0ki.net/2020/02/12/XCTF-WEB-Advanced/"/>
-    <id>https://l0ki.net/2020/02/12/XCTF-WEB-Advanced/</id>
-    <published>2020-02-12T12:20:00.000Z</published>
-    <updated>2024-04-20T17:39:00.825Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;cat-抓住那只猫&quot;&gt;&lt;a href=&quot;#cat-抓住那只猫&quot; class=&quot;headerlink&quot; title=&quot;cat:抓住那只猫&quot;&gt;&lt;/a&gt;cat:抓住那只猫&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    
-    <category term="CTF" scheme="https://l0ki.net/tags/CTF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Memory Forensics</title>
-    <link href="https://l0ki.net/2020/01/10/Memory-Forensics/"/>
-    <id>https://l0ki.net/2020/01/10/Memory-Forensics/</id>
-    <published>2020-01-10T11:45:00.000Z</published>
-    <updated>2024-04-20T16:47:42.350Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;内存取证&quot;&gt;&lt;a href=&quot;#内存取证&quot; class=&quot;headerlink&quot; title=&quot;内存取证&quot;&gt;&lt;/a&gt;内存取证&lt;/h1&gt;&lt;h2 id=&quot;内存取证工具volatility-的使用：&quot;&gt;&lt;a href=&quot;#内存取证工具volatility-的使用：&quot;</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
     
   </entry>
   
