@@ -384,6 +384,25 @@
     
     
     <entry>
+      <title>How to Insert a Sentence into a Picture in Win10</title>
+      <link href="/2019/02/27/How-to-Insert-a-Sentence-into-a-Picture-in-Win10/"/>
+      <url>/2019/02/27/How-to-Insert-a-Sentence-into-a-Picture-in-Win10/</url>
+      
+        <content type="html"><![CDATA[<p>首先我们准备一张像素比较小的图片，命名为11.jpg<br>然后新建一个txt文件，更改名称为1.txt，输入代码。</p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-963c4197e06e4440.png" alt="img"></p><p>使用windos + r键弹出windows运行框输入cmd调出命令提示框。<br>执行命令copy 11.jpg&#x2F;b + 1.txt&#x2F;a 2.jpg 前两个文件合并成一个文件，文件属性为2.jpg。</p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-967b195f90176640.png" alt="img"></p><p>找到2.jpg更改扩展名为2.txt，查看代码</p><p><img src="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-3022e3a17eab324f.png" alt="img"></p><p>插入成功！</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Notes </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Sql Lab(41-65)</title>
       <link href="/2019/02/26/sql-lab(41-65)/"/>
       <url>/2019/02/26/sql-lab(41-65)/</url>
