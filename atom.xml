@@ -241,6 +241,29 @@
   </entry>
   
   <entry>
+    <title>Summary of SQL Injection</title>
+    <link href="https://l0ki.net/2020/07/03/Comprehensive-SQL-Injection-Summary/"/>
+    <id>https://l0ki.net/2020/07/03/Comprehensive-SQL-Injection-Summary/</id>
+    <published>2020-07-03T07:10:00.000Z</published>
+    <updated>2024-04-20T18:20:17.996Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;False注入&quot;&gt;&lt;a href=&quot;#False注入&quot; class=&quot;headerlink&quot; title=&quot;False注入&quot;&gt;&lt;/a&gt;False注入&lt;/h2&gt;&lt;h3 id=&quot;适用场景&quot;&gt;&lt;a href=&quot;#适用场景&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    
+  </entry>
+  
+  <entry>
     <title>File Parsing Vulnerabilities</title>
     <link href="https://l0ki.net/2020/07/02/File-Parsing-Vulnerabilities/"/>
     <id>https://l0ki.net/2020/07/02/File-Parsing-Vulnerabilities/</id>
@@ -438,29 +461,6 @@
     
     
     <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>From Basics to Attack: XML Entity Injection</title>
-    <link href="https://l0ki.net/2020/05/20/From-Basics-to-Attack-XML-Entity-Injection/"/>
-    <id>https://l0ki.net/2020/05/20/From-Basics-to-Attack-XML-Entity-Injection/</id>
-    <published>2020-05-20T10:05:00.000Z</published>
-    <updated>2024-04-20T16:14:11.749Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;0x01-前言&quot;&gt;&lt;a href=&quot;#0x01-前言&quot; class=&quot;headerlink&quot; title=&quot;0x01 前言&quot;&gt;&lt;/a&gt;0x01</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
     
   </entry>
   
