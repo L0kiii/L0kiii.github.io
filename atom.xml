@@ -76,6 +76,29 @@
   </entry>
   
   <entry>
+    <title>2020 5Space CTF Web Challenge</title>
+    <link href="https://l0ki.net/2020/06/28/2020-5Space-CTF-Web/"/>
+    <id>https://l0ki.net/2020/06/28/2020-5Space-CTF-Web/</id>
+    <published>2020-06-28T12:24:00.000Z</published>
+    <updated>2024-04-20T17:56:20.323Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;hate-php&quot;&gt;&lt;a href=&quot;#hate-php&quot; class=&quot;headerlink&quot; title=&quot;hate-php&quot;&gt;&lt;/a&gt;hate-php&lt;/h2&gt;&lt;h3 id=&quot;题目源码&quot;&gt;&lt;a href=&quot;#题目源码&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="CTF" scheme="https://l0ki.net/tags/CTF/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Red Team Operations Manual</title>
     <link href="https://l0ki.net/2020/06/14/Red-Team-Operations-Manual/"/>
     <id>https://l0ki.net/2020/06/14/Red-Team-Operations-Manual/</id>
@@ -276,7 +299,7 @@
     <link href="https://l0ki.net/2020/03/20/Basic-Preparation-for-Mini-Program-Development/"/>
     <id>https://l0ki.net/2020/03/20/Basic-Preparation-for-Mini-Program-Development/</id>
     <published>2020-03-20T02:34:00.000Z</published>
-    <updated>2024-04-20T17:54:48.463Z</updated>
+    <updated>2024-04-20T17:55:02.239Z</updated>
     
     
       
@@ -424,30 +447,6 @@
         
     <summary type="html">&lt;p&gt;kali更新源：&lt;/p&gt;
 &lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Learning Code Auditing [1]</title>
-    <link href="https://l0ki.net/2019/07/25/Learning-Code-Auditing-1/"/>
-    <id>https://l0ki.net/2019/07/25/Learning-Code-Auditing-1/</id>
-    <published>2019-07-25T11:41:00.000Z</published>
-    <updated>2024-04-20T16:49:01.583Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;一、常见的代码审计工具&quot;&gt;&lt;a href=&quot;#一、常见的代码审计工具&quot; class=&quot;headerlink&quot; title=&quot;一、常见的代码审计工具&quot;&gt;&lt;/a&gt;一、常见的代码审计工具&lt;/h1&gt;&lt;p&gt;1、Fortify SCA&lt;/p&gt;
-&lt;p&gt;Fortify</summary>
         
       
     
