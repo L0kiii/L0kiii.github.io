@@ -40,6 +40,29 @@
   </entry>
   
   <entry>
+    <title>From Basics to Attack: XML Entity Injection</title>
+    <link href="https://l0ki.net/2020/05/20/From-Basics-to-Attack-XML-Entity-Injection/"/>
+    <id>https://l0ki.net/2020/05/20/From-Basics-to-Attack-XML-Entity-Injection/</id>
+    <published>2020-05-20T10:05:00.000Z</published>
+    <updated>2024-04-20T16:14:11.749Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;0x01-前言&quot;&gt;&lt;a href=&quot;#0x01-前言&quot; class=&quot;headerlink&quot; title=&quot;0x01 前言&quot;&gt;&lt;/a&gt;0x01</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    
+  </entry>
+  
+  <entry>
     <title>2020HW Cheat Sheet</title>
     <link href="https://l0ki.net/2020/05/14/2020HW-Cheat-Sheet/"/>
     <id>https://l0ki.net/2020/05/14/2020HW-Cheat-Sheet/</id>
