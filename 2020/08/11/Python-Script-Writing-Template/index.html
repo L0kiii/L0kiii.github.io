@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en" color-mode="light">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="KaynZ" />
+  <!-- Open Graph Description 简短摘要-->
+  
+  <!-- 用于搜索引擎的文章摘要 -->
+  
+  
+  
+  <title>
+    
+      Python Script Writing Template 
+      
+      
+      |
+    
+     L0ki&#39;s Website
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1886449_67xjft27j1l.css" />
+  <!-- 代码块风格 -->
+  
+    
+<link rel="stylesheet" href="/css/figcaption/mac-block.css">
+
+  
+
+  <!-- jquery3.3.1 -->
+  
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  
+
+  <!-- fancybox -->
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+  
+
+  <script>
+    var html = document.documentElement
+    const colorMode = localStorage.getItem('color-mode')
+    if (colorMode) {
+      document.documentElement.setAttribute('color-mode', colorMode)
+    }
+  </script>
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="L0ki's Website" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img no-lazy src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">L0ki</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+        <li class="nav-item" data-path="/projects/">
+          <a href="/projects/">Projects</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Python Script Writing Template</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-04-21 02:30:15
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/Notes/" title="Notes">
+                    #Notes
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="爬虫"><a href="#爬虫" class="headerlink" title="爬虫"></a>爬虫</h2><h3 id="入口函数-爬虫调度段"><a href="#入口函数-爬虫调度段" class="headerlink" title="入口函数(爬虫调度段)"></a>入口函数(爬虫调度段)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf8</span></span><br><span class="line"><span class="keyword">import</span> time, datetime</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> maya_Spider <span class="keyword">import</span> url_manager, html_downloader, html_parser, html_outputer</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Spider_Main</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"> <span class="comment">#初始化操作</span></span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">  <span class="comment">#设置url管理器</span></span><br><span class="line">  self.urls = url_manager.UrlManager()</span><br><span class="line">  <span class="comment">#设置HTML下载器</span></span><br><span class="line">  self.downloader = html_downloader.HtmlDownloader()</span><br><span class="line">  <span class="comment">#设置HTML解析器</span></span><br><span class="line">  self.parser = html_parser.HtmlParser()</span><br><span class="line">  <span class="comment">#设置HTML输出器</span></span><br><span class="line">  self.outputer = html_outputer.HtmlOutputer()</span><br><span class="line"></span><br><span class="line"> <span class="comment">#爬虫调度程序</span></span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">craw</span>(<span class="params">self, root_url</span>):</span><br><span class="line">  count = <span class="number">1</span></span><br><span class="line">  self.urls.add_new_url(root_url)</span><br><span class="line">  <span class="keyword">while</span> self.urls.has_new_url():</span><br><span class="line">   <span class="keyword">try</span>:</span><br><span class="line">    new_url = self.urls.get_new_url()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;craw %d : %s&#x27;</span> % (count, new_url))</span><br><span class="line">    html_content = self.downloader.download(new_url)</span><br><span class="line">    new_urls, new_data = self.parser.parse(new_url, html_content)</span><br><span class="line">    self.urls.add_new_urls(new_urls)</span><br><span class="line">    self.outputer.collect_data(new_data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> count == <span class="number">10</span>:</span><br><span class="line">     <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    count = count + <span class="number">1</span></span><br><span class="line">   <span class="keyword">except</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;craw failed&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  self.outputer.output_html()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line"> <span class="comment">#设置爬虫入口</span></span><br><span class="line"> root_url = <span class="string">&#x27;http://baike.baidu.com/view/21087.htm&#x27;</span></span><br><span class="line"> <span class="comment">#开始时间</span></span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;开始计时..............&#x27;</span>)</span><br><span class="line"> start_time = datetime.datetime.now()</span><br><span class="line"> obj_spider = Spider_Main()</span><br><span class="line"> obj_spider.craw(root_url)</span><br><span class="line"> <span class="comment">#结束时间</span></span><br><span class="line"> end_time = datetime.datetime.now()</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;总用时：%ds&#x27;</span>% (end_time - start_time).seconds)</span><br></pre></td></tr></table></figure>
+
+<h3 id="URL管理器"><a href="#URL管理器" class="headerlink" title="URL管理器"></a>URL管理器</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UrlManager</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">  self.new_urls = <span class="built_in">set</span>()</span><br><span class="line">  self.old_urls = <span class="built_in">set</span>()</span><br><span class="line"></span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">add_new_url</span>(<span class="params">self, url</span>):</span><br><span class="line">  <span class="keyword">if</span> url <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line">  <span class="keyword">if</span> url <span class="keyword">not</span> <span class="keyword">in</span> self.new_urls <span class="keyword">and</span> url <span class="keyword">not</span> <span class="keyword">in</span> self.old_urls:</span><br><span class="line">   self.new_urls.add(url)</span><br><span class="line"></span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">add_new_urls</span>(<span class="params">self, urls</span>):</span><br><span class="line">  <span class="keyword">if</span> urls <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> <span class="built_in">len</span>(urls) == <span class="number">0</span>:</span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line">  <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">   self.add_new_url(url)</span><br><span class="line"></span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">has_new_url</span>(<span class="params">self</span>):</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">len</span>(self.new_urls) != <span class="number">0</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">get_new_url</span>(<span class="params">self</span>):</span><br><span class="line">  new_url = self.new_urls.pop()</span><br><span class="line">  self.old_urls.add(new_url)</span><br><span class="line">  <span class="keyword">return</span> new_url</span><br></pre></td></tr></table></figure>
+
+<h3 id="网页下载器"><a href="#网页下载器" class="headerlink" title="网页下载器"></a>网页下载器</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HtmlDownloader</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"></span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">download</span>(<span class="params">self, url</span>):</span><br><span class="line">  <span class="keyword">if</span> url <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">   <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">#伪装成浏览器访问，直接访问的话csdn会拒绝</span></span><br><span class="line">  user_agent = <span class="string">&#x27;Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)&#x27;</span></span><br><span class="line">  headers = &#123;<span class="string">&#x27;User-Agent&#x27;</span>:user_agent&#125;</span><br><span class="line">  <span class="comment">#构造请求</span></span><br><span class="line">  req = urllib.request.Request(url,headers=headers)</span><br><span class="line">  <span class="comment">#访问页面</span></span><br><span class="line">  response = urllib.request.urlopen(req)</span><br><span class="line">  <span class="comment">#python3中urllib.read返回的是bytes对象，不是string,得把它转换成string对象，用bytes.decode方法</span></span><br><span class="line">  <span class="keyword">return</span> response.read().decode()</span><br></pre></td></tr></table></figure>
+
+<h3 id="网页解析器"><a href="#网页解析器" class="headerlink" title="网页解析器"></a>网页解析器</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urlparse</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HtmlParser</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"></span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">_get_new_urls</span>(<span class="params">self, page_url, soup</span>):</span><br><span class="line">  new_urls = <span class="built_in">set</span>()</span><br><span class="line">  <span class="comment">#/view/123.htm</span></span><br><span class="line">  links = soup.find_all(<span class="string">&#x27;a&#x27;</span>, href=re.<span class="built_in">compile</span>(<span class="string">r&#x27;/item/.*?&#x27;</span>))</span><br><span class="line">  <span class="keyword">for</span> link <span class="keyword">in</span> links:</span><br><span class="line">   new_url = link[<span class="string">&#x27;href&#x27;</span>]</span><br><span class="line">   new_full_url = urllib.parse.urljoin(page_url, new_url)</span><br><span class="line">   new_urls.add(new_full_url)</span><br><span class="line">  <span class="keyword">return</span> new_urls</span><br><span class="line"></span><br><span class="line"> <span class="comment">#获取标题、摘要</span></span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">_get_new_data</span>(<span class="params">self, page_url, soup</span>):</span><br><span class="line">  <span class="comment">#新建字典</span></span><br><span class="line">  res_data = &#123;&#125;</span><br><span class="line">  <span class="comment">#url</span></span><br><span class="line">  res_data[<span class="string">&#x27;url&#x27;</span>] = page_url</span><br><span class="line">  <span class="comment">#&lt;dd class=&quot;lemmaWgt-lemmaTitle-title&quot;&gt;&lt;h1&gt;Python&lt;/h1&gt;获得标题标签</span></span><br><span class="line">  title_node = soup.find(<span class="string">&#x27;dd&#x27;</span>, class_=<span class="string">&quot;lemmaWgt-lemmaTitle-title&quot;</span>).find(<span class="string">&#x27;h1&#x27;</span>)</span><br><span class="line">  <span class="built_in">print</span>(<span class="built_in">str</span>(title_node.get_text()))</span><br><span class="line">  res_data[<span class="string">&#x27;title&#x27;</span>] = <span class="built_in">str</span>(title_node.get_text())</span><br><span class="line">  <span class="comment">#&lt;div class=&quot;lemma-summary&quot; label-module=&quot;lemmaSummary&quot;&gt;</span></span><br><span class="line">  summary_node = soup.find(<span class="string">&#x27;div&#x27;</span>, class_=<span class="string">&quot;lemma-summary&quot;</span>)</span><br><span class="line">  res_data[<span class="string">&#x27;summary&#x27;</span>] = summary_node.get_text()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> res_data</span><br><span class="line"></span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, page_url, html_content</span>):</span><br><span class="line">  <span class="keyword">if</span> page_url <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> html_content <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">   <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  soup = BeautifulSoup(html_content, <span class="string">&#x27;html.parser&#x27;</span>, from_encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">  new_urls = self._get_new_urls(page_url, soup)</span><br><span class="line">  new_data = self._get_new_data(page_url, soup)</span><br><span class="line">  <span class="keyword">return</span> new_urls, new_data</span><br></pre></td></tr></table></figure>
+
+<h3 id="网页输出器"><a href="#网页输出器" class="headerlink" title="网页输出器"></a>网页输出器</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HtmlOutputer</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"></span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">  self.datas = []</span><br><span class="line"></span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">collect_data</span>(<span class="params">self, data</span>):</span><br><span class="line">  <span class="keyword">if</span> data <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line">  self.datas.append(data )</span><br><span class="line"></span><br><span class="line"> <span class="keyword">def</span> <span class="title function_">output_html</span>(<span class="params">self</span>):</span><br><span class="line">  fout = <span class="built_in">open</span>(<span class="string">&#x27;maya.html&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">  fout.write(<span class="string">&quot;&lt;head&gt;&lt;meta http-equiv=&#x27;content-type&#x27; content=&#x27;text/html;charset=utf-8&#x27;&gt;&lt;/head&gt;&quot;</span>)</span><br><span class="line">  fout.write(<span class="string">&#x27;&lt;html&gt;&#x27;</span>)</span><br><span class="line">  fout.write(<span class="string">&#x27;&lt;body&gt;&#x27;</span>)</span><br><span class="line">  fout.write(<span class="string">&#x27;&lt;table border=&quot;1&quot;&gt;&#x27;</span>)</span><br><span class="line">  <span class="comment"># &lt;th width=&quot;5%&quot;&gt;Url&lt;/th&gt;</span></span><br><span class="line">  fout.write(<span class="string">&#x27;&#x27;&#x27;&lt;tr style=&quot;color:red&quot; width=&quot;90%&quot;&gt;</span></span><br><span class="line"><span class="string">     &lt;th&gt;Theme&lt;/th&gt;</span></span><br><span class="line"><span class="string">     &lt;th width=&quot;80%&quot;&gt;Content&lt;/th&gt;</span></span><br><span class="line"><span class="string">     &lt;/tr&gt;&#x27;&#x27;&#x27;</span>)</span><br><span class="line">  <span class="keyword">for</span> data <span class="keyword">in</span> self.datas:</span><br><span class="line">   fout.write(<span class="string">&#x27;&lt;tr&gt;\n&#x27;</span>)</span><br><span class="line">   <span class="comment"># fout.write(&#x27;\t&lt;td&gt;%s&lt;/td&gt;&#x27; % data[&#x27;url&#x27;])</span></span><br><span class="line">   fout.write(<span class="string">&#x27;\t&lt;td align=&quot;center&quot;&gt;&lt;a href=\&#x27;%s\&#x27;&gt;%s&lt;/td&gt;&#x27;</span> % (data[<span class="string">&#x27;url&#x27;</span>], data[<span class="string">&#x27;title&#x27;</span>]))</span><br><span class="line">   fout.write(<span class="string">&#x27;\t&lt;td&gt;%s&lt;/td&gt;\n&#x27;</span> % data[<span class="string">&#x27;summary&#x27;</span>])</span><br><span class="line">   fout.write(<span class="string">&#x27;&lt;/tr&gt;\n&#x27;</span>)</span><br><span class="line">  fout.write(<span class="string">&#x27;&lt;/table&gt;&#x27;</span>)</span><br><span class="line">  fout.write(<span class="string">&#x27;&lt;/body&gt;&#x27;</span>)</span><br><span class="line">  fout.write(<span class="string">&#x27;&lt;/html&gt;&#x27;</span>)</span><br><span class="line">  fout.close()</span><br></pre></td></tr></table></figure>
+
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><p><strong>实现可设置持续运行时间、线程数及时间间隔的多线程异步post请求功能</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf8</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">random.randint(a, b):用于生成一个指定范围内的整数。</span></span><br><span class="line"><span class="string">其中参数a是下限，参数b是上限，生成的随机数n: a &lt;= n &lt;= b</span></span><br><span class="line"><span class="string">random.choice(sequence)：从序列中获取一个随机元素</span></span><br><span class="line"><span class="string">参数sequence表示一个有序类型（列表，元组，字符串）</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">import</span> httplib,json</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint,choice</span><br><span class="line"><span class="comment">#创建请求函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">postRequest</span>(<span class="params">threadNum</span>):</span><br><span class="line">  postJson=&#123;</span><br><span class="line">        &#125;</span><br><span class="line">  <span class="comment">#定义需要进行发送的数据</span></span><br><span class="line">  postData=json.dumps(postJson)</span><br><span class="line">  <span class="comment">#定义一些文件头</span></span><br><span class="line">  headerdata = &#123;</span><br><span class="line">    <span class="string">&quot;content-type&quot;</span>:<span class="string">&quot;application/json&quot;</span>,</span><br><span class="line">     &#125;</span><br><span class="line">  <span class="comment">#接口</span></span><br><span class="line">  requrl =<span class="string">&quot;/v1/query&quot;</span></span><br><span class="line">  <span class="comment">#请求服务,例如：www.baidu.com</span></span><br><span class="line">  hostServer=<span class="string">&quot;&quot;</span></span><br><span class="line">  <span class="comment">#连接服务器</span></span><br><span class="line">  conn = httplib.HTTPConnection(hostServer)</span><br><span class="line">  <span class="comment">#发送请求</span></span><br><span class="line">  conn.request(method=<span class="string">&quot;POST&quot;</span>,url=requrl,body=postData,headers=headerdata)</span><br><span class="line">  <span class="comment">#获取请求响应</span></span><br><span class="line">  response=conn.getresponse()</span><br><span class="line">  <span class="comment">#打印请求状态</span></span><br><span class="line">  <span class="keyword">if</span> response.status <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">200</span>,<span class="number">300</span>):</span><br><span class="line">    <span class="built_in">print</span> <span class="string">u&quot;线程&quot;</span>+<span class="built_in">str</span>(threadNum)+<span class="string">u&quot;状态码：&quot;</span>+<span class="built_in">str</span>(response.status)</span><br><span class="line">  conn.close()</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">run</span>(<span class="params">threadNum,internTime,duration</span>):</span><br><span class="line">  <span class="comment">#创建数组存放线程</span></span><br><span class="line">  threads=[]</span><br><span class="line">  <span class="keyword">try</span>:</span><br><span class="line">    <span class="comment">#创建线程</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,threadNum):</span><br><span class="line">      <span class="comment">#针对函数创建线程</span></span><br><span class="line">      t=threading.Thread(target=postRequest,args=(i,))</span><br><span class="line">      <span class="comment">#把创建的线程加入线程组</span></span><br><span class="line">      threads.append(t)</span><br><span class="line">  <span class="keyword">except</span> Exception,e:</span><br><span class="line">    <span class="built_in">print</span> e</span><br><span class="line">  <span class="keyword">try</span>:</span><br><span class="line">    <span class="comment">#启动线程</span></span><br><span class="line">    <span class="keyword">for</span> thread <span class="keyword">in</span> threads:</span><br><span class="line">        thread.setDaemon(<span class="literal">True</span>)</span><br><span class="line">        thread.start()</span><br><span class="line">        time.sleep(internTime)</span><br><span class="line">    <span class="comment">#等待所有线程结束</span></span><br><span class="line">    <span class="keyword">for</span> thread <span class="keyword">in</span> threads:</span><br><span class="line">        thread.join(duration)</span><br><span class="line">  <span class="keyword">except</span> Exception,e:</span><br><span class="line">      <span class="built_in">print</span> e</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">  startime=time.strftime(<span class="string">&quot;%Y%m%d%H%M%S&quot;</span>)</span><br><span class="line">  now=time.strftime(<span class="string">&quot;%Y%m%d%H%M%S&quot;</span>)</span><br><span class="line">  duratiion=raw_input(<span class="string">u&quot;输入持续运行时间:&quot;</span>)</span><br><span class="line">  <span class="keyword">while</span> (startime+<span class="built_in">str</span>(duratiion))!=now:</span><br><span class="line">    run(<span class="number">10</span>,<span class="number">1</span>,<span class="built_in">int</span>(duratiion))</span><br><span class="line">    now=time.strftime(<span class="string">&quot;%Y%m%d%H%M%S&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="爬虫数据处理Json"><a href="#爬虫数据处理Json" class="headerlink" title="爬虫数据处理Json"></a>爬虫数据处理Json</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#encoding:&#x27;utf-8&#x27;</span></span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> codecs</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="comment">#找到网址</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getDatas</span>():</span><br><span class="line">  <span class="comment"># 伪装</span></span><br><span class="line">  header=&#123;<span class="string">&#x27;User-Agent&#x27;</span>:<span class="string">&quot;Mozilla/5.0 (X11; CrOS i686 2268.111.0) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11&quot;</span>&#125;</span><br><span class="line">  <span class="comment"># url=&quot;https://movie.douban.com/top250&quot;</span></span><br><span class="line">  url=<span class="string">&quot;file:///E:/scrapy/2018-04-27/movie/movie.html&quot;</span></span><br><span class="line">  ret=urllib.request.Request(url=url,headers=header)</span><br><span class="line">  <span class="comment"># 打开网页</span></span><br><span class="line">  res=urllib.request.urlopen(ret)</span><br><span class="line">  <span class="comment"># 转化格式</span></span><br><span class="line">  response=BeautifulSoup(res,<span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line">  <span class="comment"># 找到想要数据的父元素</span></span><br><span class="line">  datas=response.find_all(<span class="string">&#x27;div&#x27;</span>,&#123;<span class="string">&#x27;class&#x27;</span>:<span class="string">&#x27;item&#x27;</span>&#125;)</span><br><span class="line">  <span class="comment"># print(datas)</span></span><br><span class="line">  <span class="comment">#创建存放数据的文件夹</span></span><br><span class="line">  folder_name=<span class="string">&quot;output&quot;</span></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(folder_name):</span><br><span class="line">      os.mkdir(folder_name)</span><br><span class="line">  <span class="comment"># 定义文件</span></span><br><span class="line">  current_time=time.strftime(<span class="string">&#x27;%Y-%m-%d&#x27;</span>,time.localtime())</span><br><span class="line">  file_name=<span class="string">&quot;move&quot;</span>+current_time+<span class="string">&quot;.json&quot;</span></span><br><span class="line">  <span class="comment"># 文件路径</span></span><br><span class="line">  file_path=folder_name+<span class="string">&quot;/&quot;</span>+file_name</span><br><span class="line">  <span class="keyword">for</span> item <span class="keyword">in</span> datas:</span><br><span class="line">    <span class="comment"># print(item)</span></span><br><span class="line">    dict1=&#123;&#125;</span><br><span class="line">    dict1[<span class="string">&#x27;rank&#x27;</span>]=item.find(<span class="string">&#x27;div&#x27;</span>,&#123;<span class="string">&#x27;class&#x27;</span>:<span class="string">&#x27;pic&#x27;</span>&#125;).find(<span class="string">&#x27;em&#x27;</span>).get_text()</span><br><span class="line">    dict1[<span class="string">&#x27;title&#x27;</span>]=item.find(<span class="string">&#x27;div&#x27;</span>,&#123;<span class="string">&#x27;class&#x27;</span>:<span class="string">&#x27;info&#x27;</span>&#125;).find(<span class="string">&#x27;div&#x27;</span>,&#123;<span class="string">&#x27;class&#x27;</span>:<span class="string">&#x27;hd&#x27;</span>&#125;).find(<span class="string">&#x27;a&#x27;</span>).find(<span class="string">&#x27;span&#x27;</span>,&#123;<span class="string">&#x27;class&#x27;</span>:<span class="string">&#x27;title&#x27;</span>&#125;).get_text()</span><br><span class="line">    dict1[<span class="string">&#x27;picUrl&#x27;</span>]=item.find(<span class="string">&#x27;div&#x27;</span>,&#123;<span class="string">&#x27;class&#x27;</span>:<span class="string">&#x27;pic&#x27;</span>&#125;).find(<span class="string">&#x27;a&#x27;</span>).find(<span class="string">&#x27;img&#x27;</span>).get(<span class="string">&#x27;src&#x27;</span>)</span><br><span class="line">    <span class="comment"># print(picUrl)</span></span><br><span class="line">    <span class="comment"># 保存数据为json格式</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">      <span class="keyword">with</span> codecs.<span class="built_in">open</span>(file_path,<span class="string">&#x27;a&#x27;</span>,encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> fp:</span><br><span class="line">        fp.write(json.dumps(dict1,ensure_ascii=<span class="literal">False</span>)+<span class="string">&quot;,\n&quot;</span>)</span><br><span class="line">    <span class="keyword">except</span> IOError <span class="keyword">as</span> err:</span><br><span class="line">      <span class="built_in">print</span>(<span class="string">&#x27;error&#x27;</span>+<span class="built_in">str</span>(err))</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">      fp.close()</span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line">getDatas()</span><br><span class="line"><span class="comment"># 爬取数据</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Selenium自动化测试工具使用方法汇总"><a href="#Selenium自动化测试工具使用方法汇总" class="headerlink" title="Selenium自动化测试工具使用方法汇总"></a>Selenium自动化测试工具使用方法汇总</h2><p><strong>1、设置无头浏览器模式</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.options <span class="keyword">import</span> Options</span><br><span class="line">chrome_options = Options()</span><br><span class="line">chrome_options.add_argument(<span class="string">&#x27;- -headless&#x27;</span>)</span><br><span class="line">chrome_options.add_argument(<span class="string">&#x27;- -disable-gpu&#x27;</span>)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">XX</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">self.driver = webdriver.Chrome(chrome_options=chrome_options)<span class="comment"># 设置无头</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2、设置屏幕尺寸</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">self.driver.maximize_window() <span class="comment"># 最大</span></span><br><span class="line">self.driver.get_window_size() <span class="comment"># 获取窗口尺寸</span></span><br><span class="line">self.driver.set_window_size(<span class="number">1296</span>, <span class="number">1000</span>) <span class="comment"># 指定像素 宽1296 高1000</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>3、通过xpath获取元素并单击</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">element = self.driver.find_elements_by_xpath(<span class="string">&#x27;//*[@id=&quot;disabled&quot;]/li[3]/a&#x27;</span>) <span class="comment"># element是获取的元素列表</span></span><br><span class="line">element [<span class="number">0</span>].click()</span><br></pre></td></tr></table></figure>
+
+<p><strong>4、关闭单个窗口</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关闭单个窗口</span></span><br><span class="line">self.driver.close()</span><br></pre></td></tr></table></figure>
+
+<p><strong>5、退出driver程序，关闭浏览器</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.quit()</span><br></pre></td></tr></table></figure>
+
+<p><strong>6、获取input标签 输入文字 执行回车</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium.webdriver.common.keys <span class="keyword">import</span> Keys</span><br><span class="line">\<span class="comment"># 输入主机名：spupa01bat04 回车查询</span></span><br><span class="line">element = self.driver.find_elements_by_xpath(input_enter_xpath)[<span class="number">0</span>]</span><br><span class="line">element.send_keys(<span class="string">&#x27;spupa01bat04&#x27;</span>)</span><br><span class="line">element.send_keys(Keys.ENTER)</span><br></pre></td></tr></table></figure>
+
+<p><strong>7、执行双击</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver <span class="keyword">import</span> ActionChains <span class="comment"># 该类可执行鼠标动作：双击 拖拽等</span></span><br><span class="line">self.driver = webdriver.Chrome()</span><br><span class="line">self.acobj = ActionChains(self.driver)</span><br><span class="line">checkName = <span class="string">&#x27;风险&#x27;</span></span><br><span class="line">\<span class="comment"># &#x27;&quot; + checkName + &quot;&#x27;是向标签xpath字符串路经引入的变量</span></span><br><span class="line">Xpath = <span class="string">&quot;//span[text()=&#x27;&quot;</span> + checkName + <span class="string">&quot;&#x27;]/../../..//span[text()=&#x27;FSCapacity&#x27;]&quot;</span></span><br><span class="line">el_01 = self.driver.find_elements_by_xpath(Xpath)[<span class="number">0</span>] <span class="comment"># 获取元素</span></span><br><span class="line">self.acobj.double_click(el_01).perform() <span class="comment"># 执行双击</span></span><br><span class="line">self.driver.implicitly_wait(<span class="number">20</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>8、执行等待</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 隐式等待:设置一个等待时间，如果在这个等待时间内，网页加载完成，则执行下一步；否则一直等待时间截止，然后再执行下一步。这样也就会有个弊端，程序会一直等待整个页面加载完成，直到超时，但有时候我需要的那个元素早就加载完成了，只是页面上有个别其他元素加载特别慢，我仍要等待页面全部加载完成才能执行下一步。</span></span><br><span class="line">self.driver.implicitly_wait(<span class="number">10</span>)</span><br><span class="line"><span class="comment"># 显示等待:配合该类的until()和until_not()方法，就能够根据判断条件而进行灵活地等待了。它主要的意思就是：程序每隔xx检查一次，如果条件成立了，则执行下一步，否则继续等待，直到超过设置的最长时间，然后抛出TimeoutException</span></span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.wait <span class="keyword">import</span> WebDriverWait</span><br><span class="line"><span class="comment"># 超时时间为30秒，每0.2秒检查1次，直到class=&quot;tt&quot;的元素出现</span></span><br><span class="line">text = WebDriverWait(driver,<span class="number">30</span>,<span class="number">0.2</span>).until(<span class="keyword">lambda</span> x:x.find_element_by_css_selector(<span class="string">&quot;.tt&quot;</span>)).text</span><br><span class="line"><span class="built_in">print</span>(text)</span><br><span class="line"><span class="comment"># 强制等待：简单粗暴效率低</span></span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line">sleep(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>9、浏览器全屏截图保存到指定路径</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">png01_path = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), <span class="string">&#x27;resource&#x27;</span>, <span class="string">&#x27;png_codes.png&#x27;</span>)</span><br><span class="line">self.driver.save_screenshot(png01_path)</span><br></pre></td></tr></table></figure>
+
+<p><strong>10、select下拉框的选值处理</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium.webdriver.support.select <span class="keyword">import</span> Select</span><br><span class="line"><span class="comment"># 定位下拉框对象</span></span><br><span class="line">select_element = self.driver.find_elements_by_xpath(select_xpath)[<span class="number">0</span>]</span><br><span class="line"><span class="comment"># 构建下拉框对象</span></span><br><span class="line">sel_obj = Select(select_element)</span><br><span class="line"><span class="comment"># 通过value值进行选择：一周</span></span><br><span class="line">sel_obj.select_by_value(<span class="string">&#x27;168h&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>11、浏览器位置</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取浏览器位置</span></span><br><span class="line">position = driver.get_window_position()</span><br><span class="line"><span class="built_in">print</span>(position)</span><br><span class="line"><span class="comment"># 设置浏览器位置</span></span><br><span class="line">driver.set_window_position(<span class="number">100</span>, <span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><h3 id="正则表达式的语法规则"><a href="#正则表达式的语法规则" class="headerlink" title="正则表达式的语法规则"></a>正则表达式的语法规则</h3><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/2015430160820157.png" alt="2015430160820157.png (799×1719)"></p>
+<h3 id="函数API列表"><a href="#函数API列表" class="headerlink" title="函数API列表"></a>函数API列表</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">match</span>(string[, pos[, endpos]]) | re.<span class="keyword">match</span>(pattern, string[, flags])</span><br><span class="line">search(string[, pos[, endpos]]) | re.search(pattern, string[, flags])</span><br><span class="line">split(string[, maxsplit]) | re.split(pattern, string[, maxsplit])</span><br><span class="line">findall(string[, pos[, endpos]]) | re.findall(pattern, string[, flags])</span><br><span class="line">finditer(string[, pos[, endpos]]) | re.finditer(pattern, string[, flags])</span><br><span class="line">sub(repl, string[, count]) | re.sub(pattern, repl, string[, count])</span><br><span class="line">subn(repl, string[, count]) |re.sub(pattern, repl, string[, count])</span><br></pre></td></tr></table></figure>
+
+<h3 id="正则表达式相关注解"><a href="#正则表达式相关注解" class="headerlink" title="正则表达式相关注解"></a>正则表达式相关注解</h3><p><strong>（1）数量词的贪婪模式与非贪婪模式</strong></p>
+<p>正则表达式通常用于在文本中查找匹配的字符串。Python里数量词默认是贪婪的（在少数语言里也可能是默认非贪婪），总是尝试匹配尽可能多的字 符；非贪婪的则相反，总是尝试匹配尽可能少的字符。例如：正则表达式<code>”ab*”</code>如果用于查找<code>”abbbc”</code>，将找到<code>”abbb”</code>。而如果使用非贪婪的数量 词<code>”ab*?”</code>，将找到<code>”a”</code>。</p>
+<p>注：我们一般使用非贪婪模式来提取。<br><strong>（2）反斜杠问题</strong></p>
+<p>与大多数编程语言相 同，正则表达式里使用<code>”\”</code>作为转义字符，这就可能造成反斜杠困扰。假如需要匹配文本中的字符<code>”\”</code>，那么使用编程语言表示的正则表达式里将需要4个反 斜杠<code>”\\\\”</code>：前两个和后两个分别用于在编程语言里转义成反斜杠，转换成两个反斜杠后再在正则表达式里转义成一个反斜杠。</p>
+<p>Python里的原生字符串很好地解决了这个问题，这个例子中的正则表达式可以使用<code>r”\\”</code>表示。同样，匹配一个数字的<code>”\\d”</code>可以写成<code>r”\d”</code>。<br><strong>4.Python Re模块</strong></p>
+<p>Python 自带了re模块，它提供了对正则表达式的支持。主要用到的方法列举如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#返回pattern对象</span></span><br><span class="line">re.<span class="built_in">compile</span>(string[,flag]) </span><br><span class="line"><span class="comment">#以下为匹配所用函数</span></span><br><span class="line">re.<span class="keyword">match</span>(pattern, string[, flags])</span><br><span class="line">re.search(pattern, string[, flags])</span><br><span class="line">re.split(pattern, string[, maxsplit])</span><br><span class="line">re.findall(pattern, string[, flags])</span><br><span class="line">re.finditer(pattern, string[, flags])</span><br><span class="line">re.sub(pattern, repl, string[, count])</span><br><span class="line">re.subn(pattern, repl, string[, count])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>pattern的概念</strong><br><code>pattern</code>可以理解为一个匹配模式，获得这个匹配模式，需要利用<code>re.compile</code>方法就可以。例如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pattern = re.<span class="built_in">compile</span>(<span class="string">r&#x27;hello&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在参数中我们传入了原生字符串对象，通过<code>compile</code>方法编译生成一个<code>pattern</code>对象，然后我们利用这个对象来进行进一步的匹配。</p>
+<p>另外大家可能注意到了另一个参数 <code>flags</code>，在这里解释一下这个参数的含义：</p>
+<p>参数flag是匹配模式，取值可以使用按位或运算符’|’表示同时生效，比如re.I | re.M。</p>
+<p>可选值有：</p>
+<ul>
+<li><code>? re.I</code>(全拼：IGNORECASE): 忽略大小写（括号内是完整写法，下同）</li>
+<li><code>? re.M</code>(全拼：MULTILINE): 多行模式，改变<code>&#39;^&#39;</code>和<code>&#39;$&#39;</code>的行为（参见上图）</li>
+<li><code>? re.S</code>(全拼：DOTALL): 点任意匹配模式，改变’.’的行为</li>
+<li><code>? re.L</code>(全拼：LOCALE): 使预定字符类 <code>\w \W \b \B \s \S</code> 取决于当前区域设定</li>
+<li><code>? re.U</code>(全拼：UNICODE): 使预定字符类<code> \w \W \b \B \s \S \d \D</code> 取决于<code>unicode</code>定义的字符属性</li>
+<li><code>? re.X</code>(全拼：VERBOSE): 详细模式。这个模式下正则表达式可以是多行，忽略空白字符，并可以加入注释。</li>
+</ul>
+<p>在刚才所说的另外几个方法例如<code> re.match</code> 里我们就需要用到这个<code>pattern</code>了，下面我们一一介绍。</p>
+<p>注：以下七个方法中的<code>flags</code>同样是代表匹配模式的意思，如果在<code>pattern</code>生成时已经指明了flags，那么在下面的方法中就不需要传入这个参数了。</p>
+<p><strong>（1）re.match(pattern, string[, flags])</strong></p>
+<p>这个方法将会从string（我们要匹配的字符串）的开头开始，尝试匹配pattern，一直向后匹配，如果遇到无法匹配的字符，立即返回 None，如果匹配未结束已经到达string的末尾，也会返回None。两个结果均表示匹配失败，否则匹配pattern成功，同时匹配终止，不再对 string向后匹配。下面我们通过一个例子理解一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">__author__ = <span class="string">&#x27;L0ki&#x27;</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#导入re模块</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 将正则表达式编译成Pattern对象，注意hello前面的r的意思是“原生字符串”</span></span><br><span class="line">pattern = re.<span class="built_in">compile</span>(<span class="string">r&#x27;hello&#x27;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 使用re.match匹配文本，获得匹配结果，无法匹配时将返回None</span></span><br><span class="line">result1 = re.<span class="keyword">match</span>(pattern,<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">result2 = re.<span class="keyword">match</span>(pattern,<span class="string">&#x27;helloo  L0ki!&#x27;</span>)</span><br><span class="line">result3 = re.<span class="keyword">match</span>(pattern,<span class="string">&#x27;helo  L0ki!&#x27;</span>)</span><br><span class="line">result4 = re.<span class="keyword">match</span>(pattern,<span class="string">&#x27;hello  L0ki!&#x27;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment">#如果1匹配成功</span></span><br><span class="line"><span class="keyword">if</span> result1:</span><br><span class="line">  <span class="comment"># 使用Match获得分组信息</span></span><br><span class="line">  <span class="built_in">print</span> result1.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  <span class="built_in">print</span> <span class="string">&#x27;1匹配失败！&#x27;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#如果2匹配成功</span></span><br><span class="line"><span class="keyword">if</span> result2:</span><br><span class="line">  <span class="comment"># 使用Match获得分组信息</span></span><br><span class="line">  <span class="built_in">print</span> result2.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  <span class="built_in">print</span> <span class="string">&#x27;2匹配失败！&#x27;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#如果3匹配成功</span></span><br><span class="line"><span class="keyword">if</span> result3:</span><br><span class="line">  <span class="comment"># 使用Match获得分组信息</span></span><br><span class="line">  <span class="built_in">print</span> result3.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  <span class="built_in">print</span> <span class="string">&#x27;3匹配失败！&#x27;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#如果4匹配成功</span></span><br><span class="line"><span class="keyword">if</span> result4:</span><br><span class="line">  <span class="comment"># 使用Match获得分组信息</span></span><br><span class="line">  <span class="built_in">print</span> result4.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">  <span class="built_in">print</span> <span class="string">&#x27;4匹配失败！&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hello``hello``<span class="number">3</span>``匹配失败！``hellohello</span><br><span class="line">hello</span><br><span class="line"><span class="number">3</span>匹配失败！</span><br><span class="line">hello</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="匹配分析"><a href="#匹配分析" class="headerlink" title="匹配分析"></a>匹配分析</h3><p>1.第一个匹配，pattern正则表达式为’hello’，我们匹配的目标字符串string也为hello，从头至尾完全匹配，匹配成功。</p>
+<p>2.第二个匹配，string为helloo  L0ki，从string头开始匹配pattern完全可以匹配，pattern匹配结束，同时匹配终止，后面的o  L0ki不再匹配，返回匹配成功的信息。</p>
+<p>3.第三个匹配，string为helo  L0ki，从string头开始匹配pattern，发现到 ‘o’ 时无法完成匹配，匹配终止，返回None</p>
+<p>4.第四个匹配，同第二个匹配原理，即使遇到了空格符也不会受影响。</p>
+<p>我们还看到最后打印出了result.group()，这个是什么意思呢？下面我们说一下关于match对象的的属性和方法<br>Match对象是一次匹配的结果，包含了很多关于此次匹配的信息，可以使用Match提供的可读属性或方法来获取这些信息。</p>
+<p><strong>属性：</strong><br>1.string: 匹配时使用的文本。<br>2.re: 匹配时使用的Pattern对象。<br>3.pos: 文本中正则表达式开始搜索的索引。值与<code>Pattern.match()</code>和<code>Pattern.seach()</code>方法的同名参数相同。<br>4.endpos: 文本中正则表达式结束搜索的索引。值与<code>Pattern.match()</code>和<code>Pattern.seach()</code>方法的同名参数相同。<br>5.lastindex: 最后一个被捕获的分组在文本中的索引。如果没有被捕获的分组，将为None。<br>6.lastgroup: 最后一个被捕获的分组的别名。如果这个分组没有别名或者没有被捕获的分组，将为None。</p>
+<p><strong>方法：</strong><br>1.group([group1, …]):<br>获得一个或多个分组截获的字符串；指定多个参数时将以元组形式返回。group1可以使用编号也可以使用别名；编号0代表整个匹配的子串；不填写参数时，返回group(0)；没有截获字符串的组返回None；截获了多次的组返回最后一次截获的子串。<br>2.groups([default]):<br>以元组形式返回全部分组截获的字符串。相当于调用group(1,2,…last)。default表示没有截获字符串的组以这个值替代，默认为None。<br>3.groupdict([default]):<br>返回以有别名的组的别名为键、以该组截获的子串为值的字典，没有别名的组不包含在内。default含义同上。<br>4.start([group]):<br>返回指定的组截获的子串在string中的起始索引（子串第一个字符的索引）。group默认值为0。<br>5.end([group]):<br>返回指定的组截获的子串在string中的结束索引（子串最后一个字符的索引+1）。group默认值为0。<br>6.span([group]):<br>返回(start(group), end(group))。<br>7.expand(template):<br>将匹配到的分组代入template中然后返回。template中可以使用<code>\id</code>或<code>\g</code>、<code>\g</code>引用分组，但不能使用编号0。<code>\id</code>与<code>\g</code>是等价的；但<code>\10</code>将被认为是第10个分组，如果你想表达<code>\1</code>之后是字符<code>&#39;0&#39;</code>，只能使用<code>\g0</code>。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment">#一个简单的match实例</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="comment"># 匹配如下内容：单词+空格+单词+任意字符</span></span><br><span class="line">m = re.<span class="keyword">match</span>(<span class="string">r&#x27;(\w+) (\w+)(?P.*)&#x27;</span>, <span class="string">&#x27;hello world!&#x27;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;m.string:&quot;</span>, m.string</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;m.re:&quot;</span>, m.re</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;m.pos:&quot;</span>, m.pos</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;m.endpos:&quot;</span>, m.endpos</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;m.lastindex:&quot;</span>, m.lastindex</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;m.lastgroup:&quot;</span>, m.lastgroup</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;m.group():&quot;</span>, m.group()</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;m.group(1,2):&quot;</span>, m.group(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;m.groups():&quot;</span>, m.groups()</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;m.groupdict():&quot;</span>, m.groupdict()</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;m.start(2):&quot;</span>, m.start(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;m.end(2):&quot;</span>, m.end(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;m.span(2):&quot;</span>, m.span(<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span> <span class="string">r&quot;m.expand(r&#x27;\g \g\g&#x27;):&quot;</span>, m.expand(<span class="string">r&#x27;\2 \1\3&#x27;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment">### output ###</span></span><br><span class="line"><span class="comment"># m.string: hello world!</span></span><br><span class="line"><span class="comment"># m.re: </span></span><br><span class="line"><span class="comment"># m.pos: 0</span></span><br><span class="line"><span class="comment"># m.endpos: 12</span></span><br><span class="line"><span class="comment"># m.lastindex: 3</span></span><br><span class="line"><span class="comment"># m.lastgroup: sign</span></span><br><span class="line"><span class="comment"># m.group(1,2): (&#x27;hello&#x27;, &#x27;world&#x27;)</span></span><br><span class="line"><span class="comment"># m.groups(): (&#x27;hello&#x27;, &#x27;world&#x27;, &#x27;!&#x27;)</span></span><br><span class="line"><span class="comment"># m.groupdict(): &#123;&#x27;sign&#x27;: &#x27;!&#x27;&#125;</span></span><br><span class="line"><span class="comment"># m.start(2): 6</span></span><br><span class="line"><span class="comment"># m.end(2): 11</span></span><br><span class="line"><span class="comment"># m.span(2): (6, 11)</span></span><br><span class="line"><span class="comment"># m.expand(r&#x27;\2 \1\3&#x27;): world hello!</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>（2）re.search(pattern, string[, flags])</strong></p>
+<p>search方法与match方法极其类似，区别在于match()函数只检测re是不是在string的开始位置匹配，search()会扫描整个string查找匹配，match（）只有在0位置匹配成功的话才有返回，如果不是开始位置匹配成功的话，match()就返回None。同样，search方法的返回对象同样match()返回对象的方法和属性。我们用一个例子感受一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入re模块</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 将正则表达式编译成Pattern对象</span></span><br><span class="line">pattern = re.<span class="built_in">compile</span>(<span class="string">r&#x27;world&#x27;</span>)</span><br><span class="line"><span class="comment"># 使用search()查找匹配的子串，不存在能匹配的子串时将返回None</span></span><br><span class="line"><span class="comment"># 这个例子中使用match()无法成功匹配</span></span><br><span class="line"><span class="keyword">match</span> = re.search(pattern,<span class="string">&#x27;hello world!&#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">match</span>:</span><br><span class="line">  <span class="comment"># 使用Match获得分组信息</span></span><br><span class="line">  <span class="built_in">print</span> <span class="keyword">match</span>.group()</span><br><span class="line"><span class="comment">### 输出 ###</span></span><br><span class="line"><span class="comment"># world</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>（3）re.split(pattern, string[, maxsplit])</strong></p>
+<p>按照能够匹配的子串将string分割后返回列表。maxsplit用于指定最大分割次数，不指定将全部分割。我们通过下面的例子感受一下。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">pattern = re.<span class="built_in">compile</span>(<span class="string">r&#x27;\d+&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> re.split(pattern,<span class="string">&#x27;one1two2three3four4&#x27;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment">### 输出 ###</span></span><br><span class="line"><span class="comment"># [&#x27;one&#x27;, &#x27;two&#x27;, &#x27;three&#x27;, &#x27;four&#x27;, &#x27;&#x27;]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>**（4）re.findall(pattern, string[, flags])<br>**</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">搜索string，以列表形式返回全部能匹配的子串。我们通过这个例子来感受一下</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">pattern = re.<span class="built_in">compile</span>(<span class="string">r&#x27;\d+&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span> re.findall(pattern,<span class="string">&#x27;one1two2three3four4&#x27;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment">### 输出 ###</span></span><br><span class="line"><span class="comment"># [&#x27;1&#x27;, &#x27;2&#x27;, &#x27;3&#x27;, &#x27;4&#x27;]</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>（5）re.finditer(pattern, string[, flags])</strong></p>
+<p>搜索string，返回一个顺序访问每一个匹配结果（Match对象）的迭代器。我们通过下面的例子来感受一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">pattern = re.<span class="built_in">compile</span>(<span class="string">r&#x27;\d+&#x27;</span>)</span><br><span class="line"><span class="keyword">for</span> m <span class="keyword">in</span> re.finditer(pattern,<span class="string">&#x27;one1two2three3four4&#x27;</span>):</span><br><span class="line">  <span class="built_in">print</span> m.group(),</span><br><span class="line"> </span><br><span class="line"><span class="comment">### 输出 ###</span></span><br><span class="line"><span class="comment"># 1 2 3 4</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>（6）re.sub(pattern, repl, string[, count])</strong></p>
+<p>使用repl替换string中每一个匹配的子串后返回替换后的字符串。<br>当repl是一个字符串时，可以使用\id或\g、\g引用分组，但不能使用编号0。<br>当repl是一个方法时，这个方法应当只接受一个参数（Match对象），并返回一个字符串用于替换（返回的字符串中不能再引用分组）。<br>count用于指定最多替换次数，不指定时全部替换。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">pattern = re.<span class="built_in">compile</span>(<span class="string">r&#x27;(\w+) (\w+)&#x27;</span>)</span><br><span class="line">s = <span class="string">&#x27;i say, hello world!&#x27;</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span> re.sub(pattern,<span class="string">r&#x27;\2 \1&#x27;</span>, s)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>(<span class="params">m</span>):</span><br><span class="line">  <span class="keyword">return</span> m.group(<span class="number">1</span>).title() + <span class="string">&#x27; &#x27;</span> + m.group(<span class="number">2</span>).title()</span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span> re.sub(pattern,func, s)</span><br><span class="line"> </span><br><span class="line"><span class="comment">### output ###</span></span><br><span class="line"><span class="comment"># say i, world hello!</span></span><br><span class="line"><span class="comment"># I Say, Hello World!</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>（7）re.subn(pattern, repl, string[, count])</strong></p>
+<p>返回 (sub(repl, string[, count]), 替换次数)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">pattern = re.<span class="built_in">compile</span>(<span class="string">r&#x27;(\w+) (\w+)&#x27;</span>)</span><br><span class="line">s = <span class="string">&#x27;i say, hello world!&#x27;</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span> re.subn(pattern,<span class="string">r&#x27;\2 \1&#x27;</span>, s)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>(<span class="params">m</span>):</span><br><span class="line">  <span class="keyword">return</span> m.group(<span class="number">1</span>).title() + <span class="string">&#x27; &#x27;</span> + m.group(<span class="number">2</span>).title()</span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span> re.subn(pattern,func, s)</span><br><span class="line"> </span><br><span class="line"><span class="comment">### output ###</span></span><br><span class="line"><span class="comment"># (&#x27;say i, world hello!&#x27;, 2)</span></span><br><span class="line"><span class="comment"># (&#x27;I Say, Hello World!&#x27;, 2)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="socket"><a href="#socket" class="headerlink" title="socket"></a>socket</h2><h3 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h3><p><strong>服务端</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line">server = socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">server.bind((<span class="string">&#x27;0.0.0.0&#x27;</span>, <span class="number">8000</span>))</span><br><span class="line">server.listen()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handle_sock</span>(<span class="params">sock, addr</span>):</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        data = sock.recv(<span class="number">1024</span>)</span><br><span class="line">        <span class="built_in">print</span>(data.decode(<span class="string">&quot;utf8&quot;</span>))</span><br><span class="line">        re_data = <span class="built_in">input</span>()</span><br><span class="line">        sock.send(re_data.encode(<span class="string">&quot;utf8&quot;</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">sock, addr = server.accept()</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;用线程去处理新接收的连接（用户）&#x27;&#x27;&#x27;</span></span><br><span class="line">client_thread = threading.Thread(target=handle_sock, args=(sock, addr))<span class="comment">#传的一定是函数名称</span></span><br><span class="line">client_thread.start()</span><br></pre></td></tr></table></figure>
+
+<p><strong>客户端</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">client.connect((<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">8000</span>))</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    re_data = <span class="built_in">input</span>()</span><br><span class="line">    client.send(re_data.encode(<span class="string">&quot;utf8&quot;</span>))</span><br><span class="line">    data = client.recv(<span class="number">1024</span>)</span><br><span class="line">    <span class="built_in">print</span>(data.decode(<span class="string">&quot;utf8&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="实用示例"><a href="#实用示例" class="headerlink" title="实用示例"></a>实用示例</h3><p><strong>服务端</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># encoding:utf-8</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#   SERVER</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">HOST = <span class="string">&#x27;192.168.1.88&#x27;</span></span><br><span class="line">PORT = <span class="number">55555</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#只接收这么多个bytes</span></span><br><span class="line">BUFFERSIZE = <span class="number">1024</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># socket实例，UDP连接 </span></span><br><span class="line">s = socket(AF_INET, SOCK_DGRAM)</span><br><span class="line"><span class="comment"># 重用ip和端口</span></span><br><span class="line">s.setsockopt(SOL_SOCKET, SO_REUSEADDR, <span class="number">1</span>)</span><br><span class="line"><span class="comment"># s绑定主机地址和端口</span></span><br><span class="line">s.bind((HOST, PORT))</span><br><span class="line"><span class="comment"># 监听队列</span></span><br><span class="line"><span class="comment">#s.listen()</span></span><br><span class="line"><span class="comment"># 服务器对话日志</span></span><br><span class="line">logfile = <span class="string">&#x27;dialog.log&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">server_print</span>(<span class="params">*msg</span>):</span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> 这里格式还是不好，应该支持带格式的字符串</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;SERVER: &quot;</span>, msg)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">clean_up</span>():</span><br><span class="line">    <span class="keyword">if</span> os.path.exists(logfile):</span><br><span class="line">        os.remove(logfile)</span><br><span class="line"></span><br><span class="line">clean_up()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 简单地监听客户端的消息，收到消息后回复确认</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;=== THE SERVER START WORKING ===&quot;</span>)</span><br><span class="line">   <span class="comment"># 此处的s.recvfrom方法和s.recv都会返回接收到的数据，而recvfrom还会返回客户端的地址</span></span><br><span class="line">    data, addr = s.recvfrom(BUFFERSIZE)</span><br><span class="line">    data = data.decode(encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    server_print(<span class="string">&quot;recived message from client(%s): %s&quot;</span> % (addr, data))</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(logfile, <span class="string">&#x27;a&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        log = <span class="string">&quot;client&#123;0&#125; \t message: &#123;1&#125;\n&quot;</span>.<span class="built_in">format</span>(addr, data)</span><br><span class="line">        f.write(log)</span><br><span class="line"></span><br><span class="line">   <span class="comment"># 回复消息</span></span><br><span class="line">    s.sendto(<span class="string">&quot;SERVER ROGER THAT &quot;</span>.encode(encoding=<span class="string">&#x27;utf-8&#x27;</span>), addr)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> s._closed():</span><br><span class="line">s.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># <span class="doctag">TODO:</span> </span></span><br><span class="line"><span class="comment"># 不知道怎么退出服务端好 ...</span></span><br><span class="line"><span class="comment"># 如果通过客户端输入`exit`来退出，则会导致客户端英文和服务端断开连接而异常退出</span></span><br><span class="line"><span class="comment"># 然后如果在服务端加入input和用户交互，则会导致客户端和服务端必须依次轮流发送信息 ...</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>客户端</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment">#   encoding:utf-8</span></span><br><span class="line"><span class="comment">#   CLIENT</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">HOST = <span class="string">&#x27;192.168.1.88&#x27;</span></span><br><span class="line">PORT = <span class="number">55555</span></span><br><span class="line">addr = (HOST, PORT)</span><br><span class="line"></span><br><span class="line"><span class="comment">#一次接收这么多bytes</span></span><br><span class="line">BUFFERSIZE = <span class="number">1024</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># SOCK_DGRAM ：UDP连接</span></span><br><span class="line">s = socket(AF_INET, SOCK_DGRAM)</span><br><span class="line"><span class="comment"># socket类s去连接服务器</span></span><br><span class="line">s.connect((HOST, PORT))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">client_print</span>(<span class="params">*msg</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;CLIENT: &quot;</span>, msg)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    kel = <span class="built_in">input</span>(<span class="string">&#x27;Question &gt;&gt;&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> kel == <span class="string">&#x27;exit&#x27;</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    client_print(<span class="string">&#x27;input data: %s&#x27;</span> % kel)</span><br><span class="line">    <span class="comment"># python3 socket 只能收发二进制数据，需要转码</span></span><br><span class="line">    kel = kel.encode(encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    <span class="comment">#s.sendall(kel)</span></span><br><span class="line">    <span class="comment"># 发送数据</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        s.sendto(kel, addr)</span><br><span class="line">        <span class="comment"># 接收数据</span></span><br><span class="line">        data, addr = s.recvfrom(BUFFERSIZE)</span><br><span class="line">        client_print(<span class="string">&quot;recived message from server(&#123;0&#125;:&#123;1&#125;) : &#123;2&#125;&quot;</span>.<span class="built_in">format</span>(addr[<span class="number">0</span>], addr[<span class="number">1</span>], data.decode(<span class="string">&#x27;utf-8&#x27;</span>)))</span><br><span class="line">    <span class="keyword">except</span> ConnectionRefusedError:</span><br><span class="line">        client_print(<span class="string">&quot;exit client&quot;</span>)</span><br><span class="line">        s.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> s._closed:</span><br><span class="line">    s.close()</span><br><span class="line"></span><br><span class="line">sys.exit()</span><br></pre></td></tr></table></figure>
+
+<h2 id="批处理"><a href="#批处理" class="headerlink" title="批处理"></a>批处理</h2><h3 id="Json"><a href="#Json" class="headerlink" title="Json"></a>Json</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line">headers=&#123;</span><br><span class="line">    <span class="string">&#x27;Host&#x27;</span>: <span class="string">&#x27;url&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.28 Safari/537.36 OPR/61.0.3298.6 (Edition developer)&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Accept&#x27;</span>: <span class="string">&#x27;application/json, text/plain, */*&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Accept-Language&#x27;</span>: <span class="string">&#x27;zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Accept-Encoding&#x27;</span>: <span class="string">&#x27;gzip, deflate&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json;charset=utf-8&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">usr_list=[]</span><br><span class="line">psw_list=[]</span><br><span class="line">url=<span class="string">&#x27;api/url&#x27;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_data</span>(<span class="params">username,passwad</span>):</span><br><span class="line">    data=&#123;</span><br><span class="line">        <span class="string">&quot;username&quot;</span>: username,</span><br><span class="line">        <span class="string">&quot;password&quot;</span>: passwad</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> json.dumps(data)</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;usr.txt&#x27;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">for</span> usr <span class="keyword">in</span> f.readlines():</span><br><span class="line">        <span class="keyword">if</span> usr!=<span class="literal">None</span>:</span><br><span class="line">            usr_list.append(usr.strip(<span class="string">&#x27;\n&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(usr_list)</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;psw.txt&#x27;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">for</span> psw <span class="keyword">in</span> f.readlines():</span><br><span class="line">        <span class="keyword">if</span> psw!=<span class="literal">None</span>:</span><br><span class="line">            psw_list.append(psw.strip(<span class="string">&#x27;\n&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(psw_list)</span><br><span class="line"><span class="keyword">for</span> usname,pswa <span class="keyword">in</span> <span class="built_in">zip</span>(usr_list,psw_list):</span><br><span class="line">    <span class="built_in">print</span>(usname)</span><br><span class="line">    <span class="built_in">print</span>(pswa)</span><br><span class="line">    res=requests.post(url,headers=headers,data=get_data(username=usname,passwad=pswa))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="待补充"><a href="#待补充" class="headerlink" title="待补充"></a>待补充</h2><h3 id="正则匹配简单的爬取模板"><a href="#正则匹配简单的爬取模板" class="headerlink" title="正则匹配简单的爬取模板"></a>正则匹配简单的爬取模板</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://xxxx&quot;</span></span><br><span class="line">header = &#123;</span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&quot;Mozilla/5.0 (X11; CrOS i686 2268.111.0) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11&quot;</span>&#125;</span><br><span class="line">res = requests.get(url=url, headers=header)</span><br><span class="line">pattern = re.<span class="built_in">compile</span>(<span class="string">r&#x27;&lt;a href=&quot;(.*?)/&quot; target=&quot;_blank&quot;&gt;&#x27;</span>) <span class="comment">#匹配样例规则</span></span><br><span class="line">domain = pattern.findall(<span class="built_in">str</span>(res.text))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> domain:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2020/08/07/Common-Git-Commands/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-04-21 02:30:15
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/Notes/" title="Notes">
+                        #Notes
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2024/04/21/SQL-Injection-Types/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%AC%E8%99%AB"><span class="toc-text">爬虫</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A5%E5%8F%A3%E5%87%BD%E6%95%B0-%E7%88%AC%E8%99%AB%E8%B0%83%E5%BA%A6%E6%AE%B5"><span class="toc-text">入口函数(爬虫调度段)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#URL%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-text">URL管理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E5%99%A8"><span class="toc-text">网页下载器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E9%A1%B5%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="toc-text">网页解析器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E9%A1%B5%E8%BE%93%E5%87%BA%E5%99%A8"><span class="toc-text">网页输出器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%AC%E8%99%AB%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86Json"><span class="toc-text">爬虫数据处理Json</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Selenium%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB"><span class="toc-text">Selenium自动化测试工具使用方法汇总</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">正则表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99"><span class="toc-text">正则表达式的语法规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0API%E5%88%97%E8%A1%A8"><span class="toc-text">函数API列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9B%B8%E5%85%B3%E6%B3%A8%E8%A7%A3"><span class="toc-text">正则表达式相关注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D%E5%88%86%E6%9E%90"><span class="toc-text">匹配分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-text">示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#socket"><span class="toc-text">socket</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B"><span class="toc-text">简单示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-text">实用示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E5%A4%84%E7%90%86"><span class="toc-text">批处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Json"><span class="toc-text">Json</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%85%E8%A1%A5%E5%85%85"><span class="toc-text">待补充</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E7%AE%80%E5%8D%95%E7%9A%84%E7%88%AC%E5%8F%96%E6%A8%A1%E6%9D%BF"><span class="toc-text">正则匹配简单的爬取模板</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        
+<div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          
+              <a title="github" target="_blank" rel="noopener" href="https://github.com/L0kiii">
+                <i class="iconfont icon-github"></i>
+              </a>
+              
+        </li>
+        
+    </ul>
+  </div>
+  
+    
+    <div class="footer-more">
+      
+        Copyright © 2024
+        
+    </div>
+  
+  
+</div>
+
+      </div>
+
+      <div class="tools-bar">
+        <div class="back-to-top tools-bar-item hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+        
+  <div class="search-icon tools-bar-item" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+        
+  <div class="tools-bar-item theme-icon" id="switch-color-scheme">
+    <a href="javascript: void(0)">
+      <i id="theme-icon" class="iconfont icon-moon"></i>
+    </a>
+  </div>
+
+  
+<script src="/js/colorscheme.js"></script>
+
+
+
+
+
+        
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + Python%20Script%20Writing%20Template + '&url=' + https%3A%2F%2Fl0ki.net%2F2020%2F08%2F11%2FPython-Script-Writing-Template%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=https://l0ki.net/2020/08/11/Python-Script-Writing-Template/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+  
+<script src="/js/shares.js"></script>
+
+
+
+      </div>
+    </div>
+  
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+</html>
