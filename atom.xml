@@ -360,6 +360,29 @@
   </entry>
   
   <entry>
+    <title>Sql Lab(41-65)</title>
+    <link href="https://l0ki.net/2019/02/26/sql-lab(41-65)/"/>
+    <id>https://l0ki.net/2019/02/26/sql-lab(41-65)/</id>
+    <published>2019-02-26T10:50:00.000Z</published>
+    <updated>2024-04-20T16:38:28.792Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;less-41&quot;&gt;&lt;a href=&quot;#less-41&quot; class=&quot;headerlink&quot; title=&quot;less-41&quot;&gt;&lt;/a&gt;less-41&lt;/h2&gt;&lt;p&gt;只有输入id&amp;#x3D;1才会出现回显，尝试输入 ?id&amp;#x3D;0 union select</summary>
+        
+      
+    
+    
+    
+    
+    <category term="Sql Lab" scheme="https://l0ki.net/tags/Sql-Lab/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Detailed Discussion on information_schema</title>
     <link href="https://l0ki.net/2019/01/22/Detailed-Discussion-on-information_schema/"/>
     <id>https://l0ki.net/2019/01/22/Detailed-Discussion-on-information_schema/</id>
@@ -443,30 +466,6 @@
         
     <summary type="html">&lt;p&gt;&lt;img src=&quot;https://l0ki-town.oss-cn-beijing.aliyuncs.com/l0ki.top/14443259-19afe47c8345a317.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 &lt;h1 id=&quot;随笔&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Discussion on GET and POST</title>
-    <link href="https://l0ki.net/2019/01/17/Discussion-on-GET-and-POST/"/>
-    <id>https://l0ki.net/2019/01/17/Discussion-on-GET-and-POST/</id>
-    <published>2019-01-17T10:38:00.000Z</published>
-    <updated>2024-04-20T16:31:29.223Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前些天学习了对Get,Post,URL,burp,hackbar,web前端查看元素的相关知识，它加强了我对Get,Post的理解，对burp,hackbar有了新的认识，对web前端查看元素(shift+ctrl+c)有了不同的感触。&lt;/p&gt;
-&lt;h2</summary>
         
       
     
