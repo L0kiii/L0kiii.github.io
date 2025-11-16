@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>L0ki&#39;s Website</title>
-  <icon>https://l0ki.net/icon.png</icon>
+  <title>L0ki</title>
+  <icon>https://l0ki.xyz/icon.png</icon>
   
-  <link href="https://l0ki.net/atom.xml" rel="self"/>
+  <link href="https://l0ki.xyz/atom.xml" rel="self"/>
   
-  <link href="https://l0ki.net/"/>
-  <updated>2024-04-20T19:13:40.920Z</updated>
-  <id>https://l0ki.net/</id>
+  <link href="https://l0ki.xyz/"/>
+  <updated>2024-04-20T19:13:40.000Z</updated>
+  <id>https://l0ki.xyz/</id>
   
   <author>
     <name>KaynZ</name>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>Stay Hungry. Stay Foolish.</title>
-    <link href="https://l0ki.net/2022/04/26/Steve-Jobs-2005-Speech/"/>
-    <id>https://l0ki.net/2022/04/26/Steve-Jobs-2005-Speech/</id>
+    <link href="https://l0ki.xyz/2022/04/26/Steve-Jobs-2005-Speech/"/>
+    <id>https://l0ki.xyz/2022/04/26/Steve-Jobs-2005-Speech/</id>
     <published>2022-04-26T11:47:00.000Z</published>
-    <updated>2024-04-20T19:13:40.920Z</updated>
+    <updated>2024-04-20T19:13:40.000Z</updated>
     
     
       
@@ -36,33 +36,16 @@
     
     
     
-    <category term="Chicken Soup" scheme="https://l0ki.net/tags/Chicken-Soup/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Blockchain Game Security</title>
-    <link href="https://l0ki.net/2021/08/14/Blockchain-Game-Security/"/>
-    <id>https://l0ki.net/2021/08/14/Blockchain-Game-Security/</id>
-    <published>2021-08-14T05:55:00.000Z</published>
-    <updated>2024-04-20T18:57:00.778Z</updated>
-    
-    
-    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
-    
-    
-    
-    
-    <category term="Crypto" scheme="https://l0ki.net/tags/Crypto/"/>
+    <category term="Chicken Soup" scheme="https://l0ki.xyz/tags/Chicken-Soup/"/>
     
   </entry>
   
   <entry>
     <title>Blockchain Currency Security</title>
-    <link href="https://l0ki.net/2021/08/14/Blockchain-Currency-Security/"/>
-    <id>https://l0ki.net/2021/08/14/Blockchain-Currency-Security/</id>
+    <link href="https://l0ki.xyz/2021/08/14/Blockchain-Currency-Security/"/>
+    <id>https://l0ki.xyz/2021/08/14/Blockchain-Currency-Security/</id>
     <published>2021-08-14T05:55:00.000Z</published>
-    <updated>2024-04-20T18:56:44.308Z</updated>
+    <updated>2024-04-20T18:56:44.000Z</updated>
     
     
     <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
@@ -70,16 +53,33 @@
     
     
     
-    <category term="Crypto" scheme="https://l0ki.net/tags/Crypto/"/>
+    <category term="Crypto" scheme="https://l0ki.xyz/tags/Crypto/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Blockchain Game Security</title>
+    <link href="https://l0ki.xyz/2021/08/14/Blockchain-Game-Security/"/>
+    <id>https://l0ki.xyz/2021/08/14/Blockchain-Game-Security/</id>
+    <published>2021-08-14T05:55:00.000Z</published>
+    <updated>2024-04-20T18:57:00.000Z</updated>
+    
+    
+    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
+    
+    
+    
+    
+    <category term="Crypto" scheme="https://l0ki.xyz/tags/Crypto/"/>
     
   </entry>
   
   <entry>
     <title>Associate With Ambitious People</title>
-    <link href="https://l0ki.net/2021/04/26/Goldman-Sachs-CEO-Speech/"/>
-    <id>https://l0ki.net/2021/04/26/Goldman-Sachs-CEO-Speech/</id>
+    <link href="https://l0ki.xyz/2021/04/26/Goldman-Sachs-CEO-Speech/"/>
+    <id>https://l0ki.xyz/2021/04/26/Goldman-Sachs-CEO-Speech/</id>
     <published>2021-04-26T11:47:00.000Z</published>
-    <updated>2024-04-20T19:09:27.269Z</updated>
+    <updated>2024-04-20T19:09:27.000Z</updated>
     
     
       
@@ -93,16 +93,16 @@
     
     
     
-    <category term="Chicken Soup" scheme="https://l0ki.net/tags/Chicken-Soup/"/>
+    <category term="Chicken Soup" scheme="https://l0ki.xyz/tags/Chicken-Soup/"/>
     
   </entry>
   
   <entry>
     <title>Basic Idea and Principle of Domain Fronting</title>
-    <link href="https://l0ki.net/2021/04/02/Basic-Idea-and-Principle-of-Domain-Fronting/"/>
-    <id>https://l0ki.net/2021/04/02/Basic-Idea-and-Principle-of-Domain-Fronting/</id>
+    <link href="https://l0ki.xyz/2021/04/02/Basic-Idea-and-Principle-of-Domain-Fronting/"/>
+    <id>https://l0ki.xyz/2021/04/02/Basic-Idea-and-Principle-of-Domain-Fronting/</id>
     <published>2021-04-02T02:38:00.000Z</published>
-    <updated>2024-04-20T18:43:11.077Z</updated>
+    <updated>2024-04-20T18:43:11.000Z</updated>
     
     
       
@@ -116,16 +116,16 @@
     
     
     
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    <category term="Notes" scheme="https://l0ki.xyz/tags/Notes/"/>
     
   </entry>
   
   <entry>
     <title>CSRF</title>
-    <link href="https://l0ki.net/2020/12/15/CSRF/"/>
-    <id>https://l0ki.net/2020/12/15/CSRF/</id>
+    <link href="https://l0ki.xyz/2020/12/15/CSRF/"/>
+    <id>https://l0ki.xyz/2020/12/15/CSRF/</id>
     <published>2020-12-15T09:30:00.000Z</published>
-    <updated>2024-04-20T18:49:37.655Z</updated>
+    <updated>2024-04-20T18:49:37.000Z</updated>
     
     
       
@@ -139,16 +139,16 @@
     
     
     
-    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    <category term="Vulnerabilities" scheme="https://l0ki.xyz/tags/Vulnerabilities/"/>
     
   </entry>
   
   <entry>
     <title>GitHub Search Syntax</title>
-    <link href="https://l0ki.net/2020/12/15/GitHub-Search-Syntax/"/>
-    <id>https://l0ki.net/2020/12/15/GitHub-Search-Syntax/</id>
+    <link href="https://l0ki.xyz/2020/12/15/GitHub-Search-Syntax/"/>
+    <id>https://l0ki.xyz/2020/12/15/GitHub-Search-Syntax/</id>
     <published>2020-12-15T09:29:00.000Z</published>
-    <updated>2024-04-20T18:48:27.373Z</updated>
+    <updated>2024-04-20T18:48:27.000Z</updated>
     
     
       
@@ -162,16 +162,16 @@
     
     
     
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    <category term="Notes" scheme="https://l0ki.xyz/tags/Notes/"/>
     
   </entry>
   
   <entry>
     <title>Default Login Credentials for Network Devices</title>
-    <link href="https://l0ki.net/2020/12/14/Default-Login-Credentials-Network-Devices/"/>
-    <id>https://l0ki.net/2020/12/14/Default-Login-Credentials-Network-Devices/</id>
+    <link href="https://l0ki.xyz/2020/12/14/Default-Login-Credentials-Network-Devices/"/>
+    <id>https://l0ki.xyz/2020/12/14/Default-Login-Credentials-Network-Devices/</id>
     <published>2020-12-14T08:20:00.000Z</published>
-    <updated>2024-04-20T18:45:56.202Z</updated>
+    <updated>2024-04-20T18:45:56.000Z</updated>
     
     
     <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
@@ -179,16 +179,16 @@
     
     
     
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    <category term="Notes" scheme="https://l0ki.xyz/tags/Notes/"/>
     
   </entry>
   
   <entry>
     <title>Redis Vulnerability Exploitation and Security Hardening</title>
-    <link href="https://l0ki.net/2020/11/03/Redis-Vulnerability-Exploitation-and-Security-Hardening/"/>
-    <id>https://l0ki.net/2020/11/03/Redis-Vulnerability-Exploitation-and-Security-Hardening/</id>
+    <link href="https://l0ki.xyz/2020/11/03/Redis-Vulnerability-Exploitation-and-Security-Hardening/"/>
+    <id>https://l0ki.xyz/2020/11/03/Redis-Vulnerability-Exploitation-and-Security-Hardening/</id>
     <published>2020-11-03T15:25:00.000Z</published>
-    <updated>2024-04-20T18:41:58.016Z</updated>
+    <updated>2024-04-20T18:41:58.000Z</updated>
     
     
       
@@ -202,16 +202,16 @@
     
     
     
-    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
+    <category term="Vulnerabilities" scheme="https://l0ki.xyz/tags/Vulnerabilities/"/>
     
   </entry>
   
   <entry>
     <title>Github Monitor Pro Batch Script</title>
-    <link href="https://l0ki.net/2020/08/11/Github-Monitor-Pro-Batch-Script/"/>
-    <id>https://l0ki.net/2020/08/11/Github-Monitor-Pro-Batch-Script/</id>
+    <link href="https://l0ki.xyz/2020/08/11/Github-Monitor-Pro-Batch-Script/"/>
+    <id>https://l0ki.xyz/2020/08/11/Github-Monitor-Pro-Batch-Script/</id>
     <published>2020-08-11T05:57:00.000Z</published>
-    <updated>2024-04-20T18:39:28.294Z</updated>
+    <updated>2024-04-20T18:39:28.000Z</updated>
     
     
       
@@ -225,16 +225,16 @@
     
     
     
-    <category term="Tools" scheme="https://l0ki.net/tags/Tools/"/>
+    <category term="Tools" scheme="https://l0ki.xyz/tags/Tools/"/>
     
   </entry>
   
   <entry>
     <title>Hawkeye Pro Batch Script</title>
-    <link href="https://l0ki.net/2020/08/11/Hawkeye-Pro-Batch-Script/"/>
-    <id>https://l0ki.net/2020/08/11/Hawkeye-Pro-Batch-Script/</id>
+    <link href="https://l0ki.xyz/2020/08/11/Hawkeye-Pro-Batch-Script/"/>
+    <id>https://l0ki.xyz/2020/08/11/Hawkeye-Pro-Batch-Script/</id>
     <published>2020-08-11T05:57:00.000Z</published>
-    <updated>2024-04-20T18:40:51.439Z</updated>
+    <updated>2024-04-20T18:40:51.000Z</updated>
     
     
       
@@ -248,16 +248,16 @@
     
     
     
-    <category term="Tools" scheme="https://l0ki.net/tags/Tools/"/>
+    <category term="Tools" scheme="https://l0ki.xyz/tags/Tools/"/>
     
   </entry>
   
   <entry>
     <title>Information Leakage via Github</title>
-    <link href="https://l0ki.net/2020/08/11/Information-Leakage-via-Github/"/>
-    <id>https://l0ki.net/2020/08/11/Information-Leakage-via-Github/</id>
+    <link href="https://l0ki.xyz/2020/08/11/Information-Leakage-via-Github/"/>
+    <id>https://l0ki.xyz/2020/08/11/Information-Leakage-via-Github/</id>
     <published>2020-08-11T04:50:00.000Z</published>
-    <updated>2024-04-20T18:38:03.372Z</updated>
+    <updated>2024-04-20T18:38:03.000Z</updated>
     
     
       
@@ -271,16 +271,16 @@
     
     
     
-    <category term="Tools" scheme="https://l0ki.net/tags/Tools/"/>
+    <category term="Tools" scheme="https://l0ki.xyz/tags/Tools/"/>
     
   </entry>
   
   <entry>
     <title>Python Script Writing Template</title>
-    <link href="https://l0ki.net/2020/08/11/Python-Script-Writing-Template/"/>
-    <id>https://l0ki.net/2020/08/11/Python-Script-Writing-Template/</id>
+    <link href="https://l0ki.xyz/2020/08/11/Python-Script-Writing-Template/"/>
+    <id>https://l0ki.xyz/2020/08/11/Python-Script-Writing-Template/</id>
     <published>2020-08-11T04:19:00.000Z</published>
-    <updated>2024-04-20T18:30:15.250Z</updated>
+    <updated>2024-04-20T18:30:15.000Z</updated>
     
     
       
@@ -294,16 +294,16 @@
     
     
     
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    <category term="Notes" scheme="https://l0ki.xyz/tags/Notes/"/>
     
   </entry>
   
   <entry>
     <title>FOFA Advanced Information Crawling Tool</title>
-    <link href="https://l0ki.net/2020/08/07/FOFA-Advanced-Information-Crawling-Tool/"/>
-    <id>https://l0ki.net/2020/08/07/FOFA-Advanced-Information-Crawling-Tool/</id>
+    <link href="https://l0ki.xyz/2020/08/07/FOFA-Advanced-Information-Crawling-Tool/"/>
+    <id>https://l0ki.xyz/2020/08/07/FOFA-Advanced-Information-Crawling-Tool/</id>
     <published>2020-08-07T10:33:00.000Z</published>
-    <updated>2024-04-20T18:36:55.012Z</updated>
+    <updated>2024-04-20T18:36:55.000Z</updated>
     
     
       
@@ -317,16 +317,16 @@
     
     
     
-    <category term="Tools" scheme="https://l0ki.net/tags/Tools/"/>
+    <category term="Tools" scheme="https://l0ki.xyz/tags/Tools/"/>
     
   </entry>
   
   <entry>
     <title>Commonly Used Git Commands</title>
-    <link href="https://l0ki.net/2020/08/07/Common-Git-Commands/"/>
-    <id>https://l0ki.net/2020/08/07/Common-Git-Commands/</id>
+    <link href="https://l0ki.xyz/2020/08/07/Common-Git-Commands/"/>
+    <id>https://l0ki.xyz/2020/08/07/Common-Git-Commands/</id>
     <published>2020-08-07T09:27:00.000Z</published>
-    <updated>2024-04-20T18:11:20.704Z</updated>
+    <updated>2024-04-20T18:11:20.000Z</updated>
     
     
       
@@ -340,16 +340,16 @@
     
     
     
-    <category term="Notes" scheme="https://l0ki.net/tags/Notes/"/>
+    <category term="Notes" scheme="https://l0ki.xyz/tags/Notes/"/>
     
   </entry>
   
   <entry>
     <title>FastJson Deserialization Vulnerability</title>
-    <link href="https://l0ki.net/2020/08/03/FastJson-Deserialization-Vulnerability/"/>
-    <id>https://l0ki.net/2020/08/03/FastJson-Deserialization-Vulnerability/</id>
+    <link href="https://l0ki.xyz/2020/08/03/FastJson-Deserialization-Vulnerability/"/>
+    <id>https://l0ki.xyz/2020/08/03/FastJson-Deserialization-Vulnerability/</id>
     <published>2020-08-03T06:08:00.000Z</published>
-    <updated>2024-04-20T18:10:13.301Z</updated>
+    <updated>2024-04-20T18:10:13.000Z</updated>
     
     
       
@@ -363,33 +363,16 @@
     
     
     
-    <category term="Vulnerabilities" scheme="https://l0ki.net/tags/Vulnerabilities/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Axis2 Weak Password GetShell</title>
-    <link href="https://l0ki.net/2020/07/29/Axis2-Weak-Password-GetShell/"/>
-    <id>https://l0ki.net/2020/07/29/Axis2-Weak-Password-GetShell/</id>
-    <published>2020-07-29T03:39:00.000Z</published>
-    <updated>2024-04-20T18:31:30.286Z</updated>
-    
-    
-    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
-    
-    
-    
-    
-    <category term="Intranet Penetration" scheme="https://l0ki.net/tags/Intranet-Penetration/"/>
+    <category term="Vulnerabilities" scheme="https://l0ki.xyz/tags/Vulnerabilities/"/>
     
   </entry>
   
   <entry>
     <title>ASP Arbitrary File Upload Webshell Large Trojan</title>
-    <link href="https://l0ki.net/2020/07/29/ASP-Arbitrary-File-Upload-Webshell-Large-Trojan/"/>
-    <id>https://l0ki.net/2020/07/29/ASP-Arbitrary-File-Upload-Webshell-Large-Trojan/</id>
+    <link href="https://l0ki.xyz/2020/07/29/ASP-Arbitrary-File-Upload-Webshell-Large-Trojan/"/>
+    <id>https://l0ki.xyz/2020/07/29/ASP-Arbitrary-File-Upload-Webshell-Large-Trojan/</id>
     <published>2020-07-29T03:39:00.000Z</published>
-    <updated>2024-04-20T18:34:48.454Z</updated>
+    <updated>2024-04-20T18:34:48.000Z</updated>
     
     
     <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
@@ -397,16 +380,16 @@
     
     
     
-    <category term="Intranet Penetration" scheme="https://l0ki.net/tags/Intranet-Penetration/"/>
+    <category term="Intranet Penetration" scheme="https://l0ki.xyz/tags/Intranet-Penetration/"/>
     
   </entry>
   
   <entry>
-    <title>JMX RMI RCE</title>
-    <link href="https://l0ki.net/2020/07/29/JMX-RMI-RCE/"/>
-    <id>https://l0ki.net/2020/07/29/JMX-RMI-RCE/</id>
-    <published>2020-07-29T03:37:00.000Z</published>
-    <updated>2024-04-20T18:17:42.209Z</updated>
+    <title>Axis2 Weak Password GetShell</title>
+    <link href="https://l0ki.xyz/2020/07/29/Axis2-Weak-Password-GetShell/"/>
+    <id>https://l0ki.xyz/2020/07/29/Axis2-Weak-Password-GetShell/</id>
+    <published>2020-07-29T03:39:00.000Z</published>
+    <updated>2024-04-20T18:31:30.000Z</updated>
     
     
     <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
@@ -414,16 +397,33 @@
     
     
     
-    <category term="Intranet Penetration" scheme="https://l0ki.net/tags/Intranet-Penetration/"/>
+    <category term="Intranet Penetration" scheme="https://l0ki.xyz/tags/Intranet-Penetration/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tomcat AJP Unauthorized Access (CVE-2020-1938)</title>
+    <link href="https://l0ki.xyz/2020/07/29/CVE-2020-1938/"/>
+    <id>https://l0ki.xyz/2020/07/29/CVE-2020-1938/</id>
+    <published>2020-07-29T03:37:00.000Z</published>
+    <updated>2024-04-20T18:25:03.000Z</updated>
+    
+    
+    <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
+    
+    
+    
+    
+    <category term="Intranet Penetration" scheme="https://l0ki.xyz/tags/Intranet-Penetration/"/>
     
   </entry>
   
   <entry>
     <title>HFS Server Remote Command Execution</title>
-    <link href="https://l0ki.net/2020/07/29/HFS-Server-Remote-Command-Execution/"/>
-    <id>https://l0ki.net/2020/07/29/HFS-Server-Remote-Command-Execution/</id>
+    <link href="https://l0ki.xyz/2020/07/29/HFS-Server-Remote-Command-Execution/"/>
+    <id>https://l0ki.xyz/2020/07/29/HFS-Server-Remote-Command-Execution/</id>
     <published>2020-07-29T03:37:00.000Z</published>
-    <updated>2024-04-20T18:22:37.770Z</updated>
+    <updated>2024-04-20T18:22:37.000Z</updated>
     
     
     <summary type="html">Here&#39;s something encrypted, password is required to continue reading.</summary>
@@ -431,7 +431,7 @@
     
     
     
-    <category term="Intranet Penetration" scheme="https://l0ki.net/tags/Intranet-Penetration/"/>
+    <category term="Intranet Penetration" scheme="https://l0ki.xyz/tags/Intranet-Penetration/"/>
     
   </entry>
   
